@@ -1,0 +1,27 @@
+.orb {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 38.5px;
+	height: 38.5px;
+	border-radius: 50%;
+	cursor: pointer;
+	& & img {
+		user-select: none;
+	}
+	&--green {
+		background-color: #22e55d;
+	}
+	&--red {
+		background-color: #e52228;
+	}
+	&--purple {
+		background-color: #e522aa;
+	}
+	&--blue {
+		background-color: #22e5df;
+	}
+	&--black {
+		background-color: #000000;
+	}
+}
