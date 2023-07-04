@@ -8,15 +8,27 @@ import blank from "../assets/orbs/blank.svg";
 import "./GameMain.scss";
 
 const width = 8;
-const orbColors = [blackOrb, blueOrb, greenOrb, purpleOrb, redOrb];
+const orbColors = [
+	blackOrb,
+	blackOrb,
+	blueOrb,
+	greenOrb,
+	purpleOrb,
+	redOrb,
+	blueOrb,
+	greenOrb,
+	purpleOrb,
+	redOrb,
+];
 
 const GameMain = () => {
 	const [orbsOnBoard, setOrbsOnBoard] = useState<string[]>([]);
-	const [orbBeingDragged, setOrbBeingDragged] = useState<HTMLElement | null>(
+	const [orbBeingFirst, setOrbBeingFirst] = useState<HTMLElement | null>(
 		null
 	);
-	const [orbBeingReplaced, setOrbBeingReplaced] =
-		useState<HTMLElement | null>(null);
+	const [orbBeingSecond, setOrbBeingSecond] = useState<HTMLElement | null>(
+		null
+	);
 
 	const checkColumnMatchToFour = () => {
 		for (let i = 0; i <= 39; i++) {
@@ -51,6 +63,64 @@ const GameMain = () => {
 			}
 		}
 	};
+
+	// const bot = () => {
+	// 	for (let i = 0; i < 64; i++) {
+	// 		const checkSwapV1 = [i, i + 1, i + 2 - width];
+	// 		const checkSwapV2 = [i, i + 1, i + 2 + width];
+	// 		const checkSwapV3 = [i, i + 1, i - 1 - width];
+	// 		const checkSwapV4 = [i, i + 1, i - 1 + width];
+
+	// 		const matchColor = orbsOnBoard[i];
+	// 		if (
+	// 			checkSwapV1.every(
+	// 				(number) => orbsOnBoard[number] === matchColor
+	// 			)
+	// 		) {
+	// 			const temp = orbsOnBoard[i + 2];
+	// 			const swapOrb = orbsOnBoard[i + 2 - width];
+	// 			orbsOnBoard[i + 2] = swapOrb;
+	// 			orbsOnBoard[i + 2 - width] = temp;
+	// 			setOrbsOnBoard([...orbsOnBoard]);
+	// 		} else if (
+	// 			checkSwapV2.every(
+	// 				(number) => orbsOnBoard[number] === matchColor
+	// 			)
+	// 		) {
+	// 			const temp = orbsOnBoard[i + 2];
+	// 			const swapOrb = orbsOnBoard[i + 2 + width];
+	// 			orbsOnBoard[i + 2] = swapOrb;
+	// 			orbsOnBoard[i + 2 + width] = temp;
+	// 			setOrbsOnBoard([...orbsOnBoard]);
+	// 		} else if (
+	// 			checkSwapV3.every(
+	// 				(number) => orbsOnBoard[number] === matchColor
+	// 			)
+	// 		) {
+	// 			const temp = orbsOnBoard[i - 1];
+	// 			const swapOrb = orbsOnBoard[i - 1 - width];
+	// 			orbsOnBoard[i - 1] = swapOrb;
+	// 			orbsOnBoard[i - 1 - width] = temp;
+	// 			setOrbsOnBoard([...orbsOnBoard]);
+	// 		} else if (
+	// 			checkSwapV4.every(
+	// 				(number) => orbsOnBoard[number] === matchColor
+	// 			)
+	// 		) {
+	// 			const temp = orbsOnBoard[i - 1];
+	// 			const swapOrb = orbsOnBoard[i - 1 + width];
+	// 			orbsOnBoard[i - 1] = swapOrb;
+	// 			orbsOnBoard[i - 1 + width] = temp;
+	// 			setOrbsOnBoard([...orbsOnBoard]);
+	// 		}
+
+	// 		if (orbsOnBoard[i + width] === blank) {
+	// 			orbsOnBoard[i + width] = orbsOnBoard[i];
+	// 			orbsOnBoard[i] = blank;
+	// 		}
+	// 	}
+	// 	console.log("changed");
+	// };
 
 	const checkRowMatchToFour = () => {
 		for (let i = 0; i < 64; i++) {
@@ -110,59 +180,38 @@ const GameMain = () => {
 		}
 	};
 
-	const dragStart = (e: React.DragEvent<HTMLElement>) => {
-		setOrbBeingDragged(e.target as HTMLElement);
-	};
-	const dragDrop = (e: React.DragEvent<HTMLElement>) => {
-		setOrbBeingReplaced(e.target as HTMLElement);
-	};
-	const dragEnd = () => {
-		const orbBeingDraggedId = parseInt(
-			orbBeingDragged?.getAttribute("data-id") ?? ""
-		);
-		const orbBeingReplacedId = parseInt(
-			orbBeingReplaced?.getAttribute("data-id") ?? ""
-		);
-
-		orbsOnBoard[orbBeingReplacedId] = orbBeingDragged!.getAttribute(
-			"src"
-		) as string;
-		orbsOnBoard[orbBeingDraggedId] = orbBeingReplaced!.getAttribute(
-			"src"
-		) as string;
-
-		const validMoves = [
-			orbBeingDraggedId - 1,
-			orbBeingDraggedId - width,
-			orbBeingDraggedId + 1,
-			orbBeingDraggedId + width,
-		];
-
-		const validMove = validMoves.includes(orbBeingReplacedId);
-
-		const columnOfFour = checkColumnMatchToFour();
-		const rowOfFour = checkRowMatchToFour();
-		const columnOfThree = checkColumnMatchToThree();
-		const rowOfThree = checkRowMatchToThree();
-
-		if (
-			orbBeingReplacedId &&
-			validMove &&
-			(rowOfThree || rowOfFour || columnOfFour || columnOfThree)
-		) {
-			setOrbBeingDragged(null);
-			setOrbBeingReplaced(null);
+	const selectOrbs = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+		if (orbBeingFirst == null) {
+			setOrbBeingFirst(e.target as HTMLElement);
 		} else {
-			orbsOnBoard[orbBeingReplacedId] = orbBeingReplaced!.getAttribute(
-				"src"
-			) as string;
-			orbsOnBoard[orbBeingDraggedId] = orbBeingDragged!.getAttribute(
-				"src"
-			) as string;
-			setOrbsOnBoard([...orbsOnBoard]);
+			setOrbBeingSecond(e.target as HTMLElement);
 		}
 	};
 
+	useEffect(() => {
+		if (orbBeingFirst != null && orbBeingSecond != null) {
+			setOrbBeingFirst(null);
+			setOrbBeingSecond(null);
+		}
+		if (orbBeingSecond != null) {
+			const orbBeingFirstId = parseInt(
+				orbBeingFirst?.getAttribute("data-id") ?? ""
+			);
+			const orbBeingSecondId = parseInt(
+				orbBeingSecond?.getAttribute("data-id") ?? ""
+			);
+
+			setTimeout(() => {
+				orbsOnBoard[orbBeingSecondId] = orbBeingFirst!.getAttribute(
+					"src"
+				) as string;
+				orbsOnBoard[orbBeingFirstId] = orbBeingSecond!.getAttribute(
+					"src"
+				) as string;
+				setOrbsOnBoard([...orbsOnBoard]);
+			}, 300);
+		}
+	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard]);
 	const createBoard = () => {
 		const randomOrbs = [];
 		for (let i = 0; i < width * width; i++) {
@@ -205,13 +254,8 @@ const GameMain = () => {
 						src={orbColor}
 						alt={orbColor}
 						data-id={index}
-						draggable={true}
-						onDragStart={dragStart}
-						onDragOver={(e) => e.preventDefault()}
-						onDragEnter={(e) => e.preventDefault()}
-						onDragLeave={(e) => e.preventDefault()}
-						onDrop={dragDrop}
-						onDragEnd={dragEnd}
+						onClick={selectOrbs}
+						draggable="false"
 					/>
 				))}
 			</div>
