@@ -64,63 +64,131 @@ const GameMain = () => {
 		}
 	};
 
-	// const bot = () => {
-	// 	for (let i = 0; i < 64; i++) {
-	// 		const checkSwapV1 = [i, i + 1, i + 2 - width];
-	// 		const checkSwapV2 = [i, i + 1, i + 2 + width];
-	// 		const checkSwapV3 = [i, i + 1, i - 1 - width];
-	// 		const checkSwapV4 = [i, i + 1, i - 1 + width];
+	const bot = () => {
+		setOrbsOnBoard([...orbsOnBoard]);
+		for (let i = 0; i < 64; i++) {
+			const checkSwapV1 = [i, i + 1, i + 2 + width];
+			const checkSwapV2 = [i, i + 1, i + 2 + width];
+			const checkSwapV3 = [i, i + 1, i - 1 - width];
+			const checkSwapV4 = [i, i + 1, i - 1 + width];
 
-	// 		const matchColor = orbsOnBoard[i];
-	// 		if (
-	// 			checkSwapV1.every(
-	// 				(number) => orbsOnBoard[number] === matchColor
-	// 			)
-	// 		) {
-	// 			const temp = orbsOnBoard[i + 2];
-	// 			const swapOrb = orbsOnBoard[i + 2 - width];
-	// 			orbsOnBoard[i + 2] = swapOrb;
-	// 			orbsOnBoard[i + 2 - width] = temp;
-	// 			setOrbsOnBoard([...orbsOnBoard]);
-	// 		} else if (
-	// 			checkSwapV2.every(
-	// 				(number) => orbsOnBoard[number] === matchColor
-	// 			)
-	// 		) {
-	// 			const temp = orbsOnBoard[i + 2];
-	// 			const swapOrb = orbsOnBoard[i + 2 + width];
-	// 			orbsOnBoard[i + 2] = swapOrb;
-	// 			orbsOnBoard[i + 2 + width] = temp;
-	// 			setOrbsOnBoard([...orbsOnBoard]);
-	// 		} else if (
-	// 			checkSwapV3.every(
-	// 				(number) => orbsOnBoard[number] === matchColor
-	// 			)
-	// 		) {
-	// 			const temp = orbsOnBoard[i - 1];
-	// 			const swapOrb = orbsOnBoard[i - 1 - width];
-	// 			orbsOnBoard[i - 1] = swapOrb;
-	// 			orbsOnBoard[i - 1 - width] = temp;
-	// 			setOrbsOnBoard([...orbsOnBoard]);
-	// 		} else if (
-	// 			checkSwapV4.every(
-	// 				(number) => orbsOnBoard[number] === matchColor
-	// 			)
-	// 		) {
-	// 			const temp = orbsOnBoard[i - 1];
-	// 			const swapOrb = orbsOnBoard[i - 1 + width];
-	// 			orbsOnBoard[i - 1] = swapOrb;
-	// 			orbsOnBoard[i - 1 + width] = temp;
-	// 			setOrbsOnBoard([...orbsOnBoard]);
-	// 		}
+			const orb1 = document.querySelector(`[data-id="${i}"]`);
+			const orb2 = document.querySelector(`[data-id="${i + 1}"]`);
+			const orb3 = document.querySelector(`[data-id="${i + 2 + width}"]`);
 
-	// 		if (orbsOnBoard[i + width] === blank) {
-	// 			orbsOnBoard[i + width] = orbsOnBoard[i];
-	// 			orbsOnBoard[i] = blank;
-	// 		}
-	// 	}
-	// 	console.log("changed");
-	// };
+			const invalidCombinationV1 = [
+				6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 56, 57,
+				58, 59, 60, 61, 62, 63,
+			];
+
+			const matchColor = orbsOnBoard[i];
+			const hasSameValue = checkSwapV1.every((number) => {
+				return orbsOnBoard[number] === matchColor;
+			});
+			if (hasSameValue && !invalidCombinationV1.includes(i)) {
+				orb1.setAttribute("data-select", "1");
+				orb2.setAttribute("data-select", "1");
+				orb3.setAttribute("data-select", "1");
+				// checkSwapV1.every((number) => {
+				// 	const orbs = document.querySelectorAll(
+				// 		`[data-id="${number}"]`
+				// 	);
+				// 	orbs.forEach((orb) => {
+				// 		orb.setAttribute("data-select", "1");
+				// 	});
+				// 	console.log(orbs);
+				// });
+				// setTimeout(() => {
+				// 	const temp = orbsOnBoard[i + 2];
+				// 	const swapOrb = orbsOnBoard[i + 2 - width];
+				// 	orbsOnBoard[i + 2] = swapOrb;
+				// 	orbsOnBoard[i + 2 - width] = temp;
+				// 	setOrbsOnBoard([...orbsOnBoard]);
+				// }, 2000);
+				setTimeout(() => {
+					orb1.setAttribute("data-select", "0");
+					orb2.setAttribute("data-select", "0");
+					orb3.setAttribute("data-select", "0");
+				}, 2500);
+				break;
+			}
+			// } else if (
+			// 	checkSwapV2.every(
+			// 		(number) => orbsOnBoard[number] === matchColor
+			// 	)
+			// ) {
+			// 	checkSwapV2.every((number) => {
+			// 		const orbs = document.querySelectorAll(
+			// 			`[data-id="${number}"]`
+			// 		);
+			// 		orbs.forEach((orb) => {
+			// 			orb.setAttribute("data-select", "1");
+			// 		});
+			// 	});
+			// 	setTimeout(() => {
+			// 		const temp = orbsOnBoard[i + 2];
+			// 		const swapOrb = orbsOnBoard[i + 2 + width];
+			// 		orbsOnBoard[i + 2] = swapOrb;
+			// 		orbsOnBoard[i + 2 + width] = temp;
+			// 		setOrbsOnBoard([...orbsOnBoard]);
+			// 	}, 2000);
+
+			// 	return true;
+			// } else if (
+			// 	checkSwapV3.every(
+			// 		(number) => orbsOnBoard[number] === matchColor
+			// 	)
+			// ) {
+			// 	checkSwapV3.every((number) => {
+			// 		const orbs = document.querySelectorAll(
+			// 			`[data-id="${number}"]`
+			// 		);
+			// 		orbs.forEach((orb) => {
+			// 			orb.setAttribute("data-select", "1");
+			// 		});
+			// 	});
+			// 	setTimeout(() => {
+			// 		const temp = orbsOnBoard[i - 1];
+			// 		const swapOrb = orbsOnBoard[i - 1 - width];
+			// 		orbsOnBoard[i - 1] = swapOrb;
+			// 		orbsOnBoard[i - 1 - width] = temp;
+			// 		setOrbsOnBoard([...orbsOnBoard]);
+			// 	}, 2000);
+
+			// 	return true;
+			// } else if (
+			// 	checkSwapV4.every(
+			// 		(number) => orbsOnBoard[number] === matchColor
+			// 	)
+			// ) {
+			// 	checkSwapV4.every((number) => {
+			// 		const orbs = document.querySelectorAll(
+			// 			`[data-id="${number}"]`
+			// 		);
+			// 		orbs.forEach((orb) => {
+			// 			orb.setAttribute("data-select", "1");
+			// 		});
+			// 	});
+			// 	setTimeout(() => {
+			// 		const temp = orbsOnBoard[i - 1];
+			// 		const swapOrb = orbsOnBoard[i - 1 + width];
+			// 		orbsOnBoard[i - 1] = swapOrb;
+			// 		orbsOnBoard[i - 1 + width] = temp;
+			// 		setOrbsOnBoard([...orbsOnBoard]);
+			// 	}, 2000);
+
+			// 	return true;
+			// }
+
+			if (orbsOnBoard[i + width] === blank) {
+				orbsOnBoard[i + width] = orbsOnBoard[i];
+				orbsOnBoard[i] = blank;
+			}
+		}
+		setOrbsOnBoard([...orbsOnBoard]);
+		console.log("changed");
+		return false;
+	};
 
 	const checkRowMatchToFour = () => {
 		for (let i = 0; i < 64; i++) {
@@ -186,6 +254,8 @@ const GameMain = () => {
 		} else {
 			setOrbBeingSecond(e.target as HTMLElement);
 		}
+		const selectedOrb = e.target as HTMLElement;
+		selectedOrb.setAttribute("data-select", "1");
 	};
 
 	useEffect(() => {
@@ -200,18 +270,30 @@ const GameMain = () => {
 			const orbBeingSecondId = parseInt(
 				orbBeingSecond?.getAttribute("data-id") ?? ""
 			);
-
-			setTimeout(() => {
-				orbsOnBoard[orbBeingSecondId] = orbBeingFirst!.getAttribute(
-					"src"
-				) as string;
-				orbsOnBoard[orbBeingFirstId] = orbBeingSecond!.getAttribute(
-					"src"
-				) as string;
-				setOrbsOnBoard([...orbsOnBoard]);
-			}, 300);
+			if (
+				orbBeingFirstId - orbBeingSecondId === 1 ||
+				orbBeingSecondId - orbBeingFirstId === 1 ||
+				orbBeingFirstId - orbBeingSecondId === 8 ||
+				orbBeingSecondId - orbBeingFirstId === 8
+			) {
+				setTimeout(() => {
+					orbBeingFirst?.setAttribute("data-select", "0");
+					orbBeingSecond?.setAttribute("data-select", "0");
+					orbsOnBoard[orbBeingSecondId] = orbBeingFirst!.getAttribute(
+						"src"
+					) as string;
+					orbsOnBoard[orbBeingFirstId] = orbBeingSecond!.getAttribute(
+						"src"
+					) as string;
+					setOrbsOnBoard([...orbsOnBoard]);
+				}, 300);
+				// setTimeout(() => {
+				// 	bot();
+				// }, 1500);
+			}
 		}
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard]);
+
 	const createBoard = () => {
 		const randomOrbs = [];
 		for (let i = 0; i < width * width; i++) {
@@ -228,12 +310,22 @@ const GameMain = () => {
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			checkColumnMatchToFour();
-			checkRowMatchToFour();
-			checkColumnMatchToThree();
-			checkRowMatchToThree();
+			const columnMatchToFour = checkColumnMatchToFour();
+			const rowMatchToFour = checkRowMatchToFour();
+			const columnMatchToThree = checkColumnMatchToThree();
+			const rowMatchToThree = checkRowMatchToThree();
 			moveOrbsBelow();
 			setOrbsOnBoard([...orbsOnBoard]);
+
+			if (
+				!columnMatchToFour &&
+				!rowMatchToFour &&
+				!columnMatchToThree &&
+				!rowMatchToThree
+			) {
+				clearInterval(timer);
+				bot();
+			}
 		}, 100);
 		return () => clearInterval(timer);
 	}, [
@@ -254,6 +346,7 @@ const GameMain = () => {
 						src={orbColor}
 						alt={orbColor}
 						data-id={index}
+						data-select={0}
 						onClick={selectOrbs}
 						draggable="false"
 					/>

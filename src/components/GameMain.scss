@@ -5,6 +5,12 @@
 		flex-wrap: wrap;
 		& img {
 			cursor: pointer;
+			&[data-select="0"] {
+				opacity: 1;
+			}
+			&[data-select="1"] {
+				opacity: 0.5;
+			}
 		}
 	}
 }
