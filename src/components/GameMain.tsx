@@ -29,6 +29,7 @@ const GameMain = () => {
 	const [orbBeingSecond, setOrbBeingSecond] = useState<HTMLElement | null>(
 		null
 	);
+	const [botMove, setBotMove] = useState(false);
 
 	const checkColumnMatchToFour = () => {
 		for (let i = 0; i <= 39; i++) {
@@ -68,49 +69,140 @@ const GameMain = () => {
 		setOrbsOnBoard([...orbsOnBoard]);
 		for (let i = 0; i < 64; i++) {
 			const checkSwapV1 = [i, i + 1, i + 2 + width];
-			const checkSwapV2 = [i, i + 1, i + 2 + width];
+			const checkSwapV2 = [i, i + 1, i + 2 - width];
 			const checkSwapV3 = [i, i + 1, i - 1 - width];
 			const checkSwapV4 = [i, i + 1, i - 1 + width];
 
 			const orb1 = document.querySelector(`[data-id="${i}"]`);
 			const orb2 = document.querySelector(`[data-id="${i + 1}"]`);
 			const orb3 = document.querySelector(`[data-id="${i + 2 + width}"]`);
+			const orb4 = document.querySelector(`[data-id="${i + 2 - width}"]`);
+			const orb5 = document.querySelector(`[data-id="${i - 1 - width}"]`);
+			const orb6 = document.querySelector(`[data-id="${i - 1 + width}"]`);
 
+			//COMBINATIONS
 			const invalidCombinationV1 = [
 				6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 56, 57,
 				58, 59, 60, 61, 62, 63,
 			];
+			const invalidCombinationV2 = [
+				0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47,
+				54, 55, 62, 63,
+			];
+			const invalidCombinationV3 = [
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 31, 32, 39, 40, 47,
+				48, 55, 56, 63,
+			];
+			const invalidCombinationV4 = [
+				0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 31, 32, 39, 40, 47,
+				48, 55, 56, 57, 58, 59, 60, 61, 62, 63,
+			];
 
 			const matchColor = orbsOnBoard[i];
-			const hasSameValue = checkSwapV1.every((number) => {
+
+			//SAME VALUES
+			const hasSameValue1 = checkSwapV1.every((number) => {
 				return orbsOnBoard[number] === matchColor;
 			});
-			if (hasSameValue && !invalidCombinationV1.includes(i)) {
+			const hasSameValue2 = checkSwapV2.every((number) => {
+				return orbsOnBoard[number] === matchColor;
+			});
+			const hasSameValue3 = checkSwapV3.every((number) => {
+				return orbsOnBoard[number] === matchColor;
+			});
+			const hasSameValue4 = checkSwapV4.every((number) => {
+				return orbsOnBoard[number] === matchColor;
+			});
+
+			if (hasSameValue1 && !invalidCombinationV1.includes(i)) {
 				orb1.setAttribute("data-select", "1");
 				orb2.setAttribute("data-select", "1");
 				orb3.setAttribute("data-select", "1");
-				// checkSwapV1.every((number) => {
-				// 	const orbs = document.querySelectorAll(
-				// 		`[data-id="${number}"]`
-				// 	);
-				// 	orbs.forEach((orb) => {
-				// 		orb.setAttribute("data-select", "1");
-				// 	});
-				// 	console.log(orbs);
-				// });
-				// setTimeout(() => {
-				// 	const temp = orbsOnBoard[i + 2];
-				// 	const swapOrb = orbsOnBoard[i + 2 - width];
-				// 	orbsOnBoard[i + 2] = swapOrb;
-				// 	orbsOnBoard[i + 2 - width] = temp;
-				// 	setOrbsOnBoard([...orbsOnBoard]);
-				// }, 2000);
+
+				setTimeout(() => {
+					const temp = orbsOnBoard[i + 2];
+					const swapOrb = orbsOnBoard[i + 2 + width];
+					orbsOnBoard[i + 2] = swapOrb;
+					orbsOnBoard[i + 2 + width] = temp;
+					setOrbsOnBoard([...orbsOnBoard]);
+				}, 3000);
+
 				setTimeout(() => {
 					orb1.setAttribute("data-select", "0");
 					orb2.setAttribute("data-select", "0");
 					orb3.setAttribute("data-select", "0");
 				}, 2500);
+				setBotMove(false);
 				break;
+			} else {
+				if (hasSameValue2 && !invalidCombinationV2.includes(i)) {
+					orb1.setAttribute("data-select", "1");
+					orb2.setAttribute("data-select", "1");
+					orb4.setAttribute("data-select", "1");
+
+					setTimeout(() => {
+						const temp = orbsOnBoard[i + 2];
+						const swapOrb = orbsOnBoard[i + 2 - width];
+						orbsOnBoard[i + 2] = swapOrb;
+						orbsOnBoard[i + 2 - width] = temp;
+						setOrbsOnBoard([...orbsOnBoard]);
+					}, 3000);
+
+					setTimeout(() => {
+						orb1.setAttribute("data-select", "0");
+						orb2.setAttribute("data-select", "0");
+						orb4.setAttribute("data-select", "0");
+					}, 2500);
+					setBotMove(false);
+					break;
+				} else {
+					if (hasSameValue3 && !invalidCombinationV3.includes(i)) {
+						orb1.setAttribute("data-select", "1");
+						orb2.setAttribute("data-select", "1");
+						orb5.setAttribute("data-select", "1");
+
+						setTimeout(() => {
+							const temp = orbsOnBoard[i - 1];
+							const swapOrb = orbsOnBoard[i - 1 - width];
+							orbsOnBoard[i - 1] = swapOrb;
+							orbsOnBoard[i - 1 - width] = temp;
+							setOrbsOnBoard([...orbsOnBoard]);
+						}, 3000);
+
+						setTimeout(() => {
+							orb1.setAttribute("data-select", "0");
+							orb2.setAttribute("data-select", "0");
+							orb5.setAttribute("data-select", "0");
+						}, 2500);
+						setBotMove(false);
+						break;
+					} else {
+						if (
+							hasSameValue4 &&
+							!invalidCombinationV4.includes(i)
+						) {
+							orb1.setAttribute("data-select", "1");
+							orb2.setAttribute("data-select", "1");
+							orb6.setAttribute("data-select", "1");
+
+							setTimeout(() => {
+								const temp = orbsOnBoard[i - 1];
+								const swapOrb = orbsOnBoard[i - 1 + width];
+								orbsOnBoard[i - 1] = swapOrb;
+								orbsOnBoard[i - 1 + width] = temp;
+								setOrbsOnBoard([...orbsOnBoard]);
+							}, 3000);
+
+							setTimeout(() => {
+								orb1.setAttribute("data-select", "0");
+								orb2.setAttribute("data-select", "0");
+								orb6.setAttribute("data-select", "0");
+							}, 2500);
+							setBotMove(false);
+							break;
+						}
+					}
+				}
 			}
 			// } else if (
 			// 	checkSwapV2.every(
@@ -286,6 +378,7 @@ const GameMain = () => {
 						"src"
 					) as string;
 					setOrbsOnBoard([...orbsOnBoard]);
+					setBotMove(true);
 				}, 300);
 				// setTimeout(() => {
 				// 	bot();
@@ -321,7 +414,8 @@ const GameMain = () => {
 				!columnMatchToFour &&
 				!rowMatchToFour &&
 				!columnMatchToThree &&
-				!rowMatchToThree
+				!rowMatchToThree &&
+				botMove
 			) {
 				clearInterval(timer);
 				bot();
