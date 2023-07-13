@@ -1,5 +1,41 @@
 .game {
+	position: relative;
 	width: 390px;
 	height: 844px;
 	border: 1px solid black;
+
+	& &__bgc {
+		position: absolute;
+		z-index: -1;
+	}
+
+	& &__settings {
+		position: absolute;
+		top: 5%;
+		left: 9%;
+		transform: translate(-50%, -50%);
+		&-icon {
+			cursor: pointer;
+		}
+	}
+	& &__level {
+		position: relative;
+		margin-top: 30px;
+		&-bgc {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: auto;
+			height: auto;
+		}
+		&-text {
+			position: absolute;
+			top: 46%;
+			left: 47%;
+			transform: translate(-50%, -50%);
+			font-size: 16px;
+			color: white;
+			z-index: 1;
+		}
+	}
 }

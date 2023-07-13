@@ -1,0 +1,88 @@
+.game__hero {
+	&-stats {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		margin-top: 22px;
+		&-hp {
+			display: flex;
+			gap: 8px;
+			font-size: 20px;
+		}
+		&-hr {
+			width: 2px;
+			height: 30px;
+			background: black;
+		}
+		&-shield {
+			display: flex;
+			gap: 8px;
+			font-size: 20px;
+		}
+	}
+	&-skills {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 34px;
+		gap: 18px;
+		.skill {
+			width: 60px;
+			height: 60px;
+			background: gray;
+		}
+	}
+	&-attack {
+		position: absolute;
+		bottom: 5px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&-power {
+			color: white;
+			text-align: center;
+			padding-left: 25px;
+			&-number {
+				font-size: 34px;
+			}
+			&-text {
+				font-size: 12px;
+			}
+		}
+		&-bar {
+			position: relative;
+			border-radius: 5px;
+			overflow: hidden;
+			height: 13px;
+			margin-bottom: -25px;
+			margin-left: 25px;
+			&-fill {
+				position: absolute;
+				top: 0;
+				height: 100%;
+				width: 100%;
+				background: #22e55d;
+				z-index: -1;
+			}
+		}
+		&-count {
+			color: #22e55d;
+			font-size: 34px;
+			padding-right: 20px;
+		}
+	}
+	&-bgc1 {
+		position: absolute;
+		left: 0;
+		bottom: 8px;
+		z-index: -1;
+	}
+	&-bgc2 {
+		position: absolute;
+		right: 0;
+		bottom: 15px;
+		z-index: -1;
+	}
+}
