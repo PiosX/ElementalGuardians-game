@@ -5,6 +5,7 @@ import greenOrb from "../assets/orbs/greenOrb.svg";
 import purpleOrb from "../assets/orbs/purpleOrb.svg";
 import redOrb from "../assets/orbs/redOrb.svg";
 import blank from "../assets/orbs/blank.svg";
+import gameFrame from "../assets/game/gameFrame.svg";
 import "./GameMain.scss";
 
 const width = 8;
@@ -830,6 +831,9 @@ const GameMain = () => {
 						draggable="false"
 					/>
 				))}
+			</div>
+			<div className="game__main-frame">
+				<img src={gameFrame} alt="Board Frame" />
 			</div>
 		</div>
 	);

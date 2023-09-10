@@ -1,76 +1,65 @@
-import heart from "../assets/game/heart.svg";
-import shield from "../assets/game/shield.svg";
-import power from "../assets/game/power.svg";
-import bar from "../assets/game/bar.svg";
-import purpleC from "../assets/game/purpleC.svg";
-import ghoul from "../assets/enemies/ghoul.svg";
+import enemyLink from "../assets/game/enemyLink.svg";
+import bgc from "../assets/game/bgc.svg";
+import bgcStats from "../assets/game/bgcStats.svg";
+import enemyBgc from "../assets/enemies/enemyBgc.svg";
+import wolf from "../assets/perks/enemies/wolf/wolf.png";
+import wolfA from "../assets/perks/enemies/wolf/attack.svg";
+import wolfE from "../assets/perks/enemies/wolf/effect.svg";
 import "./Enemy.scss";
 
 const Enemy = () => {
 	return (
 		<div className="game__enemy">
-			<div className="game__enemy-stats">
-				<p className="game__enemy-stats-name">Ghoul</p>
-				<div className="game__enemy-stats-info">
-					<div className="game__enemy-stats-info-hp">
-						<p className="game__enemy-stats-info-hp-number">80</p>
-						<div className="game__enemy-stats-info-hp-icon">
-							<img src={heart} alt="Heart icon" />
-						</div>
-					</div>
-					<div className="game__enemy-stats-info-shield">
-						<p className="game__enemy-stats-info-shield-number">
-							15
-						</p>
-						<div className="game__enemy-stats-info-shield-icon">
-							<img src={shield} alt="Shield icon" />
-						</div>
+			<div className="game__enemy-level">
+				<img
+					src={bgc}
+					alt="Background level"
+					className="game__enemy-level-bgc"
+				/>
+				<p className="game__enemy-level-text">Wolf</p>
+			</div>
+			<div className="game__enemy-main">
+				<div className="game__enemy-main-attack">
+					<div className="game__enemy-main-attack-perk">
+						<img src={wolfA} alt="Wolf Attack" />
 					</div>
 				</div>
-				<p className="game__enemy-stats-class">
-					Class:
-					<span className="game__enemy-stats-class-name">
-						{" "}
-						Normal
-					</span>
-				</p>
-			</div>
-			<div className="game__enemy-img">
-				<img src={ghoul} alt="Enemy" className="game__enemy-img-data" />
-			</div>
-			<div className="game__enemy-powers">
-				<div className="game__enemy-powers-ability"></div>
-				<div className="game__enemy-powers-resistance"></div>
-				<div className="game__enemy-powers-hr"></div>
-				<div className="game__enemy-powers-power">
-					<div className="game__enemy-powers-power-img">
-						<img src={power} alt="Power icon" />
-					</div>
-					<div className="game__enemy-powers-power-number">
-						<p className="game__enemy-powers-power-number-text">
-							3
-						</p>
-					</div>
-				</div>
-			</div>
-			<div className="game__enemy-bar">
-				<div className="game__enemy-bar-counter">
-					<p className="game__enemy-bar-counter-text">7/10</p>
-				</div>
-				<div className="game__enemy-bar-box">
-					<img
-						src={bar}
-						alt="Attack bar borders"
-						className="game__enemy-bar-box-borders"
-					/>
-					<div className="game__enemy-bar-box-fill"></div>
-					<div className="game__enemy-bar-box-class">
+				<div className="game__enemy-main-stats">
+					<div className="game__enemy-main-stats-bgc">
+						<img src={enemyBgc} alt="Enemy background" />
 						<img
-							src={purpleC}
-							alt="Enemy class icon"
-							className="game__enemy-bar-box-class-icon"
+							src={wolf}
+							alt="Wolf"
+							className="game__enemy-main-stats-bgc-img"
 						/>
+						<div className="game__enemy-main-stats-charge">
+							<div className="game__enemy-main-stats-charge-num">
+								6/11
+							</div>
+						</div>
+						<div className="game__enemy-main-stats-info">
+							<div className="game__enemy-main-stats-info-hp">
+								<img src={bgcStats} alt="Background Stats" />
+								<div className="game__enemy-main-stats-info-hp-text">
+									80
+								</div>
+							</div>
+							<div className="game__enemy-main-stats-info-shield">
+								<img src={bgcStats} alt="Background Stats" />
+								<div className="game__enemy-main-stats-info-shield-text">
+									15
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
+				<div className="game__enemy-main-effect">
+					<div className="game__enemy-main-effect-perk">
+						<img src={wolfE} alt="Wolf Effect" />
+					</div>
+				</div>
+				<div className="game__enemy-main-link">
+					<img src={enemyLink} alt="Link" />
 				</div>
 			</div>
 		</div>

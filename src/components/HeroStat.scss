@@ -1,77 +1,93 @@
 .game__hero {
-	&-stats {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-		margin-top: 22px;
-		&-hp {
-			display: flex;
-			gap: 8px;
-			font-size: 20px;
-		}
-		&-hr {
-			width: 2px;
-			height: 30px;
-			background: black;
-		}
-		&-shield {
-			display: flex;
-			gap: 8px;
-			font-size: 20px;
-		}
-	}
-	&-skills {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 34px;
-		gap: 18px;
-		.skill {
-			width: 60px;
-			height: 60px;
-			background: gray;
-		}
-	}
-	&-attack {
-		position: absolute;
-		bottom: 5px;
-		width: 100%;
+	position: relative;
+	margin-top: 24px;
+	&-perks {
+		margin-left: auto;
+		margin-right: auto;
+		width: 291px;
+		height: 125px;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		&-power {
-			color: white;
-			text-align: center;
-			padding-left: 25px;
-			&-number {
-				font-size: 34px;
-			}
-			&-text {
-				font-size: 12px;
-			}
+		&-special {
+			align-self: flex-end;
 		}
-		&-bar {
+		&-attack {
+			align-self: flex-start;
+		}
+		&-effect {
+			align-self: flex-end;
+		}
+	}
+	&-stats {
+		position: relative;
+		width: 100%;
+		&-bgc {
 			position: relative;
-			border-radius: 5px;
-			overflow: hidden;
-			height: 13px;
-			margin-bottom: -25px;
-			margin-left: 25px;
-			&-fill {
+			margin-top: -28px;
+			&-img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				padding-right: 2px;
+			}
+			&-hero {
 				position: absolute;
-				top: 0;
-				height: 100%;
-				width: 100%;
-				background: #22e55d;
-				z-index: -1;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 50%;
+				width: 90px;
+				height: 90px;
+				z-index: 1;
 			}
 		}
-		&-count {
-			color: #22e55d;
-			font-size: 34px;
-			padding-right: 20px;
+		&-charge {
+			position: absolute;
+			top: 21%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			&-number {
+				position: absolute;
+				left: 50%;
+				top: 27%;
+				transform: translate(-50%, -50%);
+				font-size: 18px;
+				color: #e522aa;
+				z-index: 2;
+			}
 		}
+		&-info {
+			position: absolute;
+			left: 50%;
+			top: 85%;
+			transform: translate(-50%, -50%);
+			width: 205px;
+			display: flex;
+			justify-content: space-between;
+			color: #ffffff;
+			font-size: 20px;
+			&-hp {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 8px;
+				color: #e52228;
+			}
+			&-shield {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 8px;
+			}
+		}
+	}
+	&-link {
+		position: absolute;
+		top: 57%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: -2;
 	}
 	&-bgc1 {
 		position: absolute;

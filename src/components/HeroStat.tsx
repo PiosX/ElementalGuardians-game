@@ -1,50 +1,64 @@
 import heart from "../assets/game/heart.svg";
 import shield from "../assets/game/shield.svg";
-import playerBar from "../assets/game/playerBar.svg";
 import bgcLP from "../assets/game/bgcLP.svg";
 import bgcRP from "../assets/game/bgcRP.svg";
+import attack1 from "../assets/perks/hero/attack/attack1.svg";
+import special1 from "../assets/perks/hero/special/special1.svg";
+import effect1 from "../assets/perks/hero/effect/effect1.svg";
+import heroBgc from "../assets/perks/hero/heroBgc.svg";
+import heroCharge from "../assets/perks/hero/heroCharge.svg";
+import hero from "../assets/perks/hero/hero.png";
+import heroLink from "../assets/game/heroLink.svg";
 import "./HeroStat.scss";
 
 const HeroStat = () => {
 	return (
 		<div className="game__hero">
+			<div className="game__hero-perks">
+				<div className="game__hero-perks-special">
+					<img src={special1} alt="special" />
+				</div>
+				<div className="game__hero-perks-attack">
+					<img src={attack1} alt="attack" />
+				</div>
+				<div className="game__hero-perks-effect">
+					<img src={effect1} alt="effect" />
+				</div>
+			</div>
 			<div className="game__hero-stats">
-				<div className="game__hero-stats-hp">
-					<p className="game__hero-stats-hp-number">15</p>
-					<div className="game__hero-stats-hp-icon">
-						<img src={heart} alt="Heart icon" />
-					</div>
-				</div>
-				<div className="game__hero-stats-hr"></div>
-				<div className="game__hero-stats-shield">
-					<div className="game__hero-stats-shield-icon">
-						<img src={shield} alt="Shield icon" />
-					</div>
-					<p className="game__hero-stats-shield-number">30</p>
-				</div>
-			</div>
-			<div className="game__hero-skills">
-				<div className="game__hero-skills-attack skill"></div>
-				<div className="game__hero-skills-resistance skill"></div>
-				<div className="game__hero-skills-special skill"></div>
-				<div className="game__hero-skills-item skill"></div>
-			</div>
-			<div className="game__hero-attack">
-				<div className="game__hero-attack-power">
-					<p className="game__hero-attack-power-number">6</p>
-					<p className="game__hero-attack-power-text">Attack</p>
-				</div>
-				<div className="game__hero-attack-bar">
+				<div className="game__hero-stats-bgc">
 					<img
-						src={playerBar}
-						alt="Attack bar border"
-						className="game__hero-attack-bar-border"
+						src={heroBgc}
+						alt="hero background"
+						className="game__hero-stats-bgc-img"
 					/>
-					<div className="game__hero-attack-bar-fill"></div>
+					<img
+						src={hero}
+						alt="hero"
+						className="game__hero-stats-bgc-hero"
+					/>
 				</div>
-				<div className="game__hero-attack-count">
-					<p className="game__hero-attack-count-number">7/10</p>
+				<div className="game__hero-stats-charge">
+					<img src={heroCharge} alt="charge background" />
+					<div className="game__hero-stats-charge-number">7/10</div>
 				</div>
+				<div className="game__hero-stats-info">
+					<div className="game__hero-stats-info-hp">
+						<div className="game__hero-stats-info-hp-number">
+							15
+						</div>
+						<img src={heart} alt="heart icon" />
+					</div>
+					<div className="game__hero-stats-info-shield">
+						<img src={shield} alt="shield icon" />
+						<div className="game__hero-stats-info-shield-number">
+							30
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className="game__hero-link">
+				<img src={heroLink} alt="hero link" />
 			</div>
 			<img
 				src={bgcLP}
