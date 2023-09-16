@@ -5,6 +5,7 @@ import bgcBorder from "../assets/game/bgcBorder.svg";
 import "./game.scss";
 import HeroStat from "../components/HeroStat";
 import Pause from "../components/Pause";
+import Hero from "../components/Hero/Hero";
 
 const Game = () => {
 	const openPausePanel = () => {
@@ -14,7 +15,7 @@ const Game = () => {
 	return (
 		<div className="game">
 			<img src={bgcBorder} alt="Background frame" className="game__bgc" />
-			<div className="game__settings" onClick={openPausePanel}>
+			{/* <div className="game__settings" onClick={openPausePanel}>
 				<img
 					src={settings}
 					alt="Setting icon"
@@ -24,7 +25,8 @@ const Game = () => {
 			<Enemy />
 			<GameMain />
 			<HeroStat />
-			<Pause />
+			<Pause /> */}
+			<Hero />
 		</div>
 	);
 };

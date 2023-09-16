@@ -1,0 +1,60 @@
+.hero-bar {
+	position: relative;
+	& &__bg {
+		position: absolute;
+		margin-top: -2px;
+		z-index: -1;
+	}
+	& &__buttons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 12px;
+		color: #000000;
+		font-size: 20px;
+		&-campaign {
+			position: relative;
+			background: url("../../assets//hero/heroBtn.svg") no-repeat;
+			background-size: cover;
+			width: 120px;
+			height: 36px;
+			cursor: pointer;
+			&-text {
+				position: absolute;
+				left: 50%;
+				top: 49%;
+				transform: translate(-50%, -50%);
+			}
+		}
+		&-hero {
+			position: relative;
+			background: url("../../assets//hero/heroBtn.svg") no-repeat;
+			background-size: cover;
+			width: 120px;
+			height: 36px;
+			// filter: brightness(0) saturate(100%) invert(32%) sepia(14%)
+			// 	saturate(3654%) hue-rotate(192deg) brightness(94%) contrast(85%);
+			cursor: pointer;
+			&-text {
+				position: absolute;
+				left: 50%;
+				top: 49%;
+				transform: translate(-50%, -50%);
+			}
+		}
+		&-perks {
+			position: relative;
+			background: url("../../assets//hero/heroBtn.svg") no-repeat;
+			background-size: cover;
+			width: 120px;
+			height: 36px;
+			cursor: pointer;
+			&-text {
+				position: absolute;
+				left: 50%;
+				top: 49%;
+				transform: translate(-50%, -50%);
+			}
+		}
+	}
+}
