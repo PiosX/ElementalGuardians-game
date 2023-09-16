@@ -14,7 +14,6 @@
 		font-size: 20px;
 		&-campaign {
 			position: relative;
-			background: url("../../assets//hero/heroBtn.svg") no-repeat;
 			background-size: cover;
 			width: 120px;
 			height: 36px;
@@ -25,10 +24,16 @@
 				top: 49%;
 				transform: translate(-50%, -50%);
 			}
+			&[data-selected="0"] {
+				background: url("../../assets/hero/heroBtn.svg") no-repeat;
+			}
+			&[data-selected="1"] {
+				background: url("../../assets/hero/heroBtnSelected.svg")
+					no-repeat;
+			}
 		}
 		&-hero {
 			position: relative;
-			background: url("../../assets//hero/heroBtn.svg") no-repeat;
 			background-size: cover;
 			width: 120px;
 			height: 36px;
@@ -41,10 +46,16 @@
 				top: 49%;
 				transform: translate(-50%, -50%);
 			}
+			&[data-selected="0"] {
+				background: url("../../assets/hero/heroBtn.svg") no-repeat;
+			}
+			&[data-selected="1"] {
+				background: url("../../assets/hero/heroBtnSelected.svg")
+					no-repeat;
+			}
 		}
 		&-perks {
 			position: relative;
-			background: url("../../assets//hero/heroBtn.svg") no-repeat;
 			background-size: cover;
 			width: 120px;
 			height: 36px;
@@ -54,6 +65,13 @@
 				left: 50%;
 				top: 49%;
 				transform: translate(-50%, -50%);
+			}
+			&[data-selected="0"] {
+				background: url("../../assets//hero/heroBtn.svg") no-repeat;
+			}
+			&[data-selected="1"] {
+				background: url("../../assets/hero/heroBtnSelected.svg")
+					no-repeat;
 			}
 		}
 	}

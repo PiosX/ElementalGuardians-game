@@ -6,6 +6,7 @@ import "./game.scss";
 import HeroStat from "../components/HeroStat";
 import Pause from "../components/Pause";
 import Hero from "../components/Hero/Hero";
+import Campaign from "../components/Campaign/Campaign";
 
 const Game = () => {
 	const openPausePanel = () => {
@@ -26,7 +27,8 @@ const Game = () => {
 			<GameMain />
 			<HeroStat />
 			<Pause /> */}
-			<Hero />
+			{/* <Hero /> */}
+			<Campaign />
 		</div>
 	);
 };
