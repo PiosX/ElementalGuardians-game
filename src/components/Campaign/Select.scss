@@ -1,0 +1,90 @@
+.select {
+	& &__back {
+		background: url("../../assets/Campaign/backBg.svg") no-repeat;
+		display: flex;
+		align-items: center;
+		height: 37px;
+		width: 104px;
+		margin-left: 18px;
+		margin-top: -2px;
+		cursor: pointer;
+		&-icon {
+			padding-left: 5px;
+		}
+		&-text {
+			font-size: 20px;
+			color: #ffffff;
+			text-align: center;
+		}
+	}
+	& &__bg {
+		position: absolute;
+		top: 10%;
+		max-width: 390px;
+		height: 756px;
+		width: 100%;
+		opacity: 0.5;
+		z-index: -10;
+		&[data-camp="1"] {
+			background: url("../../assets/Campaign/ebonwoodH.png") no-repeat;
+			background-size: cover;
+		}
+		&[data-camp="2"] {
+			background: url("../../assets/Campaign/sandsH.png") no-repeat;
+			background-size: cover;
+		}
+	}
+	& &__slider {
+		margin-top: 50px;
+		&-level {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 10px;
+			&-info {
+				background: url("../../assets/Campaign/levelBg.svg") no-repeat;
+				background-size: cover;
+				width: 100px;
+				height: 100px;
+				cursor: pointer;
+				&-num {
+					text-align: center;
+					color: #ffffff;
+					font-size: 48px;
+					line-height: 80px;
+					margin-left: -10px;
+				}
+			}
+		}
+	}
+	& &__bar {
+		position: absolute;
+		bottom: 8px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.splide__arrows {
+	display: none;
+}
+
+.splide__track {
+	overflow: visible;
+}
+
+.splide__pagination {
+	position: absolute;
+	top: 105%;
+	&__page {
+		opacity: 1;
+		background: #000;
+		width: 12px;
+		height: 12px;
+		margin: 5px;
+		&.is-active {
+			background: #000000;
+		}
+	}
+}

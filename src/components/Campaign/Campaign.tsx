@@ -3,7 +3,6 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import ebonwood from "../../assets/Campaign/Ebonwood.png";
 import sands from "../../assets/Campaign/Sands.png";
-import selectBtn from "../../assets/Campaign/selectBtn.svg";
 import "@splidejs/react-splide/css";
 import "./Campaign.scss";
 import HeroBar from "../Hero/HeroBar";

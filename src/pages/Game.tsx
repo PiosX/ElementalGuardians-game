@@ -7,6 +7,7 @@ import HeroStat from "../components/HeroStat";
 import Pause from "../components/Pause";
 import Hero from "../components/Hero/Hero";
 import Campaign from "../components/Campaign/Campaign";
+import Select from "../components/Campaign/Select";
 
 const Game = () => {
 	const openPausePanel = () => {
@@ -28,7 +29,8 @@ const Game = () => {
 			<HeroStat />
 			<Pause /> */}
 			{/* <Hero /> */}
-			<Campaign />
+			{/* <Campaign /> */}
+			<Select />
 		</div>
 	);
 };
