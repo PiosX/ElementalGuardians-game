@@ -9,6 +9,7 @@ import Hero from "../components/Hero/Hero";
 import Campaign from "../components/Campaign/Campaign";
 import Select from "../components/Campaign/Select";
 import Splash from "../components/SplashScene/Splash";
+import HeroSelect from "../components/HeroSelect/HeroSelect";
 
 const Game = () => {
 	const openPausePanel = () => {
@@ -32,7 +33,8 @@ const Game = () => {
 			{/* <Hero /> */}
 			{/* <Campaign /> */}
 			{/* <Select /> */}
-			<Splash />
+			{/* <Splash /> */}
+			<HeroSelect />
 		</div>
 	);
 };

@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import ebonwood from "../../assets/Campaign/Ebonwood.png";
-import sands from "../../assets/Campaign/Sands.png";
+import ebonwood from "../../assets/campaign/Ebonwood.png";
+import sands from "../../assets/campaign/Sands.png";
 import "@splidejs/react-splide/css";
 import "./Campaign.scss";
 import HeroBar from "../Hero/HeroBar";
