@@ -20,6 +20,18 @@
 		left: 5px;
 		z-index: -1;
 	}
+	&-mask {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		&[data-mymove="1"] {
+			display: none;
+		}
+		&[data-mymove="0"] {
+			display: block;
+		}
+	}
 }
 
 .test {

@@ -19,7 +19,7 @@ const Game = () => {
 	return (
 		<div className="game">
 			<img src={bgcBorder} alt="Background frame" className="game__bgc" />
-			{/* <div className="game__settings" onClick={openPausePanel}>
+			<div className="game__settings" onClick={openPausePanel}>
 				<img
 					src={settings}
 					alt="Setting icon"
@@ -29,12 +29,12 @@ const Game = () => {
 			<Enemy />
 			<GameMain />
 			<HeroStat />
-			<Pause /> */}
+			<Pause />
 			{/* <Hero /> */}
 			{/* <Campaign /> */}
 			{/* <Select /> */}
 			{/* <Splash /> */}
-			<HeroSelect />
+			{/* <HeroSelect /> */}
 		</div>
 	);
 };

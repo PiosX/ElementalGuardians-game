@@ -30,7 +30,9 @@ const GameMain = () => {
 	const [orbBeingSecond, setOrbBeingSecond] = useState<HTMLElement | null>(
 		null
 	);
+	const [swapped, setSwapped] = useState(false);
 	const [botMove, setBotMove] = useState(false);
+	const mask = document.querySelector(".game__main-mask");
 
 	const checkColumnMatchToFour = () => {
 		for (let i = 0; i <= 39; i++) {
@@ -68,6 +70,8 @@ const GameMain = () => {
 
 	const bot = () => {
 		setOrbsOnBoard([...orbsOnBoard]);
+		setSwapped(false);
+		mask!.setAttribute("data-mymove", "0");
 		for (let i = 0; i < 64; i++) {
 			const checkSwapV1 = [i, i + 1, i + 2 + width];
 			const checkSwapV2 = [i, i + 1, i + 2 - width];
@@ -213,6 +217,7 @@ const GameMain = () => {
 					orbsOnBoard[i + 2] = swapOrb;
 					orbsOnBoard[i + 2 + width] = temp;
 					setOrbsOnBoard([...orbsOnBoard]);
+					setSwapped(true);
 				}, 3000);
 
 				setTimeout(() => {
@@ -222,440 +227,440 @@ const GameMain = () => {
 				}, 2500);
 				setBotMove(false);
 				break;
-			} else {
-				if (hasSameValue2 && !invalidCombinationV2.includes(i)) {
-					orb1!.setAttribute("data-select", "1");
-					orb2!.setAttribute("data-select", "1");
-					orb4!.setAttribute("data-select", "1");
+				// } else {
+				// 	if (hasSameValue2 && !invalidCombinationV2.includes(i)) {
+				// 		orb1!.setAttribute("data-select", "1");
+				// 		orb2!.setAttribute("data-select", "1");
+				// 		orb4!.setAttribute("data-select", "1");
 
-					setTimeout(() => {
-						const temp = orbsOnBoard[i + 2];
-						const swapOrb = orbsOnBoard[i + 2 - width];
-						orbsOnBoard[i + 2] = swapOrb;
-						orbsOnBoard[i + 2 - width] = temp;
-						setOrbsOnBoard([...orbsOnBoard]);
-					}, 3000);
+				// 		setTimeout(() => {
+				// 			const temp = orbsOnBoard[i + 2];
+				// 			const swapOrb = orbsOnBoard[i + 2 - width];
+				// 			orbsOnBoard[i + 2] = swapOrb;
+				// 			orbsOnBoard[i + 2 - width] = temp;
+				// 			setOrbsOnBoard([...orbsOnBoard]);
+				// 		}, 3000);
 
-					setTimeout(() => {
-						orb1!.setAttribute("data-select", "0");
-						orb2!.setAttribute("data-select", "0");
-						orb4!.setAttribute("data-select", "0");
-					}, 2500);
-					setBotMove(false);
-					break;
-				} else {
-					if (hasSameValue3 && !invalidCombinationV3.includes(i)) {
-						orb1!.setAttribute("data-select", "1");
-						orb2!.setAttribute("data-select", "1");
-						orb5!.setAttribute("data-select", "1");
+				// 		setTimeout(() => {
+				// 			orb1!.setAttribute("data-select", "0");
+				// 			orb2!.setAttribute("data-select", "0");
+				// 			orb4!.setAttribute("data-select", "0");
+				// 		}, 2500);
+				// 		setBotMove(false);
+				// 		break;
+				// 	} else {
+				// 		if (hasSameValue3 && !invalidCombinationV3.includes(i)) {
+				// 			orb1!.setAttribute("data-select", "1");
+				// 			orb2!.setAttribute("data-select", "1");
+				// 			orb5!.setAttribute("data-select", "1");
 
-						setTimeout(() => {
-							const temp = orbsOnBoard[i - 1];
-							const swapOrb = orbsOnBoard[i - 1 - width];
-							orbsOnBoard[i - 1] = swapOrb;
-							orbsOnBoard[i - 1 - width] = temp;
-							setOrbsOnBoard([...orbsOnBoard]);
-						}, 3000);
+				// 			setTimeout(() => {
+				// 				const temp = orbsOnBoard[i - 1];
+				// 				const swapOrb = orbsOnBoard[i - 1 - width];
+				// 				orbsOnBoard[i - 1] = swapOrb;
+				// 				orbsOnBoard[i - 1 - width] = temp;
+				// 				setOrbsOnBoard([...orbsOnBoard]);
+				// 			}, 3000);
 
-						setTimeout(() => {
-							orb1!.setAttribute("data-select", "0");
-							orb2!.setAttribute("data-select", "0");
-							orb5!.setAttribute("data-select", "0");
-						}, 2500);
-						setBotMove(false);
-						break;
-					} else {
-						if (
-							hasSameValue4 &&
-							!invalidCombinationV4.includes(i)
-						) {
-							orb1!.setAttribute("data-select", "1");
-							orb2!.setAttribute("data-select", "1");
-							orb6!.setAttribute("data-select", "1");
+				// 			setTimeout(() => {
+				// 				orb1!.setAttribute("data-select", "0");
+				// 				orb2!.setAttribute("data-select", "0");
+				// 				orb5!.setAttribute("data-select", "0");
+				// 			}, 2500);
+				// 			setBotMove(false);
+				// 			break;
+				// 		} else {
+				// 			if (
+				// 				hasSameValue4 &&
+				// 				!invalidCombinationV4.includes(i)
+				// 			) {
+				// 				orb1!.setAttribute("data-select", "1");
+				// 				orb2!.setAttribute("data-select", "1");
+				// 				orb6!.setAttribute("data-select", "1");
 
-							setTimeout(() => {
-								const temp = orbsOnBoard[i - 1];
-								const swapOrb = orbsOnBoard[i - 1 + width];
-								orbsOnBoard[i - 1] = swapOrb;
-								orbsOnBoard[i - 1 + width] = temp;
-								setOrbsOnBoard([...orbsOnBoard]);
-							}, 3000);
+				// 				setTimeout(() => {
+				// 					const temp = orbsOnBoard[i - 1];
+				// 					const swapOrb = orbsOnBoard[i - 1 + width];
+				// 					orbsOnBoard[i - 1] = swapOrb;
+				// 					orbsOnBoard[i - 1 + width] = temp;
+				// 					setOrbsOnBoard([...orbsOnBoard]);
+				// 				}, 3000);
 
-							setTimeout(() => {
-								orb1!.setAttribute("data-select", "0");
-								orb2!.setAttribute("data-select", "0");
-								orb6!.setAttribute("data-select", "0");
-							}, 2500);
-							setBotMove(false);
-							break;
-						} else {
-							if (
-								hasSameValue5 &&
-								!invalidCombinationV5.includes(i)
-							) {
-								orb1!.setAttribute("data-select", "1");
-								orb8!.setAttribute("data-select", "1");
-								orb7!.setAttribute("data-select", "1");
+				// 				setTimeout(() => {
+				// 					orb1!.setAttribute("data-select", "0");
+				// 					orb2!.setAttribute("data-select", "0");
+				// 					orb6!.setAttribute("data-select", "0");
+				// 				}, 2500);
+				// 				setBotMove(false);
+				// 				break;
+				// 			} else {
+				// 				if (
+				// 					hasSameValue5 &&
+				// 					!invalidCombinationV5.includes(i)
+				// 				) {
+				// 					orb1!.setAttribute("data-select", "1");
+				// 					orb8!.setAttribute("data-select", "1");
+				// 					orb7!.setAttribute("data-select", "1");
 
-								setTimeout(() => {
-									const temp = orbsOnBoard[i + 2 * width];
-									const swapOrb =
-										orbsOnBoard[i + 2 * width - 1];
-									orbsOnBoard[i + 2 * width] = swapOrb;
-									orbsOnBoard[i + 2 * width - 1] = temp;
-									setOrbsOnBoard([...orbsOnBoard]);
-								}, 3000);
+				// 					setTimeout(() => {
+				// 						const temp = orbsOnBoard[i + 2 * width];
+				// 						const swapOrb =
+				// 							orbsOnBoard[i + 2 * width - 1];
+				// 						orbsOnBoard[i + 2 * width] = swapOrb;
+				// 						orbsOnBoard[i + 2 * width - 1] = temp;
+				// 						setOrbsOnBoard([...orbsOnBoard]);
+				// 					}, 3000);
 
-								setTimeout(() => {
-									orb1!.setAttribute("data-select", "0");
-									orb8!.setAttribute("data-select", "0");
-									orb7!.setAttribute("data-select", "0");
-								}, 2500);
-								setBotMove(false);
-								break;
-							} else {
-								if (
-									hasSameValue6 &&
-									!invalidCombinationV6.includes(i)
-								) {
-									orb1!.setAttribute("data-select", "1");
-									orb8!.setAttribute("data-select", "1");
-									orb9!.setAttribute("data-select", "1");
+				// 					setTimeout(() => {
+				// 						orb1!.setAttribute("data-select", "0");
+				// 						orb8!.setAttribute("data-select", "0");
+				// 						orb7!.setAttribute("data-select", "0");
+				// 					}, 2500);
+				// 					setBotMove(false);
+				// 					break;
+				// 				} else {
+				// 					if (
+				// 						hasSameValue6 &&
+				// 						!invalidCombinationV6.includes(i)
+				// 					) {
+				// 						orb1!.setAttribute("data-select", "1");
+				// 						orb8!.setAttribute("data-select", "1");
+				// 						orb9!.setAttribute("data-select", "1");
 
-									setTimeout(() => {
-										const temp = orbsOnBoard[i + 2 * width];
-										const swapOrb =
-											orbsOnBoard[i + 2 * width + 1];
-										orbsOnBoard[i + 2 * width] = swapOrb;
-										orbsOnBoard[i + 2 * width + 1] = temp;
-										setOrbsOnBoard([...orbsOnBoard]);
-									}, 3000);
+				// 						setTimeout(() => {
+				// 							const temp = orbsOnBoard[i + 2 * width];
+				// 							const swapOrb =
+				// 								orbsOnBoard[i + 2 * width + 1];
+				// 							orbsOnBoard[i + 2 * width] = swapOrb;
+				// 							orbsOnBoard[i + 2 * width + 1] = temp;
+				// 							setOrbsOnBoard([...orbsOnBoard]);
+				// 						}, 3000);
 
-									setTimeout(() => {
-										orb1!.setAttribute("data-select", "0");
-										orb8!.setAttribute("data-select", "0");
-										orb9!.setAttribute("data-select", "0");
-									}, 2500);
-									setBotMove(false);
-									break;
-								} else {
-									if (
-										hasSameValue7 &&
-										!invalidCombinationV7.includes(i)
-									) {
-										orb1!.setAttribute("data-select", "1");
-										orb11!.setAttribute("data-select", "1");
-										orb10!.setAttribute("data-select", "1");
+				// 						setTimeout(() => {
+				// 							orb1!.setAttribute("data-select", "0");
+				// 							orb8!.setAttribute("data-select", "0");
+				// 							orb9!.setAttribute("data-select", "0");
+				// 						}, 2500);
+				// 						setBotMove(false);
+				// 						break;
+				// 					} else {
+				// 						if (
+				// 							hasSameValue7 &&
+				// 							!invalidCombinationV7.includes(i)
+				// 						) {
+				// 							orb1!.setAttribute("data-select", "1");
+				// 							orb11!.setAttribute("data-select", "1");
+				// 							orb10!.setAttribute("data-select", "1");
 
-										setTimeout(() => {
-											const temp =
-												orbsOnBoard[i - 2 * width];
-											const swapOrb =
-												orbsOnBoard[i - 2 * width - 1];
-											orbsOnBoard[i - 2 * width] =
-												swapOrb;
-											orbsOnBoard[i - 2 * width - 1] =
-												temp;
-											setOrbsOnBoard([...orbsOnBoard]);
-										}, 3000);
+				// 							setTimeout(() => {
+				// 								const temp =
+				// 									orbsOnBoard[i - 2 * width];
+				// 								const swapOrb =
+				// 									orbsOnBoard[i - 2 * width - 1];
+				// 								orbsOnBoard[i - 2 * width] =
+				// 									swapOrb;
+				// 								orbsOnBoard[i - 2 * width - 1] =
+				// 									temp;
+				// 								setOrbsOnBoard([...orbsOnBoard]);
+				// 							}, 3000);
 
-										setTimeout(() => {
-											orb1!.setAttribute(
-												"data-select",
-												"0"
-											);
-											orb11!.setAttribute(
-												"data-select",
-												"0"
-											);
-											orb10!.setAttribute(
-												"data-select",
-												"0"
-											);
-										}, 2500);
-										setBotMove(false);
-										break;
-									} else {
-										if (
-											hasSameValue8 &&
-											!invalidCombinationV8.includes(i)
-										) {
-											orb1!.setAttribute(
-												"data-select",
-												"1"
-											);
-											orb11!.setAttribute(
-												"data-select",
-												"1"
-											);
-											orb12!.setAttribute(
-												"data-select",
-												"1"
-											);
+				// 							setTimeout(() => {
+				// 								orb1!.setAttribute(
+				// 									"data-select",
+				// 									"0"
+				// 								);
+				// 								orb11!.setAttribute(
+				// 									"data-select",
+				// 									"0"
+				// 								);
+				// 								orb10!.setAttribute(
+				// 									"data-select",
+				// 									"0"
+				// 								);
+				// 							}, 2500);
+				// 							setBotMove(false);
+				// 							break;
+				// 						} else {
+				// 							if (
+				// 								hasSameValue8 &&
+				// 								!invalidCombinationV8.includes(i)
+				// 							) {
+				// 								orb1!.setAttribute(
+				// 									"data-select",
+				// 									"1"
+				// 								);
+				// 								orb11!.setAttribute(
+				// 									"data-select",
+				// 									"1"
+				// 								);
+				// 								orb12!.setAttribute(
+				// 									"data-select",
+				// 									"1"
+				// 								);
 
-											setTimeout(() => {
-												const temp =
-													orbsOnBoard[i - 2 * width];
-												const swapOrb =
-													orbsOnBoard[
-														i - 2 * width + 1
-													];
-												orbsOnBoard[i - 2 * width] =
-													swapOrb;
-												orbsOnBoard[i - 2 * width + 1] =
-													temp;
-												setOrbsOnBoard([
-													...orbsOnBoard,
-												]);
-											}, 3000);
+				// 								setTimeout(() => {
+				// 									const temp =
+				// 										orbsOnBoard[i - 2 * width];
+				// 									const swapOrb =
+				// 										orbsOnBoard[
+				// 											i - 2 * width + 1
+				// 										];
+				// 									orbsOnBoard[i - 2 * width] =
+				// 										swapOrb;
+				// 									orbsOnBoard[i - 2 * width + 1] =
+				// 										temp;
+				// 									setOrbsOnBoard([
+				// 										...orbsOnBoard,
+				// 									]);
+				// 								}, 3000);
 
-											setTimeout(() => {
-												orb1!.setAttribute(
-													"data-select",
-													"0"
-												);
-												orb11!.setAttribute(
-													"data-select",
-													"0"
-												);
-												orb12!.setAttribute(
-													"data-select",
-													"0"
-												);
-											}, 2500);
-											setBotMove(false);
-											break;
-										} else {
-											if (
-												hasSameValue9 &&
-												!invalidCombinationV9.includes(
-													i
-												)
-											) {
-												orb1!.setAttribute(
-													"data-select",
-													"1"
-												);
-												orb11!.setAttribute(
-													"data-select",
-													"1"
-												);
-												orb13!.setAttribute(
-													"data-select",
-													"1"
-												);
+				// 								setTimeout(() => {
+				// 									orb1!.setAttribute(
+				// 										"data-select",
+				// 										"0"
+				// 									);
+				// 									orb11!.setAttribute(
+				// 										"data-select",
+				// 										"0"
+				// 									);
+				// 									orb12!.setAttribute(
+				// 										"data-select",
+				// 										"0"
+				// 									);
+				// 								}, 2500);
+				// 								setBotMove(false);
+				// 								break;
+				// 							} else {
+				// 								if (
+				// 									hasSameValue9 &&
+				// 									!invalidCombinationV9.includes(
+				// 										i
+				// 									)
+				// 								) {
+				// 									orb1!.setAttribute(
+				// 										"data-select",
+				// 										"1"
+				// 									);
+				// 									orb11!.setAttribute(
+				// 										"data-select",
+				// 										"1"
+				// 									);
+				// 									orb13!.setAttribute(
+				// 										"data-select",
+				// 										"1"
+				// 									);
 
-												setTimeout(() => {
-													const temp =
-														orbsOnBoard[
-															i - 2 * width
-														];
-													const swapOrb =
-														orbsOnBoard[
-															i - 3 * width
-														];
-													orbsOnBoard[i - 2 * width] =
-														swapOrb;
-													orbsOnBoard[i - 3 * width] =
-														temp;
-													setOrbsOnBoard([
-														...orbsOnBoard,
-													]);
-												}, 3000);
+				// 									setTimeout(() => {
+				// 										const temp =
+				// 											orbsOnBoard[
+				// 												i - 2 * width
+				// 											];
+				// 										const swapOrb =
+				// 											orbsOnBoard[
+				// 												i - 3 * width
+				// 											];
+				// 										orbsOnBoard[i - 2 * width] =
+				// 											swapOrb;
+				// 										orbsOnBoard[i - 3 * width] =
+				// 											temp;
+				// 										setOrbsOnBoard([
+				// 											...orbsOnBoard,
+				// 										]);
+				// 									}, 3000);
 
-												setTimeout(() => {
-													orb1!.setAttribute(
-														"data-select",
-														"0"
-													);
-													orb11!.setAttribute(
-														"data-select",
-														"0"
-													);
-													orb13!.setAttribute(
-														"data-select",
-														"0"
-													);
-												}, 2500);
-												setBotMove(false);
-												break;
-											} else {
-												if (
-													hasSameValue10 &&
-													!invalidCombinationV10.includes(
-														i
-													)
-												) {
-													orb1!.setAttribute(
-														"data-select",
-														"1"
-													);
-													orb8!.setAttribute(
-														"data-select",
-														"1"
-													);
-													orb14!.setAttribute(
-														"data-select",
-														"1"
-													);
+				// 									setTimeout(() => {
+				// 										orb1!.setAttribute(
+				// 											"data-select",
+				// 											"0"
+				// 										);
+				// 										orb11!.setAttribute(
+				// 											"data-select",
+				// 											"0"
+				// 										);
+				// 										orb13!.setAttribute(
+				// 											"data-select",
+				// 											"0"
+				// 										);
+				// 									}, 2500);
+				// 									setBotMove(false);
+				// 									break;
+				// 								} else {
+				// 									if (
+				// 										hasSameValue10 &&
+				// 										!invalidCombinationV10.includes(
+				// 											i
+				// 										)
+				// 									) {
+				// 										orb1!.setAttribute(
+				// 											"data-select",
+				// 											"1"
+				// 										);
+				// 										orb8!.setAttribute(
+				// 											"data-select",
+				// 											"1"
+				// 										);
+				// 										orb14!.setAttribute(
+				// 											"data-select",
+				// 											"1"
+				// 										);
 
-													setTimeout(() => {
-														const temp =
-															orbsOnBoard[
-																i + 2 * width
-															];
-														const swapOrb =
-															orbsOnBoard[
-																i + 3 * width
-															];
-														orbsOnBoard[
-															i + 2 * width
-														] = swapOrb;
-														orbsOnBoard[
-															i + 3 * width
-														] = temp;
-														setOrbsOnBoard([
-															...orbsOnBoard,
-														]);
-													}, 3000);
+				// 										setTimeout(() => {
+				// 											const temp =
+				// 												orbsOnBoard[
+				// 													i + 2 * width
+				// 												];
+				// 											const swapOrb =
+				// 												orbsOnBoard[
+				// 													i + 3 * width
+				// 												];
+				// 											orbsOnBoard[
+				// 												i + 2 * width
+				// 											] = swapOrb;
+				// 											orbsOnBoard[
+				// 												i + 3 * width
+				// 											] = temp;
+				// 											setOrbsOnBoard([
+				// 												...orbsOnBoard,
+				// 											]);
+				// 										}, 3000);
 
-													setTimeout(() => {
-														orb1!.setAttribute(
-															"data-select",
-															"0"
-														);
-														orb8!.setAttribute(
-															"data-select",
-															"0"
-														);
-														orb14!.setAttribute(
-															"data-select",
-															"0"
-														);
-													}, 2500);
-													setBotMove(false);
-													break;
-												} else {
-													if (
-														hasSameValue11 &&
-														!invalidCombinationV11.includes(
-															i
-														)
-													) {
-														orb1!.setAttribute(
-															"data-select",
-															"1"
-														);
-														orb2!.setAttribute(
-															"data-select",
-															"1"
-														);
-														orb15!.setAttribute(
-															"data-select",
-															"1"
-														);
+				// 										setTimeout(() => {
+				// 											orb1!.setAttribute(
+				// 												"data-select",
+				// 												"0"
+				// 											);
+				// 											orb8!.setAttribute(
+				// 												"data-select",
+				// 												"0"
+				// 											);
+				// 											orb14!.setAttribute(
+				// 												"data-select",
+				// 												"0"
+				// 											);
+				// 										}, 2500);
+				// 										setBotMove(false);
+				// 										break;
+				// 									} else {
+				// 										if (
+				// 											hasSameValue11 &&
+				// 											!invalidCombinationV11.includes(
+				// 												i
+				// 											)
+				// 										) {
+				// 											orb1!.setAttribute(
+				// 												"data-select",
+				// 												"1"
+				// 											);
+				// 											orb2!.setAttribute(
+				// 												"data-select",
+				// 												"1"
+				// 											);
+				// 											orb15!.setAttribute(
+				// 												"data-select",
+				// 												"1"
+				// 											);
 
-														setTimeout(() => {
-															const temp =
-																orbsOnBoard[
-																	i + 2
-																];
-															const swapOrb =
-																orbsOnBoard[
-																	i + 3
-																];
-															orbsOnBoard[i + 2] =
-																swapOrb;
-															orbsOnBoard[i + 3] =
-																temp;
-															setOrbsOnBoard([
-																...orbsOnBoard,
-															]);
-														}, 3000);
+				// 											setTimeout(() => {
+				// 												const temp =
+				// 													orbsOnBoard[
+				// 														i + 2
+				// 													];
+				// 												const swapOrb =
+				// 													orbsOnBoard[
+				// 														i + 3
+				// 													];
+				// 												orbsOnBoard[i + 2] =
+				// 													swapOrb;
+				// 												orbsOnBoard[i + 3] =
+				// 													temp;
+				// 												setOrbsOnBoard([
+				// 													...orbsOnBoard,
+				// 												]);
+				// 											}, 3000);
 
-														setTimeout(() => {
-															orb1!.setAttribute(
-																"data-select",
-																"0"
-															);
-															orb2!.setAttribute(
-																"data-select",
-																"0"
-															);
-															orb15!.setAttribute(
-																"data-select",
-																"0"
-															);
-														}, 2500);
-														setBotMove(false);
-														break;
-													} else {
-														if (
-															hasSameValue12 &&
-															!invalidCombinationV12.includes(
-																i
-															)
-														) {
-															orb1!.setAttribute(
-																"data-select",
-																"1"
-															);
-															orb17!.setAttribute(
-																"data-select",
-																"1"
-															);
-															orb16!.setAttribute(
-																"data-select",
-																"1"
-															);
+				// 											setTimeout(() => {
+				// 												orb1!.setAttribute(
+				// 													"data-select",
+				// 													"0"
+				// 												);
+				// 												orb2!.setAttribute(
+				// 													"data-select",
+				// 													"0"
+				// 												);
+				// 												orb15!.setAttribute(
+				// 													"data-select",
+				// 													"0"
+				// 												);
+				// 											}, 2500);
+				// 											setBotMove(false);
+				// 											break;
+				// 										} else {
+				// 											if (
+				// 												hasSameValue12 &&
+				// 												!invalidCombinationV12.includes(
+				// 													i
+				// 												)
+				// 											) {
+				// 												orb1!.setAttribute(
+				// 													"data-select",
+				// 													"1"
+				// 												);
+				// 												orb17!.setAttribute(
+				// 													"data-select",
+				// 													"1"
+				// 												);
+				// 												orb16!.setAttribute(
+				// 													"data-select",
+				// 													"1"
+				// 												);
 
-															setTimeout(() => {
-																const temp =
-																	orbsOnBoard[
-																		i - 2
-																	];
-																const swapOrb =
-																	orbsOnBoard[
-																		i - 3
-																	];
-																orbsOnBoard[
-																	i - 2
-																] = swapOrb;
-																orbsOnBoard[
-																	i - 3
-																] = temp;
-																setOrbsOnBoard([
-																	...orbsOnBoard,
-																]);
-															}, 3000);
+				// 												setTimeout(() => {
+				// 													const temp =
+				// 														orbsOnBoard[
+				// 															i - 2
+				// 														];
+				// 													const swapOrb =
+				// 														orbsOnBoard[
+				// 															i - 3
+				// 														];
+				// 													orbsOnBoard[
+				// 														i - 2
+				// 													] = swapOrb;
+				// 													orbsOnBoard[
+				// 														i - 3
+				// 													] = temp;
+				// 													setOrbsOnBoard([
+				// 														...orbsOnBoard,
+				// 													]);
+				// 												}, 3000);
 
-															setTimeout(() => {
-																orb1!.setAttribute(
-																	"data-select",
-																	"0"
-																);
-																orb17!.setAttribute(
-																	"data-select",
-																	"0"
-																);
-																orb16!.setAttribute(
-																	"data-select",
-																	"0"
-																);
-															}, 2500);
-															setBotMove(false);
-															break;
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				// 												setTimeout(() => {
+				// 													orb1!.setAttribute(
+				// 														"data-select",
+				// 														"0"
+				// 													);
+				// 													orb17!.setAttribute(
+				// 														"data-select",
+				// 														"0"
+				// 													);
+				// 													orb16!.setAttribute(
+				// 														"data-select",
+				// 														"0"
+				// 													);
+				// 												}, 2500);
+				// 												setBotMove(false);
+				// 												break;
+				// 											}
+				// 										}
+				// 									}
+				// 								}
+				// 							}
+				// 						}
+				// 					}
+				// 				}
+				// 			}
+				// 		}
+				// 	}
 			}
 
 			if (orbsOnBoard[i + width] === blank) {
@@ -664,7 +669,6 @@ const GameMain = () => {
 			}
 		}
 		setOrbsOnBoard([...orbsOnBoard]);
-		console.log("changed");
 		return false;
 	};
 
@@ -727,19 +731,45 @@ const GameMain = () => {
 	};
 
 	const selectOrbs = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+		const selectedOrb = e.target as HTMLElement;
+
 		if (orbBeingFirst == null) {
 			setOrbBeingFirst(e.target as HTMLElement);
+			selectedOrb.setAttribute("data-select", "1");
 		} else {
-			setOrbBeingSecond(e.target as HTMLElement);
+			const secondOrbId = e.target as HTMLElement;
+			const validFirst = parseInt(
+				orbBeingFirst?.getAttribute("data-id") ?? ""
+			);
+			const validSecond = parseInt(
+				secondOrbId.getAttribute("data-id") ?? ""
+			);
+			if (
+				validFirst - validSecond === 1 ||
+				validSecond - validFirst === 1 ||
+				validFirst - validSecond === 8 ||
+				validSecond - validFirst === 8
+			) {
+				setOrbBeingSecond(e.target as HTMLElement);
+				selectedOrb.setAttribute("data-select", "1");
+			}
 		}
-		const selectedOrb = e.target as HTMLElement;
-		selectedOrb.setAttribute("data-select", "1");
 	};
 
 	useEffect(() => {
+		if (swapped) {
+			mask!.setAttribute("data-mymove", "1");
+		}
 		if (orbBeingFirst != null && orbBeingSecond != null) {
-			setOrbBeingFirst(null);
-			setOrbBeingSecond(null);
+			if (orbBeingFirst != null && orbBeingFirst == orbBeingSecond) {
+				orbBeingFirst!.setAttribute("data-select", "0");
+				orbBeingSecond!.setAttribute("data-select", "0");
+				setOrbBeingFirst(null);
+				setOrbBeingSecond(null);
+			} else {
+				setOrbBeingFirst(null);
+				setOrbBeingSecond(null);
+			}
 		}
 		if (orbBeingSecond != null) {
 			const orbBeingFirstId = parseInt(
@@ -819,6 +849,7 @@ const GameMain = () => {
 
 	return (
 		<div className="game__main">
+			<div className="game__main-mask" data-mymove={1}></div>
 			<div className="game__main-board">
 				{orbsOnBoard.map((orbColor, index) => (
 					<img
