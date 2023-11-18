@@ -26,9 +26,9 @@ const Game = () => {
 					className="game__settings-icon"
 				/>
 			</div>
-			<Enemy />
+			{/* <Enemy /> */}
 			<GameMain />
-			<HeroStat />
+			{/* <HeroStat /> */}
 			<Pause />
 			{/* <Hero /> */}
 			{/* <Campaign /> */}
