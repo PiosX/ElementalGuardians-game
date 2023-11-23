@@ -572,7 +572,6 @@ const GameMain = () => {
 							draggable="false"
 						/>
 					))}
-					T
 				</div>
 				<div className="game__main-frame">
 					<img src={gameFrame} alt="Board Frame" />
