@@ -3,8 +3,7 @@ export const BotCombinations = (
 	orbsOnBoard: string[],
 	setOrbsOnBoard: (value: React.SetStateAction<string[]>) => void,
 	setSwapped: (value: React.SetStateAction<boolean>) => void,
-	setBotMove: (value: React.SetStateAction<boolean>) => void,
-	blank: string
+	setBotMove: (value: React.SetStateAction<boolean>) => void
 ) => {
 	for (let i = 0; i < 64; i++) {
 		const checkSwapV1 = [i, i + 1, i + 2 + width];

@@ -1,22 +1,16 @@
-import { useState, useEffect } from "react";
 import { EnemyInterface } from "../Interfaces/EnemyInterface";
 import { EnemyPerksInterface } from "../Interfaces/EnemyPerksInterface";
-import { getData } from "../Request/getData";
 import enemyLink from "../assets/game/enemyLink.svg";
 import bgc from "../assets/game/bgc.svg";
 import bgcStats from "../assets/game/bgcStats.svg";
 import enemyBgc from "../assets/enemies/enemyBgc.svg";
 import "./Enemy.scss";
 
-const Enemy = () => {
-	const [enemy, setEnemy] = useState<EnemyInterface[]>([]);
-	const [enemyPerks, setEnemyPerks] = useState<EnemyPerksInterface[]>([]);
-
-	useEffect(() => {
-		getData("enemy-stats", setEnemy);
-		getData("enemy-stats/enemy-perks", setEnemyPerks);
-	}, []);
-
+const Enemy: React.FC<{
+	collected: number;
+	enemy: EnemyInterface[];
+	enemyPerks: EnemyPerksInterface[];
+}> = ({ collected, enemy, enemyPerks }) => {
 	return (
 		<div className="game__enemy">
 			{enemy.length && enemyPerks.length > 0 ? (
@@ -50,7 +44,13 @@ const Enemy = () => {
 								/>
 								<div className="game__enemy-main-stats-charge">
 									<div className="game__enemy-main-stats-charge-num">
-										6/11
+										<span className="game__enemy-collected">
+											{collected}
+										</span>
+										/
+										<span className="game__enemy-value">
+											{enemyPerks[0].cost}
+										</span>
 									</div>
 								</div>
 								<div className="game__enemy-main-stats-info">

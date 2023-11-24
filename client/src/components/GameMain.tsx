@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { getData } from "../Request/getData";
+import { Hero } from "../Interfaces/HeroInterface";
+import { MyPerksInterface } from "../Interfaces/MyPerksInterface";
+import { EnemyInterface } from "../Interfaces/EnemyInterface";
+import { EnemyPerksInterface } from "../Interfaces/EnemyPerksInterface";
 import blackOrb from "../assets/orbs/blackOrb.svg";
 import blueOrb from "../assets/orbs/blueOrb.svg";
 import greenOrb from "../assets/orbs/greenOrb.svg";
@@ -38,6 +43,14 @@ const GameMain = () => {
 	const [botMove, setBotMove] = useState(false);
 	const [botCanMove, setBotCanMove] = useState(false);
 	const [turn, setTurn] = useState(1);
+	const [enemyCollected, setEnemyCollected] = useState(0);
+	const [heroCollected, setHeroCollected] = useState(0);
+
+	const [heroStats, setHeroStats] = useState<Hero[]>([]);
+	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
+	const [enemy, setEnemy] = useState<EnemyInterface[]>([]);
+	const [enemyPerks, setEnemyPerks] = useState<EnemyPerksInterface[]>([]);
+
 	const maskRef = useRef<HTMLDivElement>(null);
 
 	const checkColumnMatchToFour = () => {
@@ -350,8 +363,7 @@ const GameMain = () => {
 			orbsOnBoard,
 			setOrbsOnBoard,
 			setSwapped,
-			setBotMove,
-			blank
+			setBotMove
 		);
 		setOrbsOnBoard([...orbsOnBoard]);
 		setBotCanMove(false);
@@ -452,6 +464,27 @@ const GameMain = () => {
 		}
 	};
 
+	const createBoard = () => {
+		const randomOrbs = [];
+		for (let i = 0; i < width * width; i++) {
+			const randomColor =
+				orbColors[Math.floor(Math.random() * orbColors.length)];
+			randomOrbs.push(randomColor);
+		}
+		setOrbsOnBoard(randomOrbs);
+		setSwapped(true);
+	};
+
+	const collectPoints = () => {
+		if (heroPerks[0].cost > heroCollected) {
+			setHeroCollected((points) =>
+				Math.min(points + 3, heroPerks[0].cost)
+			);
+		} else if (heroPerks[0].cost < heroCollected) {
+			setHeroCollected(heroPerks[0].cost);
+		}
+	};
+
 	useEffect(() => {
 		if (swapped) {
 			maskRef.current!.setAttribute("data-mymove", "1");
@@ -498,22 +531,12 @@ const GameMain = () => {
 						setOrbsOnBoard([...orbsOnBoard]);
 						console.log("done");
 					}
+					collectPoints();
 					setBotMove(true);
 				}, 300);
 			}
 		}
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard, swapped]);
-
-	const createBoard = () => {
-		const randomOrbs = [];
-		for (let i = 0; i < width * width; i++) {
-			const randomColor =
-				orbColors[Math.floor(Math.random() * orbColors.length)];
-			randomOrbs.push(randomColor);
-		}
-		setOrbsOnBoard(randomOrbs);
-		setSwapped(true);
-	};
 
 	useEffect(() => {
 		createBoard();
@@ -550,9 +573,20 @@ const GameMain = () => {
 		orbsOnBoard,
 	]);
 
+	useEffect(() => {
+		getData("hero-stats", setHeroStats);
+		getData("my-perks", setHeroPerks);
+		getData("enemy-stats", setEnemy);
+		getData("enemy-stats/enemy-perks", setEnemyPerks);
+	}, []);
+
 	return (
 		<>
-			<Enemy />
+			<Enemy
+				collected={enemyCollected}
+				enemy={enemy}
+				enemyPerks={enemyPerks}
+			/>
 			<Turns turn={turn} />
 			<div className="game__main">
 				<div
@@ -577,7 +611,11 @@ const GameMain = () => {
 					<img src={gameFrame} alt="Board Frame" />
 				</div>
 			</div>
-			<HeroStat />
+			<HeroStat
+				collected={heroCollected}
+				heroStats={heroStats}
+				heroPerks={heroPerks}
+			/>
 		</>
 	);
 };

@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { Hero } from "../Interfaces/HeroInterface";
 import { MyPerksInterface } from "../Interfaces/MyPerksInterface";
-import { getData } from "../Request/getData";
 import heart from "../assets/game/heart.svg";
 import shield from "../assets/game/shield.svg";
 import bgcLP from "../assets/game/bgcLP.svg";
@@ -14,18 +12,14 @@ import hero from "../assets/perks/hero/hero.png";
 import heroLink from "../assets/game/heroLink.svg";
 import "./HeroStat.scss";
 
-const HeroStat = () => {
-	const [heroStats, setHeroStats] = useState<Hero[]>([]);
-	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
-
-	useEffect(() => {
-		getData("hero-stats", setHeroStats);
-		getData("my-perks", setHeroPerks);
-	}, []);
-
+const HeroStat: React.FC<{
+	collected: number;
+	heroStats: Hero[];
+	heroPerks: MyPerksInterface[];
+}> = ({ collected, heroStats, heroPerks }) => {
 	return (
 		<div className="game__hero">
-			{heroStats.length > 0 ? (
+			{heroStats.length > 0 && heroPerks.length > 0 ? (
 				<div>
 					<div className="game__hero-perks">
 						<div className="game__hero-perks-special">
@@ -57,7 +51,13 @@ const HeroStat = () => {
 						<div className="game__hero-stats-charge">
 							<img src={heroCharge} alt="charge background" />
 							<div className="game__hero-stats-charge-number">
-								7/10
+								<span className="game__hero-collected">
+									{collected}
+								</span>
+								/
+								<span className="game__hero-value">
+									{heroPerks[0].cost}
+								</span>
 							</div>
 						</div>
 						<div className="game__hero-stats-info">
