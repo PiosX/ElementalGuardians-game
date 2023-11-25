@@ -14,4 +14,6 @@ export interface MyPerksInterface {
 	hit_max: number;
 	perk_type: string;
 	perk_req: string;
+	criticalChance: number;
+	criticalDamage: number;
 }

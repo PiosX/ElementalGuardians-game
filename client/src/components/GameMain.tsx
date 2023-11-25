@@ -45,6 +45,7 @@ const GameMain = () => {
 	const [turn, setTurn] = useState(1);
 	const [enemyCollected, setEnemyCollected] = useState(0);
 	const [heroCollected, setHeroCollected] = useState(0);
+	const [isMatching, setIsMatching] = useState(false);
 
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
@@ -82,6 +83,13 @@ const GameMain = () => {
 				columnOfThree.forEach(
 					(number) => (orbsOnBoard[number] = blank)
 				);
+				if (
+					matchColor === heroPerks[0].perk_req &&
+					botMove &&
+					heroPerks.length > 0
+				) {
+					setIsMatching(true);
+				}
 				return true;
 			}
 		}
@@ -476,14 +484,65 @@ const GameMain = () => {
 	};
 
 	const collectPoints = () => {
-		if (heroPerks[0].cost > heroCollected) {
-			setHeroCollected((points) =>
-				Math.min(points + 3, heroPerks[0].cost)
-			);
-		} else if (heroPerks[0].cost < heroCollected) {
-			setHeroCollected(heroPerks[0].cost);
+		const heroColl = heroCollected + 3;
+		if (isMatching) {
+			console.log("matching");
+			if (heroPerks[0].cost > heroCollected) {
+				setHeroCollected((points) =>
+					Math.min(points + 3, heroPerks[0].cost)
+				);
+			}
+			if (heroPerks[0].cost <= heroColl) {
+				attack();
+				setTimeout(() => {
+					setHeroCollected(0);
+				}, 300);
+			}
+		}
+		setIsMatching(false);
+	};
+	const calculateDmg = () => {
+		if (heroStats.length > 0 && heroPerks.length > 0) {
+			let baseDamage = heroPerks[0].value + heroStats[0].strength * 0.5;
+			const miss = "Miss!";
+
+			if (Math.random() < heroPerks[0].criticalChance / 100) {
+				baseDamage = baseDamage + heroPerks[0].criticalDamage / 100;
+			}
+
+			if (Math.random() < heroPerks[0].hit_chance / 100) {
+				return baseDamage;
+			} else {
+				return miss;
+			}
 		}
 	};
+	// calculateDmg();
+
+	const attack = () => {
+		const dmg = calculateDmg();
+
+		if (typeof dmg === "number") {
+			const dmgRound = Math.round(dmg);
+			console.log(dmgRound);
+			if (heroPerks[0].effect === "Physical Damage: ") {
+				if (enemy[0].shield > 0) {
+					if (enemy[0].shield - dmgRound > 0) {
+						enemy[0].shield = enemy[0].shield - dmgRound;
+					} else {
+						const minusValue = enemy[0].shield - dmgRound;
+						enemy[0].shield = 0;
+						enemy[0].health += minusValue;
+					}
+				} else {
+					enemy[0].health -= dmgRound;
+				}
+			}
+		} else {
+			return dmg;
+		}
+	};
+	// attack();
 
 	useEffect(() => {
 		if (swapped) {
@@ -531,7 +590,6 @@ const GameMain = () => {
 						setOrbsOnBoard([...orbsOnBoard]);
 						console.log("done");
 					}
-					collectPoints();
 					setBotMove(true);
 				}, 300);
 			}
@@ -572,6 +630,10 @@ const GameMain = () => {
 		moveOrbsBelow,
 		orbsOnBoard,
 	]);
+
+	useEffect(() => {
+		collectPoints();
+	}, [botMove]);
 
 	useEffect(() => {
 		getData("hero-stats", setHeroStats);
