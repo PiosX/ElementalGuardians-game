@@ -16,6 +16,8 @@ import Turns from "./Turns";
 import Enemy from "./Enemy";
 import HeroStat from "./HeroStat";
 import { BotCombinations } from "../data/BotCombinations";
+import { collectPoints } from "./MainGameFunctions/collectPoints";
+import { createBoard } from "./MainGameFunctions/createBoard";
 
 const width = 8;
 const orbColors = [
@@ -39,6 +41,7 @@ const GameMain = () => {
 	const [orbBeingSecond, setOrbBeingSecond] = useState<HTMLElement | null>(
 		null
 	);
+	const [canPlay, setCanPlay] = useState(false);
 	const [swapped, setSwapped] = useState(false);
 	const [botMove, setBotMove] = useState(false);
 	const [botCanMove, setBotCanMove] = useState(false);
@@ -46,6 +49,7 @@ const GameMain = () => {
 	const [enemyCollected, setEnemyCollected] = useState(0);
 	const [heroCollected, setHeroCollected] = useState(0);
 	const [isMatching, setIsMatching] = useState(false);
+	const [isMatchingEnemy, setIsMatchingEnemy] = useState(false);
 
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
@@ -65,6 +69,24 @@ const GameMain = () => {
 				)
 			) {
 				columnOfFour.forEach((number) => (orbsOnBoard[number] = blank));
+				if (canPlay) {
+					if (
+						matchColor === heroPerks[0].perk_req &&
+						botMove &&
+						heroPerks.length > 0
+					) {
+						setIsMatching(true);
+					}
+					if (
+						matchColor === enemyPerks[0].perk_req &&
+						botCanMove &&
+						botMove === false &&
+						enemyPerks.length > 0
+					) {
+						setIsMatchingEnemy(true);
+					}
+				}
+
 				return true;
 			}
 		}
@@ -74,7 +96,6 @@ const GameMain = () => {
 		for (let i = 0; i <= 47; i++) {
 			const columnOfThree = [i, i + width, i + width * 2];
 			const matchColor = orbsOnBoard[i];
-
 			if (
 				columnOfThree.every(
 					(number) => orbsOnBoard[number] === matchColor
@@ -83,13 +104,25 @@ const GameMain = () => {
 				columnOfThree.forEach(
 					(number) => (orbsOnBoard[number] = blank)
 				);
-				if (
-					matchColor === heroPerks[0].perk_req &&
-					botMove &&
-					heroPerks.length > 0
-				) {
-					setIsMatching(true);
+				if (canPlay) {
+					if (
+						matchColor === heroPerks[0].perk_req &&
+						botMove &&
+						heroPerks.length > 0
+					) {
+						setIsMatching(true);
+					}
+					if (
+						matchColor === enemyPerks[0].perk_req &&
+						botCanMove &&
+						botMove === false &&
+						enemyPerks.length > 0
+					) {
+						console.log("match");
+						setIsMatchingEnemy(true);
+					}
 				}
+
 				return true;
 			}
 		}
@@ -103,269 +136,6 @@ const GameMain = () => {
 			setTurn((prevTurn) => prevTurn + 1);
 		}, 1200);
 
-		// for (let i = 0; i < 64; i++) {
-		// 	const checkSwapV1 = [i, i + 1, i + 2 + width];
-		// 	const checkSwapV2 = [i, i + 1, i + 2 - width];
-		// 	const checkSwapV3 = [i, i + 1, i - 1 - width];
-		// 	const checkSwapV4 = [i, i + 1, i - 1 + width];
-		// 	const checkSwapV5 = [i, i + width, i + 2 * width - 1];
-		// 	const checkSwapV6 = [i, i + width, i + 2 * width + 1];
-		// 	const checkSwapV7 = [i, i - width, i - 2 * width - 1];
-		// 	const checkSwapV8 = [i, i - width, i - 2 * width + 1];
-		// 	const checkSwapV9 = [i, i - width, i - 3 * width];
-		// 	const checkSwapV10 = [i, i + width, i + 3 * width];
-		// 	const checkSwapV11 = [i, i + 1, i + 3];
-		// 	const checkSwapV12 = [i, i - 1, i - 3];
-
-		// 	const orb1 = document.querySelector(`[data-id="${i}"]`);
-		// 	const orb2 = document.querySelector(`[data-id="${i + 1}"]`);
-		// 	const orb3 = document.querySelector(`[data-id="${i + 2 + width}"]`);
-		// 	const orb4 = document.querySelector(`[data-id="${i + 2 - width}"]`);
-		// 	const orb5 = document.querySelector(`[data-id="${i - 1 - width}"]`);
-		// 	const orb6 = document.querySelector(`[data-id="${i - 1 + width}"]`);
-		// 	const orb7 = document.querySelector(
-		// 		`[data-id="${i + 2 * width - 1}"]`
-		// 	);
-		// 	const orb8 = document.querySelector(`[data-id="${i + width}"]`);
-		// 	const orb9 = document.querySelector(
-		// 		`[data-id="${i + 2 * width + 1}"]`
-		// 	);
-		// 	const orb10 = document.querySelector(
-		// 		`[data-id="${i - 2 * width - 1}"]`
-		// 	);
-		// 	const orb11 = document.querySelector(`[data-id="${i - width}"]`);
-		// 	const orb12 = document.querySelector(
-		// 		`[data-id="${i - 2 * width + 1}"]`
-		// 	);
-		// 	const orb13 = document.querySelector(
-		// 		`[data-id="${i - 3 * width}"]`
-		// 	);
-		// 	const orb14 = document.querySelector(
-		// 		`[data-id="${i + 3 * width}"]`
-		// 	);
-		// 	const orb15 = document.querySelector(`[data-id="${i + 3}"]`);
-		// 	const orb16 = document.querySelector(`[data-id="${i - 3}"]`);
-		// 	const orb17 = document.querySelector(`[data-id="${i - 1}"]`);
-
-		// 	//COMBINATIONS
-		// 	const invalidCombinationV1 = [
-		// 		6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 56, 57,
-		// 		58, 59, 60, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV2 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47,
-		// 		54, 55, 62, 63,
-		// 	];
-		// 	const invalidCombinationV3 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 31, 32, 39, 40, 47,
-		// 		48, 55, 56, 63,
-		// 	];
-		// 	const invalidCombinationV4 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 8, 15, 16, 23, 24, 31, 32, 39, 40, 47,
-		// 		48, 55, 56, 57, 58, 59, 60, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV5 = [
-		// 		0, 8, 16, 24, 32, 40, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
-		// 		58, 59, 60, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV6 = [
-		// 		7, 15, 23, 31, 39, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
-		// 		58, 59, 60, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV7 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 24,
-		// 		32, 40, 48, 56,
-		// 	];
-		// 	const invalidCombinationV8 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 23, 31,
-		// 		39, 47, 55, 63,
-		// 	];
-		// 	const invalidCombinationV9 = [
-		// 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-		// 		18, 19, 20, 21, 22, 23,
-		// 	];
-		// 	const invalidCombinationV10 = [
-		// 		40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
-		// 		56, 57, 58, 59, 60, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV11 = [
-		// 		5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46,
-		// 		47, 53, 54, 55, 61, 62, 63,
-		// 	];
-		// 	const invalidCombinationV12 = [
-		// 		0, 1, 2, 8, 9, 10, 16, 17, 18, 24, 25, 26, 32, 33, 34, 40, 41,
-		// 		42, 48, 49, 50, 56, 57, 58,
-		// 	];
-
-		// 	const matchColor = orbsOnBoard[i];
-
-		// 	//SAME VALUES
-		// 	const hasSameValue1 = checkSwapV1.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue2 = checkSwapV2.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue3 = checkSwapV3.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue4 = checkSwapV4.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue5 = checkSwapV5.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue6 = checkSwapV6.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue7 = checkSwapV7.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue8 = checkSwapV8.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue9 = checkSwapV9.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue10 = checkSwapV10.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue11 = checkSwapV11.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-		// 	const hasSameValue12 = checkSwapV12.every((number) => {
-		// 		return orbsOnBoard[number] === matchColor;
-		// 	});
-
-		// 	const combinations = [
-		// 		{
-		// 			val: hasSameValue1 && !invalidCombinationV1.includes(i),
-		// 			temp: i + 2,
-		// 			swap: i + 2 + width,
-		// 			orb1: orb1,
-		// 			orb2: orb2,
-		// 			orb3: orb3,
-		// 		},
-		// 		{
-		// 			val: hasSameValue2 && !invalidCombinationV2.includes(i),
-		// 			temp: i + 2,
-		// 			swap: i + 2 - width,
-		// 			orb1: orb1,
-		// 			orb2: orb2,
-		// 			orb3: orb4,
-		// 		},
-		// 		{
-		// 			val: hasSameValue3 && !invalidCombinationV3.includes(i),
-		// 			temp: i - 1,
-		// 			swap: i - 1 - width,
-		// 			orb1: orb1,
-		// 			orb2: orb2,
-		// 			orb3: orb5,
-		// 		},
-		// 		{
-		// 			val: hasSameValue4 && !invalidCombinationV4.includes(i),
-		// 			temp: i - 1,
-		// 			swap: i - 1 + width,
-		// 			orb1: orb1,
-		// 			orb2: orb2,
-		// 			orb3: orb6,
-		// 		},
-		// 		{
-		// 			val: hasSameValue5 && !invalidCombinationV5.includes(i),
-		// 			temp: i + 2 * width,
-		// 			swap: i + 2 * width - 1,
-		// 			orb1: orb1,
-		// 			orb2: orb8,
-		// 			orb3: orb7,
-		// 		},
-		// 		{
-		// 			val: hasSameValue6 && !invalidCombinationV6.includes(i),
-		// 			temp: i + 2 * width,
-		// 			swap: i + 2 * width + 1,
-		// 			orb1: orb1,
-		// 			orb2: orb8,
-		// 			orb3: orb9,
-		// 		},
-		// 		{
-		// 			val: hasSameValue7 && !invalidCombinationV7.includes(i),
-		// 			temp: i - 2 * width,
-		// 			swap: i - 2 * width - 1,
-		// 			orb1: orb1,
-		// 			orb2: orb11,
-		// 			orb3: orb10,
-		// 		},
-		// 		{
-		// 			val: hasSameValue8 && !invalidCombinationV8.includes(i),
-		// 			temp: i - 2 * width,
-		// 			swap: i - 2 * width + 1,
-		// 			orb1: orb1,
-		// 			orb2: orb11,
-		// 			orb3: orb12,
-		// 		},
-		// 		{
-		// 			val: hasSameValue9 && !invalidCombinationV9.includes(i),
-		// 			temp: i - 2 * width,
-		// 			swap: i - 3 * width,
-		// 			orb1: orb1,
-		// 			orb2: orb11,
-		// 			orb3: orb13,
-		// 		},
-		// 		{
-		// 			val: hasSameValue10 && !invalidCombinationV10.includes(i),
-		// 			temp: i + 2 * width,
-		// 			swap: i + 3 * width,
-		// 			orb1: orb1,
-		// 			orb2: orb8,
-		// 			orb3: orb14,
-		// 		},
-		// 		{
-		// 			val: hasSameValue11 && !invalidCombinationV11.includes(i),
-		// 			temp: i + 2,
-		// 			swap: i + 3,
-		// 			orb1: orb1,
-		// 			orb2: orb2,
-		// 			orb3: orb15,
-		// 		},
-		// 		{
-		// 			val: hasSameValue12 && !invalidCombinationV12.includes(i),
-		// 			temp: i - 2,
-		// 			swap: i - 3,
-		// 			orb1: orb1,
-		// 			orb2: orb17,
-		// 			orb3: orb16,
-		// 		},
-		// 	];
-		// 	for (const combination of combinations) {
-		// 		if (combination.val) {
-		// 			combination.orb1!.setAttribute("data-select", "1");
-		// 			combination.orb2!.setAttribute("data-select", "1");
-		// 			combination.orb3!.setAttribute("data-select", "1");
-
-		// 			setTimeout(() => {
-		// 				const temp = orbsOnBoard[combination.temp];
-		// 				const swapOrb = orbsOnBoard[combination.swap];
-		// 				orbsOnBoard[combination.temp] = swapOrb;
-		// 				orbsOnBoard[combination.swap] = temp;
-		// 				setOrbsOnBoard([...orbsOnBoard]);
-		// 				setSwapped(true);
-		// 			}, 1000);
-
-		// 			setTimeout(() => {
-		// 				combination.orb1!.setAttribute("data-select", "0");
-		// 				combination.orb2!.setAttribute("data-select", "0");
-		// 				combination.orb3!.setAttribute("data-select", "0");
-		// 			}, 800);
-		// 			setOrbsOnBoard([...orbsOnBoard]);
-		// 			setBotMove(false);
-		// 			return false;
-		// 		}
-		// 	}
-
-		// 	if (orbsOnBoard[i + width] === blank) {
-		// 		orbsOnBoard[i + width] = orbsOnBoard[i];
-		// 		orbsOnBoard[i] = blank;
-		// 	}
-		// }
 		BotCombinations(
 			width,
 			orbsOnBoard,
@@ -393,6 +163,24 @@ const GameMain = () => {
 				rowOfFour.every((number) => orbsOnBoard[number] === matchColor)
 			) {
 				rowOfFour.forEach((number) => (orbsOnBoard[number] = blank));
+				if (canPlay) {
+					if (
+						matchColor === heroPerks[0].perk_req &&
+						botMove &&
+						heroPerks.length > 0
+					) {
+						setIsMatching(true);
+					}
+					if (
+						matchColor === enemyPerks[0].perk_req &&
+						botCanMove &&
+						botMove === false &&
+						enemyPerks.length > 0
+					) {
+						setIsMatchingEnemy(true);
+					}
+				}
+
 				return true;
 			}
 		}
@@ -412,6 +200,24 @@ const GameMain = () => {
 				rowOfThree.every((number) => orbsOnBoard[number] === matchColor)
 			) {
 				rowOfThree.forEach((number) => (orbsOnBoard[number] = blank));
+				if (canPlay) {
+					if (
+						matchColor === heroPerks[0].perk_req &&
+						botMove &&
+						heroPerks.length > 0
+					) {
+						setIsMatching(true);
+					}
+					if (
+						matchColor === enemyPerks[0].perk_req &&
+						botCanMove &&
+						botMove === false &&
+						enemyPerks.length > 0
+					) {
+						setIsMatchingEnemy(true);
+					}
+				}
+
 				return true;
 			}
 		}
@@ -454,6 +260,7 @@ const GameMain = () => {
 			const validSecond = parseInt(
 				secondOrbId.getAttribute("data-id") ?? ""
 			);
+			setCanPlay(true);
 			if (
 				validFirst - validSecond === 1 ||
 				validSecond - validFirst === 1 ||
@@ -471,78 +278,6 @@ const GameMain = () => {
 			}
 		}
 	};
-
-	const createBoard = () => {
-		const randomOrbs = [];
-		for (let i = 0; i < width * width; i++) {
-			const randomColor =
-				orbColors[Math.floor(Math.random() * orbColors.length)];
-			randomOrbs.push(randomColor);
-		}
-		setOrbsOnBoard(randomOrbs);
-		setSwapped(true);
-	};
-
-	const collectPoints = () => {
-		const heroColl = heroCollected + 3;
-		if (isMatching) {
-			console.log("matching");
-			if (heroPerks[0].cost > heroCollected) {
-				setHeroCollected((points) =>
-					Math.min(points + 3, heroPerks[0].cost)
-				);
-			}
-			if (heroPerks[0].cost <= heroColl) {
-				attack();
-				setTimeout(() => {
-					setHeroCollected(0);
-				}, 300);
-			}
-		}
-		setIsMatching(false);
-	};
-	const calculateDmg = () => {
-		if (heroStats.length > 0 && heroPerks.length > 0) {
-			let baseDamage = heroPerks[0].value + heroStats[0].strength * 0.5;
-			const miss = "Miss!";
-
-			if (Math.random() < heroPerks[0].criticalChance / 100) {
-				baseDamage = baseDamage + heroPerks[0].criticalDamage / 100;
-			}
-
-			if (Math.random() < heroPerks[0].hit_chance / 100) {
-				return baseDamage;
-			} else {
-				return miss;
-			}
-		}
-	};
-	// calculateDmg();
-
-	const attack = () => {
-		const dmg = calculateDmg();
-
-		if (typeof dmg === "number") {
-			const dmgRound = Math.round(dmg);
-			console.log(dmgRound);
-			if (heroPerks[0].effect === "Physical Damage: ") {
-				if (enemy[0].shield > 0) {
-					if (enemy[0].shield - dmgRound > 0) {
-						enemy[0].shield = enemy[0].shield - dmgRound;
-					} else {
-						const minusValue = enemy[0].shield - dmgRound;
-						enemy[0].shield = 0;
-						enemy[0].health += minusValue;
-					}
-				} else {
-					enemy[0].health -= dmgRound;
-				}
-			}
-		} else {
-			return dmg;
-		}
-	};
-	// attack();
 
 	useEffect(() => {
 		if (swapped) {
@@ -597,7 +332,7 @@ const GameMain = () => {
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard, swapped]);
 
 	useEffect(() => {
-		createBoard();
+		createBoard(width, orbColors, setOrbsOnBoard, setSwapped);
 	}, []);
 
 	useEffect(() => {
@@ -632,14 +367,32 @@ const GameMain = () => {
 	]);
 
 	useEffect(() => {
-		collectPoints();
-	}, [botMove]);
+		collectPoints(
+			heroCollected,
+			enemyCollected,
+			isMatching,
+			isMatchingEnemy,
+			heroPerks,
+			enemyPerks,
+			setHeroCollected,
+			setEnemyCollected,
+			setIsMatching,
+			setIsMatchingEnemy,
+			heroStats,
+			enemy
+		);
+	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
 		getData("hero-stats", setHeroStats);
 		getData("my-perks", setHeroPerks);
 		getData("enemy-stats", setEnemy);
-		getData("enemy-stats/enemy-perks", setEnemyPerks);
+		getData("enemy-stats/enemy-perks", (data) => {
+			if (Array.isArray(data)) {
+				const reversedPerks = [...data].reverse();
+				setEnemyPerks(reversedPerks as EnemyPerksInterface[]);
+			}
+		});
 	}, []);
 
 	return (
