@@ -12,4 +12,5 @@ export interface Hero {
 	electricres: number;
 	iceres: number;
 	psychicres: number;
+	exp_req: number;
 }

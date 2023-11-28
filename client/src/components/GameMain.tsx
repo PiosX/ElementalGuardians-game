@@ -18,6 +18,9 @@ import HeroStat from "./HeroStat";
 import { BotCombinations } from "../data/BotCombinations";
 import { collectPoints } from "./MainGameFunctions/collectPoints";
 import { createBoard } from "./MainGameFunctions/createBoard";
+import Lose from "./AfterMatch/Lose";
+import Win from "./AfterMatch/Win";
+import { updateData } from "../Request/updateData";
 
 const width = 8;
 const orbColors = [
@@ -50,6 +53,7 @@ const GameMain = () => {
 	const [heroCollected, setHeroCollected] = useState(0);
 	const [isMatching, setIsMatching] = useState(false);
 	const [isMatchingEnemy, setIsMatchingEnemy] = useState(false);
+	const [heroWon, setHeroWon] = useState<null | boolean>(null);
 
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
@@ -331,6 +335,27 @@ const GameMain = () => {
 		}
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard, swapped]);
 
+	const checkWinner = () => {
+		if (heroStats.length > 0 && enemy.length > 0) {
+			if (heroStats[0].health <= 0) {
+				setHeroWon(false);
+			}
+			if (enemy[0].health <= 0) {
+				setHeroWon(true);
+			}
+		}
+	};
+
+	const addExp = () => {
+		if (heroWon) {
+			updateData("hero-stats/add-exp");
+		}
+	};
+
+	useEffect(() => {
+		addExp();
+	}, [heroWon]);
+
 	useEffect(() => {
 		createBoard(width, orbColors, setOrbsOnBoard, setSwapped);
 	}, []);
@@ -381,6 +406,7 @@ const GameMain = () => {
 			heroStats,
 			enemy
 		);
+		checkWinner();
 	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
@@ -397,6 +423,7 @@ const GameMain = () => {
 
 	return (
 		<>
+			{heroWon === null ? "" : heroWon ? <Win /> : <Lose />}
 			<Enemy
 				collected={enemyCollected}
 				enemy={enemy}
