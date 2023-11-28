@@ -423,7 +423,13 @@ const GameMain = () => {
 
 	return (
 		<>
-			{heroWon === null ? "" : heroWon ? <Win /> : <Lose />}
+			{heroWon === null ? (
+				""
+			) : heroWon ? (
+				<Win exp={heroStats[0].exp} exp_req={heroStats[0].exp_req} />
+			) : (
+				<Lose />
+			)}
 			<Enemy
 				collected={enemyCollected}
 				enemy={enemy}
