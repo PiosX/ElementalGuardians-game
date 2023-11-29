@@ -1,34 +1,20 @@
-import { useState, useEffect } from "react";
-import { getData } from "./Request/getData";
-import { Hero } from "./Interfaces/HeroInterface";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Campaign from "./components/Campaign/Campaign";
 import Game from "./pages/Game";
+import bgcBorder from "./assets/game/bgcBorder.svg";
+import "./pages/game.scss";
 
 const App = () => {
-	const [hero, setHero] = useState<Hero[]>([]);
-
-	useEffect(() => {
-		getData("hero-stats", setHero);
-	}, []);
-
 	return (
-		<>
-			<Game />
-			<div>Hello</div>
-			{hero.length > 0 ? (
-				<ul>
-					{hero.map((user) => (
-						<li key={user.hero_id}>
-							<h3>ID: {user.hero_id} </h3>
-							strength: {user.strength} <br />
-							intelligence: {user.intelligence} <br />
-							shield: {user.shield} <br />
-						</li>
-					))}
-				</ul>
-			) : (
-				<p>Loading...</p>
-			)}
-		</>
+		<div className="game">
+			<img src={bgcBorder} alt="Background frame" className="game__bgc" />
+			<Router>
+				<Routes>
+					<Route path="/" element={<Game />} />
+					<Route path="/campaign" element={<Campaign />} />
+				</Routes>
+			</Router>
+		</div>
 	);
 };
 

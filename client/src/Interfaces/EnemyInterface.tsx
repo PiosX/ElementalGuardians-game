@@ -12,4 +12,5 @@ export interface EnemyInterface {
 	iceres: number;
 	psychicres: number;
 	img: string;
+	earn: number;
 }

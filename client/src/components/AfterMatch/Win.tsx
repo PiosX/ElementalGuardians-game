@@ -3,9 +3,15 @@ import win from "../../assets/afterMatch/win.png";
 import essence from "../../assets/afterMatch/essence.svg";
 import "./Win.scss";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
 
 const Win = ({ exp, exp_req }: { exp: number; exp_req: number }) => {
 	const progressRef = useRef(null);
+	const navigate = useNavigate();
+
+	const redirectToCampaign = () => {
+		navigate("/campaign");
+	};
 
 	useEffect(() => {
 		const progressWidth = exp_req !== 0 ? (exp / exp_req) * 100 - 4 : 0;
@@ -44,7 +50,9 @@ const Win = ({ exp, exp_req }: { exp: number; exp_req: number }) => {
 				</div>
 				<div className="win__level-next">2</div>
 			</div>
-			<div className="win__continue-btn">Continue</div>
+			<div className="win__continue-btn" onClick={redirectToCampaign}>
+				Continue
+			</div>
 		</div>
 	);
 };

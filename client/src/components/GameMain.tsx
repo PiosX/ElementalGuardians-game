@@ -347,8 +347,13 @@ const GameMain = () => {
 	};
 
 	const addExp = () => {
-		if (heroWon) {
-			updateData("hero-stats/add-exp");
+		if (enemy.length > 0) {
+			const data = {
+				enemyId: enemy[0].enemy_id,
+			};
+			if (heroWon) {
+				updateData("hero-stats/add-exp", data);
+			}
 		}
 	};
 

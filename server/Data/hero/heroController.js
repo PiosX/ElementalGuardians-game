@@ -20,7 +20,13 @@ class HeroController {
 	}
 	async setExp(req, res) {
 		try {
-			const updateExp = await this.heroModel.setExp();
+			const { enemyId } = req.body;
+
+			if (!enemyId) {
+				throw new Error("enemyId is required");
+			}
+
+			const updateExp = await this.heroModel.setExp(enemyId);
 			res.status(200).send(updateExp);
 		} catch (error) {
 			res.status(500).send(error.message);

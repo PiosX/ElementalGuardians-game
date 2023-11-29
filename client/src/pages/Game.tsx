@@ -6,7 +6,6 @@ import "./game.scss";
 import HeroStat from "../components/HeroStat";
 import Pause from "../components/Pause";
 import Hero from "../components/Hero/Hero";
-import Campaign from "../components/Campaign/Campaign";
 import Select from "../components/Campaign/Select";
 import Splash from "../components/SplashScene/Splash";
 import HeroSelect from "../components/HeroSelect/HeroSelect";
@@ -17,8 +16,7 @@ const Game = () => {
 		pausePanel!.setAttribute("data-show", "1");
 	};
 	return (
-		<div className="game">
-			<img src={bgcBorder} alt="Background frame" className="game__bgc" />
+		<>
 			<div className="game__settings" onClick={openPausePanel}>
 				<img
 					src={settings}
@@ -31,11 +29,10 @@ const Game = () => {
 			{/* <HeroStat /> */}
 			<Pause />
 			{/* <Hero /> */}
-			{/* <Campaign /> */}
 			{/* <Select /> */}
 			{/* <Splash /> */}
 			{/* <HeroSelect /> */}
-		</div>
+		</>
 	);
 };
 
