@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { useNavigate } from "react-router-dom";
 import backArrow from "../../assets/Campaign/backArrow.svg";
 import "@splidejs/react-splide/css";
 import "./Select.scss";
@@ -8,6 +9,8 @@ import HeroBar from "../Hero/HeroBar";
 import HeroNav from "../Hero/HeroNav";
 
 const Select = () => {
+	const navigate = useNavigate();
+
 	const numberOfFirstPage = 15;
 	const numberOfSecondPage = 15;
 	const data = Array.from(
@@ -18,10 +21,21 @@ const Select = () => {
 		{ length: numberOfSecondPage },
 		(_, index) => index + 16
 	);
+
+	const handleSlideClick = (index: number) => {
+		// Navigate to the Game component with the index as a parameter
+		navigate(`/game/${index}`);
+	};
+
 	return (
 		<div className="select">
 			<HeroNav />
-			<div className="select__back">
+			<div
+				className="select__back"
+				onClick={() => {
+					navigate("/campaign");
+				}}
+			>
 				<div className="select__back-icon">
 					<img src={backArrow} alt="Back arrow" />
 				</div>
@@ -34,7 +48,11 @@ const Select = () => {
 			>
 				<SplideSlide className="select__slider-level">
 					{data.map((item, index) => (
-						<div key={index} className="select__slider-level-info">
+						<div
+							key={index}
+							className="select__slider-level-info"
+							onClick={() => handleSlideClick(item)}
+						>
 							<div className="select__slider-level-info-num">
 								{item}
 							</div>
@@ -43,7 +61,11 @@ const Select = () => {
 				</SplideSlide>
 				<SplideSlide className="select__slider-level">
 					{dataSecond.map((item, index) => (
-						<div key={index} className="select__slider-level-info">
+						<div
+							key={index}
+							className="select__slider-level-info"
+							onClick={() => handleSlideClick(item)}
+						>
 							<div className="select__slider-level-info-num">
 								{item}
 							</div>

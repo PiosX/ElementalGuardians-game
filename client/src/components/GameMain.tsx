@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { getData } from "../Request/getData";
 import { Hero } from "../Interfaces/HeroInterface";
 import { MyPerksInterface } from "../Interfaces/MyPerksInterface";
@@ -21,6 +22,7 @@ import { createBoard } from "./MainGameFunctions/createBoard";
 import Lose from "./AfterMatch/Lose";
 import Win from "./AfterMatch/Win";
 import { updateData } from "../Request/updateData";
+import { getEnemyById } from "../Request/getEnemyById";
 
 const width = 8;
 const orbColors = [
@@ -57,11 +59,12 @@ const GameMain = () => {
 
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
-	const [enemy, setEnemy] = useState<EnemyInterface[]>([]);
+	const [enemy, setEnemy] = useState<EnemyInterface | null>(null);
 	const [enemyPerks, setEnemyPerks] = useState<EnemyPerksInterface[]>([]);
 
+	const { index } = useParams();
 	const maskRef = useRef<HTMLDivElement>(null);
-
+	console.log(heroPerks);
 	const checkColumnMatchToFour = () => {
 		for (let i = 0; i <= 39; i++) {
 			const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
@@ -336,20 +339,20 @@ const GameMain = () => {
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard, swapped]);
 
 	const checkWinner = () => {
-		if (heroStats.length > 0 && enemy.length > 0) {
+		if (heroStats.length > 0 && enemy != null) {
 			if (heroStats[0].health <= 0) {
 				setHeroWon(false);
 			}
-			if (enemy[0].health <= 0) {
+			if (enemy.health <= 0) {
 				setHeroWon(true);
 			}
 		}
 	};
 
 	const addExp = () => {
-		if (enemy.length > 0) {
+		if (enemy != null) {
 			const data = {
-				enemyId: enemy[0].enemy_id,
+				enemyId: enemy.enemy_id,
 			};
 			if (heroWon) {
 				updateData("hero-stats/add-exp", data);
@@ -409,16 +412,18 @@ const GameMain = () => {
 			setIsMatching,
 			setIsMatchingEnemy,
 			heroStats,
-			enemy
+			enemy ? [enemy] : []
 		);
 		checkWinner();
 	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
+		const perkId = 1;
 		getData("hero-stats", setHeroStats);
 		getData("my-perks", setHeroPerks);
-		getData("enemy-stats", setEnemy);
-		getData("enemy-stats/enemy-perks", (data) => {
+		// getData("enemy-stats", setEnemy);
+		getEnemyById(`enemy-stats/${index}`, setEnemy, { enemyId: index });
+		getEnemyById(`enemy-stats/${perkId}/enemy-perks`, (data) => {
 			if (Array.isArray(data)) {
 				const reversedPerks = [...data].reverse();
 				setEnemyPerks(reversedPerks as EnemyPerksInterface[]);
@@ -435,11 +440,14 @@ const GameMain = () => {
 			) : (
 				<Lose />
 			)}
-			<Enemy
-				collected={enemyCollected}
-				enemy={enemy}
-				enemyPerks={enemyPerks}
-			/>
+			{enemy && (
+				<Enemy
+					collected={enemyCollected}
+					enemy={enemy}
+					enemyPerks={enemyPerks}
+				/>
+			)}
+
 			<Turns turn={turn} />
 			<div className="game__main">
 				<div

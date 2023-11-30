@@ -7,7 +7,8 @@ class EnemyController {
 		this.enemyModel = new EnemyModel();
 
 		this.router.get("/", this.getEnemy.bind(this));
-		this.router.get("/enemy-perks", this.getPerks.bind(this));
+		this.router.get("/:enemyId", this.getEnemyById.bind(this));
+		this.router.get("/:enemyId/enemy-perks", this.getPerks.bind(this));
 	}
 
 	async getEnemy(req, res) {
@@ -19,9 +20,19 @@ class EnemyController {
 		}
 	}
 	async getPerks(req, res) {
+		const { enemyId } = req.params;
 		try {
-			const perks = await this.enemyModel.getEnemyPerks();
+			const perks = await this.enemyModel.getEnemyPerks(enemyId);
 			res.status(200).send(perks);
+		} catch (error) {
+			res.status(500).send(error.message);
+		}
+	}
+	async getEnemyById(req, res) {
+		const { enemyId } = req.params;
+		try {
+			const enemy = await this.enemyModel.getEnemyById(enemyId);
+			res.status(200).send(enemy);
 		} catch (error) {
 			res.status(500).send(error.message);
 		}

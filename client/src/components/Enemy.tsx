@@ -8,12 +8,12 @@ import "./Enemy.scss";
 
 const Enemy: React.FC<{
 	collected: number;
-	enemy: EnemyInterface[];
+	enemy: EnemyInterface;
 	enemyPerks: EnemyPerksInterface[];
 }> = ({ collected, enemy, enemyPerks }) => {
 	return (
 		<div className="game__enemy">
-			{enemy.length && enemyPerks.length > 0 ? (
+			{enemy != null && enemyPerks.length > 0 ? (
 				<>
 					<div className="game__enemy-level">
 						<img
@@ -21,9 +21,7 @@ const Enemy: React.FC<{
 							alt="Background level"
 							className="game__enemy-level-bgc"
 						/>
-						<p className="game__enemy-level-text">
-							{enemy[0].name}
-						</p>
+						<p className="game__enemy-level-text">{enemy.name}</p>
 					</div>
 					<div className="game__enemy-main">
 						<div className="game__enemy-main-attack">
@@ -38,7 +36,7 @@ const Enemy: React.FC<{
 							<div className="game__enemy-main-stats-bgc">
 								<img src={enemyBgc} alt="Enemy background" />
 								<img
-									src={enemy[0].img}
+									src={enemy.img}
 									alt="Wolf"
 									className="game__enemy-main-stats-bgc-img"
 								/>
@@ -60,7 +58,7 @@ const Enemy: React.FC<{
 											alt="Background Stats"
 										/>
 										<div className="game__enemy-main-stats-info-hp-text">
-											{enemy[0].health}
+											{enemy.health}
 										</div>
 									</div>
 									<div className="game__enemy-main-stats-info-shield">
@@ -69,7 +67,7 @@ const Enemy: React.FC<{
 											alt="Background Stats"
 										/>
 										<div className="game__enemy-main-stats-info-shield-text">
-											{enemy[0].shield}
+											{enemy.shield}
 										</div>
 									</div>
 								</div>
