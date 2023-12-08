@@ -59,12 +59,14 @@ const GameMain = () => {
 
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
-	const [enemy, setEnemy] = useState<EnemyInterface | null>(null);
-	const [enemyPerks, setEnemyPerks] = useState<EnemyPerksInterface[]>([]);
+	const [enemy, setEnemy] = useState<{
+		enemy: EnemyInterface;
+		perks: EnemyPerksInterface[];
+	} | null>(null);
 
 	const { index } = useParams();
 	const maskRef = useRef<HTMLDivElement>(null);
-	console.log(heroPerks);
+
 	const checkColumnMatchToFour = () => {
 		for (let i = 0; i <= 39; i++) {
 			const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
@@ -76,7 +78,7 @@ const GameMain = () => {
 				)
 			) {
 				columnOfFour.forEach((number) => (orbsOnBoard[number] = blank));
-				if (canPlay) {
+				if (canPlay && enemy) {
 					if (
 						matchColor === heroPerks[0].perk_req &&
 						botMove &&
@@ -85,10 +87,10 @@ const GameMain = () => {
 						setIsMatching(true);
 					}
 					if (
-						matchColor === enemyPerks[0].perk_req &&
+						matchColor === enemy.perks[0].perk_req &&
 						botCanMove &&
 						botMove === false &&
-						enemyPerks.length > 0
+						enemy.perks.length > 0
 					) {
 						setIsMatchingEnemy(true);
 					}
@@ -111,7 +113,7 @@ const GameMain = () => {
 				columnOfThree.forEach(
 					(number) => (orbsOnBoard[number] = blank)
 				);
-				if (canPlay) {
+				if (canPlay && enemy) {
 					if (
 						matchColor === heroPerks[0].perk_req &&
 						botMove &&
@@ -120,10 +122,10 @@ const GameMain = () => {
 						setIsMatching(true);
 					}
 					if (
-						matchColor === enemyPerks[0].perk_req &&
+						matchColor === enemy.perks[0].perk_req &&
 						botCanMove &&
 						botMove === false &&
-						enemyPerks.length > 0
+						enemy.perks.length > 0
 					) {
 						console.log("match");
 						setIsMatchingEnemy(true);
@@ -170,7 +172,7 @@ const GameMain = () => {
 				rowOfFour.every((number) => orbsOnBoard[number] === matchColor)
 			) {
 				rowOfFour.forEach((number) => (orbsOnBoard[number] = blank));
-				if (canPlay) {
+				if (canPlay && enemy) {
 					if (
 						matchColor === heroPerks[0].perk_req &&
 						botMove &&
@@ -179,10 +181,10 @@ const GameMain = () => {
 						setIsMatching(true);
 					}
 					if (
-						matchColor === enemyPerks[0].perk_req &&
+						matchColor === enemy.perks[0].perk_req &&
 						botCanMove &&
 						botMove === false &&
-						enemyPerks.length > 0
+						enemy.perks.length > 0
 					) {
 						setIsMatchingEnemy(true);
 					}
@@ -207,7 +209,7 @@ const GameMain = () => {
 				rowOfThree.every((number) => orbsOnBoard[number] === matchColor)
 			) {
 				rowOfThree.forEach((number) => (orbsOnBoard[number] = blank));
-				if (canPlay) {
+				if (canPlay && enemy) {
 					if (
 						matchColor === heroPerks[0].perk_req &&
 						botMove &&
@@ -216,10 +218,10 @@ const GameMain = () => {
 						setIsMatching(true);
 					}
 					if (
-						matchColor === enemyPerks[0].perk_req &&
+						matchColor === enemy.perks[0].perk_req &&
 						botCanMove &&
 						botMove === false &&
-						enemyPerks.length > 0
+						enemy.perks.length > 0
 					) {
 						setIsMatchingEnemy(true);
 					}
@@ -339,12 +341,14 @@ const GameMain = () => {
 	}, [orbBeingSecond, orbBeingFirst, orbsOnBoard, swapped]);
 
 	const checkWinner = () => {
-		if (heroStats.length > 0 && enemy != null) {
-			if (heroStats[0].health <= 0) {
-				setHeroWon(false);
-			}
-			if (enemy.health <= 0) {
-				setHeroWon(true);
+		if (enemy) {
+			if (heroStats.length > 0 && enemy.enemy != null) {
+				if (heroStats[0].health <= 0) {
+					setHeroWon(false);
+				}
+				if (enemy.enemy.health <= 0) {
+					setHeroWon(true);
+				}
 			}
 		}
 	};
@@ -352,7 +356,7 @@ const GameMain = () => {
 	const addExp = () => {
 		if (enemy != null) {
 			const data = {
-				enemyId: enemy.enemy_id,
+				enemyId: enemy.enemy.enemy_id,
 			};
 			if (heroWon) {
 				updateData("hero-stats/add-exp", data);
@@ -400,35 +404,37 @@ const GameMain = () => {
 	]);
 
 	useEffect(() => {
-		collectPoints(
-			heroCollected,
-			enemyCollected,
-			isMatching,
-			isMatchingEnemy,
-			heroPerks,
-			enemyPerks,
-			setHeroCollected,
-			setEnemyCollected,
-			setIsMatching,
-			setIsMatchingEnemy,
-			heroStats,
-			enemy ? [enemy] : []
-		);
+		if (enemy) {
+			collectPoints(
+				heroCollected,
+				enemyCollected,
+				isMatching,
+				isMatchingEnemy,
+				heroPerks,
+				enemy.perks,
+				setHeroCollected,
+				setEnemyCollected,
+				setIsMatching,
+				setIsMatchingEnemy,
+				heroStats,
+				enemy.enemy ? [enemy.enemy] : []
+			);
+		}
+
 		checkWinner();
 	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
-		const perkId = 1;
 		getData("hero-stats", setHeroStats);
 		getData("my-perks", setHeroPerks);
 		// getData("enemy-stats", setEnemy);
 		getEnemyById(`enemy-stats/${index}`, setEnemy, { enemyId: index });
-		getEnemyById(`enemy-stats/${perkId}/enemy-perks`, (data) => {
-			if (Array.isArray(data)) {
-				const reversedPerks = [...data].reverse();
-				setEnemyPerks(reversedPerks as EnemyPerksInterface[]);
-			}
-		});
+		// getEnemyById(`enemy-stats/${perkId}`, (data) => {
+		// 	if (Array.isArray(data)) {
+		// 		const reversedPerks = [...data].reverse();
+		// 		setEnemyPerks(reversedPerks as EnemyPerksInterface[]);
+		// 	}
+		// });
 	}, []);
 
 	return (
@@ -443,8 +449,8 @@ const GameMain = () => {
 			{enemy && (
 				<Enemy
 					collected={enemyCollected}
-					enemy={enemy}
-					enemyPerks={enemyPerks}
+					enemy={enemy.enemy}
+					enemyPerks={enemy.perks}
 				/>
 			)}
 

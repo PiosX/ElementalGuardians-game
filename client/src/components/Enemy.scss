@@ -43,6 +43,10 @@
 				position: relative;
 				&-img {
 					position: absolute;
+					border-radius: 50%;
+					overflow: hidden;
+					width: 150px;
+					height: 150px;
 					top: 5.5%;
 					left: 6.5%;
 				}
