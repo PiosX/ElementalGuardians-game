@@ -4,9 +4,9 @@ import settings from "../../assets/settings/settings.svg";
 import heroMainBg from "../../assets/hero/heroMainBg.svg";
 import heroAvatarBg from "../../assets/hero/heroAvatarBg.svg";
 import heroKnight from "../../assets/hero/knight-nav.png";
-import attack1 from "../../assets/perks/hero/attack/attack1.svg";
-import special1 from "../../assets/perks/hero/special/special1.svg";
-import effect1 from "../../assets/perks/hero/effect/effect1.svg";
+// import attack1 from "../../assets/perks/hero/attack/attack1.svg";
+// import special1 from "../../assets/perks/hero/special/special1.svg";
+// import effect1 from "../../assets/perks/hero/effect/effect1.svg";
 import HeroBar from "./HeroBar";
 
 const Hero = () => {
@@ -38,15 +38,15 @@ const Hero = () => {
 				</div>
 				<div className="hero__main-perks">
 					<div className="hero__main-perks-special">
-						<img src={special1} alt="special perk" />
+						{/* <img src={special1} alt="special perk" /> */}
 						<div className="hero__main-perks-special-num">1</div>
 					</div>
 					<div className="hero__main-perks-attack">
-						<img src={attack1} alt="attack perk" />
+						{/* <img src={attack1} alt="attack perk" /> */}
 						<div className="hero__main-perks-attack-num">4</div>
 					</div>
 					<div className="hero__main-perks-effect">
-						<img src={effect1} alt="effect perk" />
+						{/* <img src={effect1} alt="effect perk" /> */}
 						<div className="hero__main-perks-effect-num">6</div>
 					</div>
 				</div>

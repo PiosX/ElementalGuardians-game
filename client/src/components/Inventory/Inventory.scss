@@ -1,0 +1,117 @@
+.inventory {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	& &__nav {
+		display: flex;
+		justify-content: center;
+		margin-top: 33px;
+		margin-bottom: 8px;
+		&-btn {
+			position: relative;
+			background-size: cover;
+			width: 90px;
+			height: 31px;
+			cursor: pointer;
+			&-text {
+				position: absolute;
+				left: 50%;
+				top: 49%;
+				transform: translate(-50%, -50%);
+				color: #ffffff;
+				font-size: 20px;
+			}
+			&[data-selected="0"] {
+				background: url("../../assets/hero/inventoryNav.svg") no-repeat;
+			}
+			&[data-selected="1"] {
+				background: url("../../assets/hero/inventoryNavSel.svg")
+					no-repeat;
+			}
+		}
+	}
+	& &__items {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 395px;
+		height: 511px;
+		background: url("../../assets/hero/inventoryFrame.svg");
+		overflow: hidden;
+		&-box {
+			height: min-content;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			gap: 5px;
+			flex-wrap: wrap;
+			margin-top: 35px;
+		}
+		&-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 80px;
+			height: 80px;
+			background: #f3f3f3;
+			flex-shrink: 0;
+			cursor: pointer;
+		}
+	}
+	& &__actions {
+		display: flex;
+		justify-content: center;
+		color: #ffffff;
+		font-size: 20px;
+		margin-top: 45px;
+		&-sell,
+		&-equip {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: url("../../assets/hero/invButton.svg");
+			width: 150px;
+			height: 46px;
+		}
+		&-sell {
+			&-price {
+				color: #dbff00;
+			}
+			&-icon {
+				width: 16px;
+				height: 21px;
+				background: url("../../assets/hero/heroessence.svg");
+			}
+		}
+	}
+	& &__bar {
+		position: absolute;
+		bottom: 8px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.splide__arrows {
+	display: none;
+}
+
+.splide__track {
+	overflow: visible;
+}
+
+.splide__pagination {
+	position: absolute;
+	top: -89%;
+	&__page {
+		opacity: 1;
+		background: #fff;
+		width: 12px;
+		height: 12px;
+		margin: 5px;
+		&.is-active {
+			background: #ffffff;
+		}
+	}
+}
