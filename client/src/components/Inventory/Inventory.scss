@@ -57,6 +57,12 @@
 			background: #f3f3f3;
 			flex-shrink: 0;
 			cursor: pointer;
+			&[data-selected="0"] {
+				box-shadow: none;
+			}
+			&[data-selected="1"] {
+				box-shadow: 0 0 0 1px #000000;
+			}
 		}
 	}
 	& &__actions {
@@ -73,6 +79,7 @@
 			background: url("../../assets/hero/invButton.svg");
 			width: 150px;
 			height: 46px;
+			cursor: pointer;
 		}
 		&-sell {
 			&-price {
@@ -82,6 +89,12 @@
 				width: 16px;
 				height: 21px;
 				background: url("../../assets/hero/heroessence.svg");
+			}
+			&[data-price="0"] {
+				opacity: 0.5;
+			}
+			&[data-price="1"] {
+				opacity: 1;
 			}
 		}
 	}
