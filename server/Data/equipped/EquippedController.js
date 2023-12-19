@@ -9,6 +9,8 @@ class EquippedController {
 		this.router.get("/", this.getEquipped.bind(this));
 		this.router.get("/inv", this.getInventory.bind(this));
 		this.router.delete("/:heroPerkId", this.deleteItem.bind(this));
+		this.router.put("/update-essence", this.updateEssence.bind(this));
+		this.router.put("/update-equipped", this.updateEquipped.bind(this));
 	}
 
 	async getEquipped(req, res) {
@@ -43,6 +45,40 @@ class EquippedController {
 				: res.status(404).send("No matching row found");
 		} catch (error) {
 			return res.status(500).send(error.message);
+		}
+	}
+	async updateEssence(req, res) {
+		const essenceValue = req.body.essence;
+
+		if (isNaN(essenceValue)) {
+			return res.status(400).send("Invalid essence value");
+		}
+
+		try {
+			const updatedHero = await this.equippedModel.updateEssence(
+				essenceValue
+			);
+			res.status(200).send(updatedHero);
+		} catch (error) {
+			res.status(500).send(error.message);
+		}
+	}
+	async updateEquipped(req, res) {
+		const perkId = req.body.perkId;
+		const perkType = req.body.perkType;
+
+		if (isNaN(perkId) || typeof perkType !== "string") {
+			return res.status(400).send("Invalid perkId or perkType value");
+		}
+
+		try {
+			const updatedPerk = await this.equippedModel.updateEquipped(
+				perkId,
+				perkType
+			);
+			res.status(200).send(updatedPerk);
+		} catch (error) {
+			res.status(500).send(error.message);
 		}
 	}
 }

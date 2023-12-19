@@ -20,6 +20,7 @@
 				transform: translate(-50%, -50%);
 				color: #ffffff;
 				font-size: 20px;
+				text-transform: capitalize;
 			}
 			&[data-selected="0"] {
 				background: url("../../assets/hero/inventoryNav.svg") no-repeat;
@@ -49,6 +50,7 @@
 			margin-top: 35px;
 		}
 		&-item {
+			position: relative;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -62,6 +64,13 @@
 			}
 			&[data-selected="1"] {
 				box-shadow: 0 0 0 1px #000000;
+			}
+			&-perk {
+				&-eq {
+					position: absolute;
+					right: 1px;
+					top: 1px;
+				}
 			}
 		}
 	}
@@ -94,6 +103,14 @@
 				opacity: 0.5;
 			}
 			&[data-price="1"] {
+				opacity: 1;
+			}
+		}
+		&-equip {
+			&[data-equipped="0"] {
+				opacity: 0.5;
+			}
+			&[data-equipped="1"] {
 				opacity: 1;
 			}
 		}
