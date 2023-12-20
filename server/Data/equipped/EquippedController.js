@@ -7,6 +7,7 @@ class EquippedController {
 		this.equippedModel = new EquippedModel();
 
 		this.router.get("/", this.getEquipped.bind(this));
+		this.router.get("/count", this.countPerks.bind(this));
 		this.router.get("/inv", this.getInventory.bind(this));
 		this.router.delete("/:heroPerkId", this.deleteItem.bind(this));
 		this.router.put("/update-essence", this.updateEssence.bind(this));
@@ -17,6 +18,14 @@ class EquippedController {
 		try {
 			const equipped = await this.equippedModel.getEquipped();
 			res.status(200).send(equipped);
+		} catch (error) {
+			res.status(500).send(error.message);
+		}
+	}
+	async countPerks(req, res) {
+		try {
+			const count = await this.equippedModel.countPerks();
+			res.status(200).send(count);
 		} catch (error) {
 			res.status(500).send(error.message);
 		}

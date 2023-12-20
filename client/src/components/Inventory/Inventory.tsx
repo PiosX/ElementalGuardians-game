@@ -106,7 +106,14 @@ const Inventory = () => {
 	const changeTab = (e: React.MouseEvent) => {
 		const target = e.target as HTMLElement;
 		const targetContent = target.textContent as string;
+		const inventoryItem = target.closest(".inventory__items-item");
+		setSelectedIndex(0);
 		setInvTab(targetContent);
+		setPrice(0);
+		sellBtn.current!.setAttribute("data-price", "0");
+		inventoryItem?.setAttribute("data-selected", "0");
+		eqBtn.current!.setAttribute("data-equipped", "0");
+		selectedItem?.setAttribute("data-selected", "0");
 	};
 
 	const equipPerk = () => {

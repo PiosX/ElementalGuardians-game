@@ -5,16 +5,41 @@ class EquippedModel {
 		try {
 			return await new Promise((resolve, reject) => {
 				db.query(
-					`SELECT
-					perks.*
-				FROM
-					equipped
-				JOIN
-					hero ON equipped.hero_id = hero.hero_id
-				JOIN
-					perks ON equipped.perk_id = perks_rank1.perk1_id
-				WHERE
-					hero.hero_id = 1`,
+					`SELECT perks_rank1.*, hero_perks.hero_id FROM hero_perks
+					JOIN perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
+					WHERE hero_perks.hero_id = 1 AND hero_perks.equipped = true;`,
+					(error, results) => {
+						if (error) {
+							reject(error);
+						}
+						if (results && results.rows) {
+							resolve(results.rows);
+						} else {
+							reject(new Error("No results found"));
+						}
+					}
+				);
+			});
+		} catch (error) {
+			throw new Error("Internal server error");
+		}
+	}
+	async countPerks() {
+		try {
+			return await new Promise((resolve, reject) => {
+				db.query(
+					`SELECT 
+					(SELECT COUNT(*) FROM hero_perks 
+					 JOIN perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
+					 WHERE perks_rank1.perk_type = 'attack') AS attack_count,
+					
+					(SELECT COUNT(*) FROM hero_perks 
+					 JOIN perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
+					 WHERE perks_rank1.perk_type = 'stance') AS stance_count,
+				
+					(SELECT COUNT(*) FROM hero_perks 
+					 JOIN perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
+					 WHERE perks_rank1.perk_type = 'effect') AS effect_count;`,
 					(error, results) => {
 						if (error) {
 							reject(error);
