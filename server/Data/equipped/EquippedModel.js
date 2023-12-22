@@ -60,9 +60,33 @@ class EquippedModel {
 		try {
 			return await new Promise((resolve, reject) => {
 				db.query(
-					`SELECT perks_rank1.*, hero_perks.equipped FROM hero_perks
-				JOIN perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
-				WHERE hero_perks.hero_id = 1;`,
+					`SELECT 
+					perks_rank1.*, 
+					hero_perks.*,
+					rare_bonuses.bonus_desc AS rare_bonus_desc,
+					rare_bonuses.bonus_min AS rare_bonus_min,
+					rare_bonuses.bonus_max AS rare_bonus_max,
+					rare_bonuses.bonus_value AS rare_bonus_value,
+					epic_bonuses.bonus_desc AS epic_bonus_desc,
+					epic_bonuses.bonus_min AS epic_bonus_min,
+					epic_bonuses.bonus_max AS epic_bonus_max,
+					epic_bonuses.bonus_value AS epic_bonus_value,
+					legendary_bonuses.bonus_desc AS legendary_bonus_desc,
+					legendary_bonuses.bonus_min AS legendary_bonus_min,
+					legendary_bonuses.bonus_max AS legendary_bonus_max,
+					legendary_bonuses.bonus_value AS legendary_bonus_value
+				FROM 
+					hero_perks
+				JOIN 
+					perks_rank1 ON hero_perks.perk1_id = perks_rank1.perk1_id 
+				JOIN 
+					bonuses AS rare_bonuses ON hero_perks.rare = rare_bonuses.bonus_id
+				JOIN 
+					bonuses AS epic_bonuses ON hero_perks.epic = epic_bonuses.bonus_id
+				JOIN 
+					bonuses AS legendary_bonuses ON hero_perks.legendary = legendary_bonuses.bonus_id
+				WHERE 
+					hero_perks.hero_id = 1;`,
 					(error, results) => {
 						if (error) {
 							reject(error);

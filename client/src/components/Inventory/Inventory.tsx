@@ -11,18 +11,13 @@ import { getData } from "../../Request/getData";
 import { deleteItemById } from "../../Request/deleteData";
 import { updateValue } from "../../Request/updateValue";
 import { updateEq } from "../../Request/updateEq";
-
-interface Perk {
-	perk1_id: number;
-	name: string;
-	src: string;
-	perk_type: string;
-	equipped: boolean;
-}
+import Perk from "../PerkStats/Perk";
+import { PerkInterface } from "../../Interfaces/PerkInterface";
 
 const Inventory = () => {
-	const [perks, setPerks] = useState<Perk[]>([]);
+	const [perks, setPerks] = useState<PerkInterface[]>([]);
 	const [price, setPrice] = useState(0);
+	const [isVisible, setIsVisible] = useState(false);
 	const [selectedItem, setSelectedItem] = useState<HTMLElement | null>(null);
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [invTab, setInvTab] = useState("attack");
@@ -71,13 +66,16 @@ const Inventory = () => {
 		}
 	};
 
-	const createDivs = (perksArray: Perk[]) => {
+	const createDivs = (perksArray: PerkInterface[]) => {
 		return Array.from({ length: 20 }, (_, index) => (
 			<div
 				key={index}
 				className="inventory__items-item"
 				data-selected="0"
 				onClick={(e) => selectedPerk(e, index + 1)}
+				onDoubleClick={() => {
+					setIsVisible(!isVisible);
+				}}
 			>
 				<div className="inventory__items-item-perk">
 					{perksArray[index] && (
@@ -119,6 +117,54 @@ const Inventory = () => {
 	const equipPerk = () => {
 		const data = { perkId: selectedIndex, perkType: invTab };
 		updateEq("equipped/update-equipped", data);
+	};
+
+	const checkPerk = (visible: boolean, onClose: () => void) => {
+		if (visible) {
+			const perk = perks.find((perk) => perk.perk1_id === selectedIndex);
+			if (perk) {
+				return (
+					<Perk
+						perk_type={perk.perk_type}
+						perk_src={perk.src}
+						name={perk.name}
+						desc={perk.description}
+						cost={perk.cost}
+						req={perk.perk_req}
+						effect={perk.effect}
+						base_value={perk.base_value}
+						min={perk.min}
+						max={perk.max}
+						rare_bonus_desc={perk.rare_bonus_desc}
+						rare_bonus_min={perk.rare_bonus_min}
+						rare_bonus_max={perk.rare_bonus_max}
+						rare_bonus_value={perk.rare_bonus_value}
+						epic_bonus_desc={perk.epic_bonus_desc}
+						epic_bonus_min={perk.epic_bonus_min}
+						epic_bonus_max={perk.epic_bonus_max}
+						epic_bonus_value={perk.epic_bonus_value}
+						legendary_bonus_desc={perk.legendary_bonus_desc}
+						legendary_bonus_min={perk.legendary_bonus_min}
+						legendary_bonus_max={perk.legendary_bonus_max}
+						legendary_bonus_value={perk.legendary_bonus_value}
+						hit={perk.hit_chance}
+						hit_min={perk.hit_min}
+						hit_max={perk.hit_max}
+						crit_chance={perk.criticalChance}
+						min_crit_chance={perk.min_chance}
+						max_crit_chance={perk.max_chance}
+						crit_dmg={perk.criticalDamage}
+						min_crit_dmg={perk.min_critical}
+						max_crit_dmg={perk.max_critical}
+						onClose={onClose}
+					/>
+				);
+			}
+		}
+		return null;
+	};
+	const closePerk = () => {
+		setIsVisible(false);
 	};
 
 	useEffect(() => {
@@ -199,6 +245,7 @@ const Inventory = () => {
 			<div className="inventory__bar">
 				<HeroBar />
 			</div>
+			{checkPerk(isVisible, closePerk)}
 		</div>
 	);
 };

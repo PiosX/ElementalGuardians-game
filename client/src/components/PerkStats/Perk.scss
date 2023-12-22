@@ -1,0 +1,152 @@
+$grey-color: #505050;
+$rare-color: #3aa692;
+$epic-color: #e522aa;
+$legendary-color: #e58022;
+
+.perk {
+	position: absolute;
+	width: 100%;
+	height: 100svh;
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	& img {
+		position: absolute;
+		top: 55.2%;
+		transform: translateY(-50%);
+	}
+	& &__type {
+		font-size: 24px;
+		text-transform: uppercase;
+		margin-bottom: 14px;
+		& span {
+			text-transform: capitalize;
+		}
+	}
+	& &__img {
+		position: relative;
+		width: 150px;
+		height: 150px;
+		margin-bottom: 20px;
+		& img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	& &__name {
+		font-size: 30px;
+		margin-bottom: 17px;
+	}
+	& &__desc {
+		font-size: 16px;
+		text-align: center;
+		max-width: 310px;
+		margin-bottom: 16px;
+	}
+	& &__cost {
+		font-size: 24px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&-req {
+			position: relative;
+			width: 30px;
+			height: 30px;
+			& img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
+	& &__corner-l {
+		position: relative;
+		width: 350px;
+		height: 20px;
+		margin-top: 5px;
+		& img {
+			width: 40px;
+			height: 100%;
+		}
+	}
+	& &__bonuses {
+		display: flex;
+		flex-direction: column;
+		font-size: 22px;
+		gap: 17px;
+		text-align: left;
+		max-width: 310px;
+		&-main {
+			& span {
+				color: $grey-color;
+			}
+		}
+		&-rare {
+			&-yes {
+				& span {
+					color: $grey-color;
+				}
+			}
+			&-no {
+				color: $grey-color;
+				& span {
+					color: $rare-color;
+				}
+			}
+		}
+		&-epic {
+			&-yes {
+				& span {
+					color: $grey-color;
+				}
+			}
+			&-no {
+				color: $grey-color;
+				& span {
+					color: $epic-color;
+				}
+			}
+		}
+		&-legendary {
+			&-yes {
+				& span {
+					color: $grey-color;
+				}
+			}
+			&-no {
+				color: $grey-color;
+				& span {
+					color: $legendary-color;
+				}
+			}
+		}
+	}
+	& &__info {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		font-size: 22px;
+		max-width: 310px;
+		margin-top: 33px;
+		&-hit,
+		&-crit-chance,
+		&-crit-dmg {
+			& span {
+				color: $grey-color;
+			}
+		}
+	}
+	& &__corner-r {
+		position: relative;
+		width: 350px;
+		height: 20px;
+		margin-top: 5px;
+		& img {
+			position: absolute;
+			right: 0;
+			width: 40px;
+			height: 100%;
+		}
+	}
+}
