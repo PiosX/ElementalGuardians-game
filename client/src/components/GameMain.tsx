@@ -448,7 +448,7 @@ const GameMain = () => {
 			)}
 			{enemy && (
 				<Enemy
-					collected={enemyCollected}
+					// collected={enemyCollected}
 					enemy={enemy.enemy}
 					enemyPerks={enemy.perks}
 				/>
@@ -479,7 +479,7 @@ const GameMain = () => {
 				</div>
 			</div>
 			<HeroStat
-				collected={heroCollected}
+				// collected={heroCollected}
 				heroStats={heroStats}
 				heroPerks={heroPerks}
 			/>
