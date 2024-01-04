@@ -7,9 +7,10 @@ import graces from "../assets/enemies/graces.svg";
 import "./Enemy.scss";
 
 const Enemy: React.FC<{
+	collected: number;
 	enemy: EnemyInterface;
 	enemyPerks: EnemyPerksInterface[];
-}> = ({ enemy, enemyPerks }) => {
+}> = ({ collected, enemy, enemyPerks }) => {
 	return (
 		<div className="game__enemy">
 			{enemy != null && enemyPerks.length > 0 ? (
@@ -18,6 +19,7 @@ const Enemy: React.FC<{
 						<div className="game__enemy-attack-stat">
 							<div className="game__enemy-attack-stat-num">
 								{enemyPerks[1].value}
+								{collected}
 							</div>
 							<div className="game__enemy-attack-stat-text">
 								Attack

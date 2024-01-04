@@ -10,7 +10,9 @@ import "./HeroStat.scss";
 const HeroStat: React.FC<{
 	heroStats: Hero[];
 	heroPerks: MyPerksInterface[];
-}> = ({ heroStats, heroPerks }) => {
+	collected: number;
+	graceNumber: number;
+}> = ({ heroStats, heroPerks, collected, graceNumber }) => {
 	return (
 		<div className="game__hero">
 			{heroStats.length > 0 && heroPerks.length > 0 ? (
@@ -25,6 +27,7 @@ const HeroStat: React.FC<{
 						<div className="game__hero-attack-stat">
 							<div className="game__hero-attack-stat-num">
 								{heroPerks[0].value}
+								{collected}
 							</div>
 							<div className="game__hero-attack-stat-text">
 								Attack
@@ -68,7 +71,7 @@ const HeroStat: React.FC<{
 						</div>
 						<div className="game__hero-graces-stat">
 							<div className="game__hero-graces-stat-num">
-								{7}
+								{graceNumber}
 							</div>
 							<div className="game__hero-graces-stat-text">
 								Graces

@@ -3,6 +3,7 @@ import { EnemyPerksInterface } from "../../Interfaces/EnemyPerksInterface";
 import { attack } from "./attack";
 import { Hero } from "../../Interfaces/HeroInterface";
 import { EnemyInterface } from "../../Interfaces/EnemyInterface";
+import { getRandomNumber } from "./getRandomNumber";
 
 // export const collectPoints = (
 // 	heroPerks: MyPerksInterface[],
@@ -34,7 +35,9 @@ export const collectPoints = (
 	setIsMatching: (value: React.SetStateAction<boolean>) => void,
 	setIsMatchingEnemy: (value: React.SetStateAction<boolean>) => void,
 	heroStats: Hero[],
-	enemy: EnemyInterface[]
+	enemy: EnemyInterface[],
+	setAngelId: (value: React.SetStateAction<number>) => void,
+	setShowAngel: (value: React.SetStateAction<boolean>) => void
 ) => {
 	const heroColl = heroCollected + 3;
 	const enemyColl = enemyCollected + 3;
@@ -43,6 +46,10 @@ export const collectPoints = (
 			setHeroCollected((points) =>
 				Math.min(points + 3, heroPerks[0].cost)
 			);
+			if (heroCollected >= 3) {
+				setAngelId(getRandomNumber(1, 8));
+				setShowAngel(true);
+			}
 		}
 		if (heroPerks[0].cost <= heroColl) {
 			attack(heroStats, heroPerks, enemy);
