@@ -26,10 +26,7 @@ import { getEnemyById } from "../Request/getEnemyById";
 import Angel from "./Angel";
 import { AngelInterface } from "../Interfaces/AngelInterface";
 import { getDataById } from "../Request/getDataById";
-import {
-	getRandomNumber,
-	getRandomPerk,
-} from "./MainGameFunctions/getRandomNumber";
+import { getRandomNumber } from "./MainGameFunctions/getRandomNumber";
 
 const width = 8;
 const orbColors = [
@@ -393,43 +390,103 @@ const GameMain = () => {
 
 	const drawBls = () => {
 		const perks = addRarityColumn(angel);
+		const levelOnePerks = perks.filter((perk) => perk.level === 1);
 
-		const filterPerks = perks.filter((obj) => obj.level === 1);
-		let chosenPerks = [];
-		const minId = filterPerks.reduce(
-			(min, obj) => (obj.blessing_id < min ? obj.blessing_id : min),
-			filterPerks[0]?.blessing_id
+		const chosenPerks = [];
+		let firstPerk, secondPerk, thirdPerk;
+
+		do {
+			firstPerk = getRandomFromList(levelOnePerks);
+			secondPerk = getRandomFromList(levelOnePerks);
+			thirdPerk = getRandomFromList(levelOnePerks);
+		} while (
+			firstPerk.blessing_id === secondPerk.blessing_id ||
+			firstPerk.blessing_id === thirdPerk.blessing_id ||
+			secondPerk.blessing_id === thirdPerk.blessing_id
 		);
-		const maxId = filterPerks.reduce(
-			(max, obj) => (obj.blessing_id > max ? obj.blessing_id : max),
-			filterPerks[0]?.blessing_id
-		);
-		if (angelPerks.length === 0) {
-			const firstPerk = getRandomPerk(minId, maxId);
-			let secondPerk: number, thirdPerk: number;
-			do {
-				secondPerk = getRandomPerk(minId, maxId);
-				thirdPerk = getRandomPerk(minId, maxId);
-			} while (
-				firstPerk === secondPerk ||
-				firstPerk === thirdPerk ||
-				secondPerk === thirdPerk
-			);
-			chosenPerks = filterPerks.filter(
-				(perk) =>
-					perk.blessing_id === firstPerk ||
-					perk.blessing_id === secondPerk ||
-					perk.blessing_id === thirdPerk
-			);
-			setAngelPerks(chosenPerks);
-		}
+
+		chosenPerks.push(getBestPerk(firstPerk, graces, perks));
+		chosenPerks.push(getBestPerk(secondPerk, graces, perks));
+		chosenPerks.push(getBestPerk(thirdPerk, graces, perks));
+
+		setAngelPerks(chosenPerks);
+		console.log("Angel:", angelPerks);
+	};
+	const getRandomFromList = (list: AngelInterface[]): AngelInterface => {
+		const randomIndex = Math.floor(Math.random() * list.length);
+		return list[randomIndex];
 	};
 
-	useEffect(() => {
-		if (heroCollected >= 3 && angelPerks.length === 0) {
-			drawBls();
+	const getBestPerk = (
+		perk: AngelInterface,
+		graces: AngelInterface[],
+		allPerks: AngelInterface[]
+	) => {
+		const existingPerk = graces.find(
+			(g) => g.blessing_id === perk.blessing_id
+		);
+
+		if (existingPerk) {
+			const higherRarity = getRandomHigherRarity(existingPerk);
+			const updatedPerks = allPerks.map((p) => {
+				if (p.blessing_id === perk.blessing_id) {
+					return {
+						...p,
+						rarity: higherRarity.rarity,
+					};
+				}
+				return p;
+			});
+
+			const filtered = updatedPerks.filter(
+				(p) =>
+					p.blessing_id === existingPerk.blessing_id &&
+					p[p.rarity] > existingPerk[existingPerk.rarity]
+			);
+			console.log("filtered:", filtered);
+			console.log(perk);
+			const chosenOne = filtered.reduce(
+				(prev, current) => {
+					if (
+						current.blessing_id === perk.blessing_id &&
+						current[current.rarity] >
+							existingPerk[existingPerk.rarity] &&
+						current.level < prev.level
+					) {
+						return current;
+					}
+					return prev;
+				},
+				{ level: Infinity } as AngelInterface
+			);
+			console.log(chosenOne);
+			return chosenOne;
 		}
-	}, [heroCollected]);
+
+		return perk;
+	};
+
+	const getRandomHigherRarity = (perk: AngelInterface) => {
+		const rarities = ["normal", "rare", "epic", "legendary"];
+		const currentRarity = perk.rarity;
+		const currentIndex = rarities.indexOf(currentRarity);
+
+		let newRarity;
+		do {
+			const randomNumber = Math.floor(Math.random() * 1000) + 1;
+
+			if (randomNumber <= 650) {
+				newRarity = "normal";
+			} else if (randomNumber <= 850) {
+				newRarity = "rare";
+			} else if (randomNumber <= 950) {
+				newRarity = "epic";
+			} else {
+				newRarity = "legendary";
+			}
+		} while (rarities.indexOf(newRarity) < currentIndex);
+		return { rarity: newRarity };
+	};
 
 	useEffect(() => {
 		addExp();
@@ -485,22 +542,25 @@ const GameMain = () => {
 				setIsMatchingEnemy,
 				heroStats,
 				enemy.enemy ? [enemy.enemy] : [],
-				setAngelId,
-				setShowAngel
+				setShowAngel,
+				drawBls
 			);
 		}
-
 		checkWinner();
 	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
 		const randomAngel = getRandomNumber(1, 8);
 		setAngelId(randomAngel);
+		getDataById(`angels/${5}`, setAngel, { enemyId: 5 });
+	}, [showAngel]);
+
+	useEffect(() => {
 		getData("hero-stats", setHeroStats);
 		getData("my-perks", setHeroPerks);
 		// getData("enemy-stats", setEnemy);
 		getEnemyById(`enemy-stats/${index}`, setEnemy, { enemyId: index });
-		getDataById(`angels/${angelId}`, setAngel, { enemyId: angelId });
+
 		// getEnemyById(`enemy-stats/${perkId}`, (data) => {
 		// 	if (Array.isArray(data)) {
 		// 		const reversedPerks = [...data].reverse();
@@ -510,11 +570,12 @@ const GameMain = () => {
 	}, []);
 	return (
 		<>
-			{angel && showAngel && (
+			{showAngel && (
 				<Angel
 					angel={angelPerks}
 					setGraces={setGraces}
 					setHeroCollected={setHeroCollected}
+					setShowAngel={setShowAngel}
 				/>
 			)}
 			{heroWon === null ? (

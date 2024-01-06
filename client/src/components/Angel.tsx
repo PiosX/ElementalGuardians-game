@@ -14,7 +14,8 @@ const Angel: React.FC<{
 	angel: AngelInterface[];
 	setGraces: (value: React.SetStateAction<AngelInterface[]>) => void;
 	setHeroCollected: (value: React.SetStateAction<number>) => void;
-}> = ({ angel, setGraces, setHeroCollected }) => {
+	setShowAngel: (value: React.SetStateAction<boolean>) => void;
+}> = ({ angel, setGraces, setHeroCollected, setShowAngel }) => {
 	const mainRef = useRef<HTMLDivElement>(null);
 	const angelRef = useRef<HTMLDivElement>(null);
 	const firstRef = useRef<HTMLDivElement>(null);
@@ -58,23 +59,38 @@ const Angel: React.FC<{
 		const third =
 			thirdRef.current?.parentElement?.classList.contains("is-active");
 		if (first) {
+			setGraces((prevItems) =>
+				prevItems.filter(
+					(item) => item.blessing_id !== firstBls[0].blessing_id
+				)
+			);
 			setGraces((prevItems) => [...prevItems, firstBls[0]]);
 			if (firstBls.length > 1) {
 				setGraces((prevItems) => [...prevItems, firstBls[1]]);
 			}
 		} else if (second) {
+			setGraces((prevItems) =>
+				prevItems.filter(
+					(item) => item.blessing_id !== secondBls[0].blessing_id
+				)
+			);
 			setGraces((prevItems) => [...prevItems, secondBls[0]]);
 			if (secondBls.length > 1) {
 				setGraces((prevItems) => [...prevItems, secondBls[1]]);
 			}
 		} else if (third) {
+			setGraces((prevItems) =>
+				prevItems.filter(
+					(item) => item.blessing_id !== thirdBls[0].blessing_id
+				)
+			);
 			setGraces((prevItems) => [...prevItems, thirdBls[0]]);
 			if (thirdBls.length > 1) {
 				setGraces((prevItems) => [...prevItems, thirdBls[1]]);
 			}
 		}
 		setHeroCollected(0);
-		mainRef.current!.setAttribute("data-open", "0");
+		setShowAngel(false);
 	};
 
 	return (
