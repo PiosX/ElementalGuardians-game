@@ -12,10 +12,11 @@ interface BlessingsInterface {
 
 const Angel: React.FC<{
 	angel: AngelInterface[];
+	allGraces: AngelInterface[];
 	setGraces: (value: React.SetStateAction<AngelInterface[]>) => void;
 	setHeroCollected: (value: React.SetStateAction<number>) => void;
 	setShowAngel: (value: React.SetStateAction<boolean>) => void;
-}> = ({ angel, setGraces, setHeroCollected, setShowAngel }) => {
+}> = ({ angel, allGraces, setGraces, setHeroCollected, setShowAngel }) => {
 	const mainRef = useRef<HTMLDivElement>(null);
 	const angelRef = useRef<HTMLDivElement>(null);
 	const firstRef = useRef<HTMLDivElement>(null);
@@ -24,6 +25,9 @@ const Angel: React.FC<{
 	const [firstBls, setFirstBls] = useState<AngelInterface[]>([]);
 	const [secondBls, setSecondBls] = useState<AngelInterface[]>([]);
 	const [thirdBls, setThirdtBls] = useState<AngelInterface[]>([]);
+	const [firstEff, setFirstEff] = useState<AngelInterface[]>([]);
+	const [secondEff, setSecondEff] = useState<AngelInterface[]>([]);
+	const [thirdEff, setThirdtEff] = useState<AngelInterface[]>([]);
 
 	const randomBlessing = () => {
 		const uniqueBlessingIds = [
@@ -43,10 +47,35 @@ const Angel: React.FC<{
 		setFirstBls(blessingById[firstKey]);
 		setSecondBls(blessingById[secondKey]);
 		setThirdtBls(blessingById[thirdKey]);
+
+		const firstCheck = blessingById[firstKey] as AngelInterface[];
+		const secondCheck = blessingById[secondKey] as AngelInterface[];
+		const thirdCheck = blessingById[thirdKey] as AngelInterface[];
+		const filteredFirst = allGraces.filter(
+			(perk) =>
+				perk.blessing_id === firstCheck[0].blessing_id &&
+				perk.level === firstCheck[0].level
+		);
+		setFirstEff(filteredFirst);
+		const filteredSecond = allGraces.filter(
+			(perk) =>
+				perk.blessing_id === secondCheck[0].blessing_id &&
+				perk.level === secondCheck[0].level
+		);
+		setSecondEff(filteredSecond);
+		const filteredThird = allGraces.filter(
+			(perk) =>
+				perk.blessing_id === thirdCheck[0].blessing_id &&
+				perk.level === thirdCheck[0].level
+		);
+		setThirdtEff(filteredThird);
 	};
+
 	useEffect(() => {
 		randomBlessing();
 	}, []);
+
+	useEffect(() => {}, [angel]);
 
 	const closeTalk = () => {
 		angelRef.current!.setAttribute("data-open", "0");
@@ -164,14 +193,14 @@ const Angel: React.FC<{
 									</div>
 									<div className="angel-bls__main-ef">
 										<div className="angel-bls__main-ef-text">
-											{firstBls[1] != null &&
-												firstBls[1].effect2}
+											{firstEff[1] != null &&
+												firstEff[1].effect2}
 										</div>
 										<div className="angel-bls__main-ef-value">
 											&nbsp;&nbsp;
-											{firstBls[1] != null &&
-												firstBls[1][
-													firstBls[1]
+											{firstEff[1] != null &&
+												firstEff[1][
+													firstBls[0]
 														.rarity as keyof (typeof firstBls)[0]
 												]}{" "}
 										</div>
@@ -223,14 +252,14 @@ const Angel: React.FC<{
 									</div>
 									<div className="angel-bls__main-ef">
 										<div className="angel-bls__main-ef-text">
-											{secondBls[1] != null &&
-												secondBls[1].effect2}
+											{secondEff[1] != null &&
+												secondEff[1].effect2}
 										</div>
 										<div className="angel-bls__main-ef-value">
 											&nbsp;&nbsp;
-											{secondBls[1] != null &&
-												secondBls[1][
-													secondBls[1]
+											{secondEff[1] != null &&
+												secondEff[1][
+													secondBls[0]
 														.rarity as keyof (typeof secondBls)[0]
 												]}{" "}
 										</div>
@@ -279,14 +308,14 @@ const Angel: React.FC<{
 									</div>
 									<div className="angel-bls__main-ef">
 										<div className="angel-bls__main-ef-text">
-											{thirdBls[1] != null &&
-												thirdBls[1].effect2}
+											{thirdEff[1] != null &&
+												thirdEff[1].effect2}
 										</div>
 										<div className="angel-bls__main-ef-value">
 											&nbsp;&nbsp;
-											{thirdBls[1] != null &&
-												thirdBls[1][
-													thirdBls[1]
+											{thirdEff[1] != null &&
+												thirdEff[1][
+													thirdBls[0]
 														.rarity as keyof (typeof thirdBls)[0]
 												]}{" "}
 										</div>

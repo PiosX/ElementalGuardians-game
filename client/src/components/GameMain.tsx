@@ -375,9 +375,9 @@ const GameMain = () => {
 
 	const getRandomRarity = () => {
 		const randomNumber = Math.floor(Math.random() * 1000) + 1;
-		if (randomNumber <= 650) return "normal";
-		if (randomNumber <= 850) return "rare";
-		if (randomNumber <= 950) return "epic";
+		if (randomNumber <= 700) return "normal";
+		if (randomNumber <= 900) return "rare";
+		if (randomNumber <= 970) return "epic";
 		return "legendary";
 	};
 
@@ -389,8 +389,20 @@ const GameMain = () => {
 	};
 
 	const drawBls = () => {
+		const maxedBls = graces.filter(
+			(perk) => perk.level === 5 && perk.rarity === "legendary"
+		);
+
 		const perks = addRarityColumn(angel);
-		const levelOnePerks = perks.filter((perk) => perk.level === 1);
+		let filteredPerks = [...perks];
+
+		maxedBls.forEach((maxedBl) => {
+			filteredPerks = filteredPerks.filter(
+				(perk) => perk.blessing_id !== maxedBl.blessing_id
+			);
+		});
+
+		const levelOnePerks = filteredPerks.filter((perk) => perk.level === 1);
 
 		const chosenPerks = [];
 		let firstPerk, secondPerk, thirdPerk;
@@ -405,12 +417,11 @@ const GameMain = () => {
 			secondPerk.blessing_id === thirdPerk.blessing_id
 		);
 
-		chosenPerks.push(getBestPerk(firstPerk, graces, perks));
-		chosenPerks.push(getBestPerk(secondPerk, graces, perks));
-		chosenPerks.push(getBestPerk(thirdPerk, graces, perks));
+		chosenPerks.push(getBestPerk(firstPerk, graces, filteredPerks));
+		chosenPerks.push(getBestPerk(secondPerk, graces, filteredPerks));
+		chosenPerks.push(getBestPerk(thirdPerk, graces, filteredPerks));
 
 		setAngelPerks(chosenPerks);
-		console.log("Angel:", angelPerks);
 	};
 	const getRandomFromList = (list: AngelInterface[]): AngelInterface => {
 		const randomIndex = Math.floor(Math.random() * list.length);
@@ -443,8 +454,6 @@ const GameMain = () => {
 					p.blessing_id === existingPerk.blessing_id &&
 					p[p.rarity] > existingPerk[existingPerk.rarity]
 			);
-			console.log("filtered:", filtered);
-			console.log(perk);
 			const chosenOne = filtered.reduce(
 				(prev, current) => {
 					if (
@@ -459,7 +468,6 @@ const GameMain = () => {
 				},
 				{ level: Infinity } as AngelInterface
 			);
-			console.log(chosenOne);
 			return chosenOne;
 		}
 
@@ -475,11 +483,11 @@ const GameMain = () => {
 		do {
 			const randomNumber = Math.floor(Math.random() * 1000) + 1;
 
-			if (randomNumber <= 650) {
+			if (randomNumber <= 700) {
 				newRarity = "normal";
-			} else if (randomNumber <= 850) {
+			} else if (randomNumber <= 900) {
 				newRarity = "rare";
-			} else if (randomNumber <= 950) {
+			} else if (randomNumber <= 970) {
 				newRarity = "epic";
 			} else {
 				newRarity = "legendary";
@@ -573,6 +581,7 @@ const GameMain = () => {
 			{showAngel && (
 				<Angel
 					angel={angelPerks}
+					allGraces={angel}
 					setGraces={setGraces}
 					setHeroCollected={setHeroCollected}
 					setShowAngel={setShowAngel}
