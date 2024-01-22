@@ -36,25 +36,30 @@ export const collectPoints = (
 	heroStats: Hero[],
 	enemy: EnemyInterface[],
 	setShowAngel: (value: React.SetStateAction<boolean>) => void,
-	drawBls: () => void
+	drawBls: () => void,
+	setHit: (value: React.SetStateAction<boolean>) => void
 ) => {
 	const heroColl = heroCollected + 3;
 	const enemyColl = enemyCollected + 3;
 	if (isMatching) {
-		if (heroPerks[0].cost > heroCollected) {
+		attack(heroStats, heroPerks, enemy, setHit);
+		//heroStats[0].bless_points > heroColl
+		if (heroStats[0].bless_points < heroColl) {
 			setHeroCollected((points) =>
 				Math.min(points + 3, heroPerks[0].cost)
 			);
-			if (heroCollected === 0) {
-				drawBls();
-				setShowAngel(true);
-			}
-		}
-		if (heroPerks[0].cost <= heroColl) {
-			attack(heroStats, heroPerks, enemy);
+		} else {
+			setHeroCollected(heroStats[0].bless_points);
+			setTimeout(() => {
+				//heroColl >= heroStats[0].bless_points)
+				if (heroColl >= 0) {
+					drawBls();
+					setShowAngel(true);
+				}
+			}, 1000);
 			setTimeout(() => {
 				setHeroCollected(0);
-			}, 300);
+			}, 2300);
 		}
 		setIsMatching(false);
 	} else if (isMatchingEnemy) {
@@ -65,7 +70,7 @@ export const collectPoints = (
 			);
 		}
 		if (enemyPerks[0].cost <= enemyColl) {
-			attack(enemy, enemyPerks, heroStats);
+			attack(enemy, enemyPerks, heroStats, setHit);
 			setTimeout(() => {
 				setEnemyCollected(0);
 			}, 300);

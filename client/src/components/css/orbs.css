@@ -1,0 +1,36 @@
+.orb {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 38.5px;
+  height: 38.5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.orb .orb img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.orb--green {
+  background-color: #22e55d;
+}
+.orb--red {
+  background-color: #e52228;
+}
+.orb--purple {
+  background-color: #e522aa;
+}
+.orb--blue {
+  background-color: #22e5df;
+}
+.orb--black {
+  background-color: #000000;
+}/*# sourceMappingURL=orbs.css.map */

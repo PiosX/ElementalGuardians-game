@@ -1,0 +1,104 @@
+.win {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.win .win__frame {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: url("../../assets/game/bgcBorder.svg");
+}
+.win .win__img {
+  width: 350px;
+  height: 350px;
+}
+.win .win__img img {
+  width: 100%;
+  height: 100%;
+}
+.win .win__text {
+  font-size: 60px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.win .win__earn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.win .win__earn-essence {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.win .win__earn-amount {
+  font-size: 30px;
+}
+.win .win__level {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 18px;
+  font-size: 30px;
+  margin-bottom: 65px;
+}
+.win .win__level-bar {
+  width: 233px;
+  height: 15px;
+  border: 3px solid black;
+}
+.win .win__level-bar-progress {
+  width: 0;
+  height: 100%;
+  background: #3aa692;
+}
+.win .win__continue-btn {
+  text-align: center;
+  line-height: 56px;
+  font-size: 30px;
+  width: 180px;
+  height: 56px;
+  margin-bottom: 23px;
+  background: url("../../assets/afterMatch/btn.svg");
+  color: #ffffff;
+  text-transform: uppercase;
+  cursor: pointer;
+}/*# sourceMappingURL=Win.css.map */

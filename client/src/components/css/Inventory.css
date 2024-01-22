@@ -1,0 +1,190 @@
+.inventory {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.inventory .inventory__nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 33px;
+  margin-bottom: 8px;
+}
+.inventory .inventory__nav-btn {
+  position: relative;
+  background-size: cover;
+  width: 90px;
+  height: 31px;
+  cursor: pointer;
+}
+.inventory .inventory__nav-btn-text {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #ffffff;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+.inventory .inventory__nav-btn[data-selected="0"] {
+  background: url("../../assets/hero/inventoryNav.svg") no-repeat;
+}
+.inventory .inventory__nav-btn[data-selected="1"] {
+  background: url("../../assets/hero/inventoryNavSel.svg") no-repeat;
+}
+.inventory .inventory__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 395px;
+  height: 511px;
+  background: url("../../assets/hero/inventoryFrame.svg");
+  overflow: hidden;
+}
+.inventory .inventory__items-box {
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 35px;
+}
+.inventory .inventory__items-item {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80px;
+  height: 80px;
+  background: #f3f3f3;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  cursor: pointer;
+}
+.inventory .inventory__items-item[data-selected="0"] {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.inventory .inventory__items-item[data-selected="1"] {
+  -webkit-box-shadow: 0 0 0 1px #000000;
+          box-shadow: 0 0 0 1px #000000;
+}
+.inventory .inventory__items-item-perk-eq {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+}
+.inventory .inventory__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  margin-top: 45px;
+}
+.inventory .inventory__actions-sell, .inventory .inventory__actions-equip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: url("../../assets/hero/invButton.svg");
+  width: 150px;
+  height: 46px;
+  cursor: pointer;
+}
+.inventory .inventory__actions-sell-price {
+  color: #dbff00;
+}
+.inventory .inventory__actions-sell-icon {
+  width: 16px;
+  height: 21px;
+  background: url("../../assets/hero/heroessence.svg");
+}
+.inventory .inventory__actions-sell[data-price="0"] {
+  opacity: 0.5;
+}
+.inventory .inventory__actions-sell[data-price="1"] {
+  opacity: 1;
+}
+.inventory .inventory__actions-equip[data-equipped="0"] {
+  opacity: 0.5;
+}
+.inventory .inventory__actions-equip[data-equipped="1"] {
+  opacity: 1;
+}
+.inventory .inventory__bar {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.splide__arrows {
+  display: none;
+}
+
+.splide__track {
+  overflow: visible;
+}
+
+.splide__pagination {
+  position: absolute;
+  top: -89%;
+}
+.splide__pagination__page {
+  opacity: 1;
+  background: #fff;
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+}
+.splide__pagination__page.is-active {
+  background: #ffffff;
+}/*# sourceMappingURL=Inventory.css.map */

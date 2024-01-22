@@ -1,0 +1,155 @@
+.perk {
+  position: absolute;
+  width: 100%;
+  height: 100svh;
+  background: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.perk img {
+  position: absolute;
+  top: 55.2%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.perk .perk__type {
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.perk .perk__type span {
+  text-transform: capitalize;
+}
+.perk .perk__img {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+.perk .perk__img img {
+  width: 100%;
+  height: 100%;
+}
+.perk .perk__name {
+  font-size: 30px;
+  margin-bottom: 17px;
+}
+.perk .perk__desc {
+  font-size: 16px;
+  text-align: center;
+  max-width: 310px;
+  margin-bottom: 16px;
+}
+.perk .perk__cost {
+  font-size: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.perk .perk__cost-req {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+.perk .perk__cost-req img {
+  width: 100%;
+  height: 100%;
+}
+.perk .perk__corner-l {
+  position: relative;
+  width: 350px;
+  height: 20px;
+  margin-top: 5px;
+}
+.perk .perk__corner-l img {
+  width: 40px;
+  height: 100%;
+}
+.perk .perk__bonuses {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 22px;
+  gap: 17px;
+  text-align: left;
+  max-width: 310px;
+}
+.perk .perk__bonuses-main span {
+  color: #505050;
+}
+.perk .perk__bonuses-rare-yes span {
+  color: #505050;
+}
+.perk .perk__bonuses-rare-no {
+  color: #505050;
+}
+.perk .perk__bonuses-rare-no span {
+  color: #3aa692;
+}
+.perk .perk__bonuses-epic-yes span {
+  color: #505050;
+}
+.perk .perk__bonuses-epic-no {
+  color: #505050;
+}
+.perk .perk__bonuses-epic-no span {
+  color: #e522aa;
+}
+.perk .perk__bonuses-legendary-yes span {
+  color: #505050;
+}
+.perk .perk__bonuses-legendary-no {
+  color: #505050;
+}
+.perk .perk__bonuses-legendary-no span {
+  color: #e58022;
+}
+.perk .perk__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 8px;
+  font-size: 22px;
+  max-width: 310px;
+  margin-top: 33px;
+}
+.perk .perk__info-hit span, .perk .perk__info-crit-chance span, .perk .perk__info-crit-dmg span {
+  color: #505050;
+}
+.perk .perk__corner-r {
+  position: relative;
+  width: 350px;
+  height: 20px;
+  margin-top: 5px;
+}
+.perk .perk__corner-r img {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 100%;
+}/*# sourceMappingURL=Perk.css.map */

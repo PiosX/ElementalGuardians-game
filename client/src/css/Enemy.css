@@ -1,0 +1,184 @@
+.game__enemy {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+.game__enemy-attack {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+}
+.game__enemy-attack-stat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 40px;
+  height: 40px;
+  background: url("../assets/game/block.svg");
+  color: #ffffff;
+}
+.game__enemy-attack-stat-num {
+  font-size: 28px;
+}
+.game__enemy-attack-stat-text {
+  font-size: 10px;
+}
+.game__enemy-main {
+  position: relative;
+  height: 219px;
+  width: 153px;
+}
+.game__enemy-main-border {
+  position: absolute;
+  z-index: -1;
+}
+.game__enemy-main-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 150px;
+  height: 186px;
+  z-index: -2;
+}
+.game__enemy-main-img img {
+  width: 100%;
+  height: 100%;
+}
+.game__enemy-main-name {
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 4px;
+}
+.game__enemy-main-lvl {
+  font-size: 18px;
+  color: #ffffff;
+  text-align: center;
+  margin-top: -3px;
+}
+.game__enemy-main-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  padding: 0 10px;
+}
+.game__enemy-main-stats-hp, .game__enemy-main-stats-shield {
+  margin-top: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 30px;
+  color: #ffffff;
+  -webkit-text-stroke: 8px #000;
+  -webkit-text-fill-color: #fff;
+}
+.game__enemy-main-stats-hp-number, .game__enemy-main-stats-shield-number {
+  position: relative;
+}
+.game__enemy-main-stats-hp span, .game__enemy-main-stats-shield span {
+  position: absolute;
+  left: 0;
+  -webkit-text-stroke: 0px #000;
+  -webkit-text-fill-color: #fff;
+}
+.game__enemy-main-req {
+  width: 100%;
+}
+.game__enemy-main-req img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -4px;
+}
+.game__enemy-graces {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+}
+.game__enemy-graces-stat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 40px;
+  height: 40px;
+  background: url("../assets/game/block.svg");
+  color: #ffffff;
+}
+.game__enemy-graces-stat-num {
+  font-size: 28px;
+}
+.game__enemy-graces-stat-text {
+  font-size: 10px;
+}
+.game__enemy-graces-icon {
+  margin-left: -3px;
+}/*# sourceMappingURL=Enemy.css.map */

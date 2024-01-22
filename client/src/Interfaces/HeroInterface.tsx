@@ -14,4 +14,9 @@ export interface Hero {
 	psychicres: number;
 	exp_req: number;
 	essence: number;
+	bless_points: number;
+	dmg_reduction: number;
+	bleedingres: number;
+	dodge: number;
+	barier: number;
 }

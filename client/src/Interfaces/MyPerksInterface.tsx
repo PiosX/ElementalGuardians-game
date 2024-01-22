@@ -16,4 +16,5 @@ export interface MyPerksInterface {
 	perk_req: string;
 	criticalChance: number;
 	criticalDamage: number;
+	req: string;
 }

@@ -12,7 +12,10 @@ const HeroStat: React.FC<{
 	heroPerks: MyPerksInterface[];
 	collected: number;
 	graceNumber: number;
-}> = ({ heroStats, heroPerks, collected, graceNumber }) => {
+	hero_req: number;
+}> = ({ heroStats, heroPerks, collected, graceNumber, hero_req }) => {
+	const calculatedScale = (collected / hero_req) * 100;
+
 	return (
 		<div className="game__hero">
 			{heroStats.length > 0 && heroPerks.length > 0 ? (
@@ -27,7 +30,6 @@ const HeroStat: React.FC<{
 						<div className="game__hero-attack-stat">
 							<div className="game__hero-attack-stat-num">
 								{heroPerks[0].value}
-								{collected}
 							</div>
 							<div className="game__hero-attack-stat-text">
 								Attack
@@ -42,7 +44,7 @@ const HeroStat: React.FC<{
 							<img src={hero} alt="hero" />
 						</div>
 						<div className="game__hero-main-req">
-							<img src={heroPerks[0].perk_req} alt="element" />
+							<img src={heroPerks[0].req} alt="element" />
 						</div>
 						<div className="game__hero-main-stats">
 							<div className="game__hero-main-stats-hp">
@@ -64,6 +66,20 @@ const HeroStat: React.FC<{
 								</div>
 							</div>
 						</div>
+						<div className="game__hero-main-bar">
+							<div
+								className="game__hero-main-bar-progress"
+								style={{
+									transform: `scaleX(${
+										calculatedScale / 100
+									})`,
+								}}
+							></div>
+							<div className="game__hero-main-bar-point"></div>
+							<div className="game__hero-main-bar-text">
+								{collected}
+							</div>
+						</div>
 					</div>
 					<div className="game__hero-graces">
 						<div className="game__hero-graces-icon">
@@ -78,73 +94,6 @@ const HeroStat: React.FC<{
 							</div>
 						</div>
 					</div>
-					{/* <div className="game__hero-perks">
-						<div className="game__hero-perks-special">
-							<img src={special1} alt="special" />
-						</div>
-						<div className="game__hero-perks-attack">
-							<img
-								src={heroPerks[0].src}
-								alt={heroPerks[0].name}
-							/>
-						</div>
-						<div className="game__hero-perks-effect">
-							<img src={effect1} alt="effect" />
-						</div>
-					</div>
-					<div className="game__hero-stats">
-						<div className="game__hero-stats-bgc">
-							<img
-								src={heroBgc}
-								alt="hero background"
-								className="game__hero-stats-bgc-img"
-							/>
-							<img
-								src={hero}
-								alt="hero"
-								className="game__hero-stats-bgc-hero"
-							/>
-						</div>
-						<div className="game__hero-stats-charge">
-							<img src={heroCharge} alt="charge background" />
-							<div className="game__hero-stats-charge-number">
-								<span className="game__hero-collected">
-									{collected}
-								</span>
-								/
-								<span className="game__hero-value">
-									{heroPerks[0].cost}
-								</span>
-							</div>
-						</div>
-						<div className="game__hero-stats-info">
-							<div className="game__hero-stats-info-hp">
-								<div className="game__hero-stats-info-hp-number">
-									{heroStats[0].health}
-								</div>
-								<img src={heart} alt="heart icon" />
-							</div>
-							<div className="game__hero-stats-info-shield">
-								<img src={shield} alt="shield icon" />
-								<div className="game__hero-stats-info-shield-number">
-									{heroStats[0].shield}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="game__hero-link">
-						<img src={heroLink} alt="hero link" />
-					</div>
-					<img
-						src={bgcLP}
-						alt="background for stats left"
-						className="game__hero-bgc1"
-					/>
-					<img
-						src={bgcRP}
-						alt="background for stats right"
-						className="game__hero-bgc2"
-					/>*/}
 				</div>
 			) : (
 				""

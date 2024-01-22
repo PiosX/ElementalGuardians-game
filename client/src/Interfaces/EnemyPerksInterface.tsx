@@ -13,4 +13,6 @@ export interface EnemyPerksInterface {
 	hit_min: number;
 	hit_max: number;
 	perk_req: string;
+	crit_dmg: number;
+	crit_chance: number;
 }

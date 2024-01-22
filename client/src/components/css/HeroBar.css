@@ -1,0 +1,82 @@
+.hero-bar {
+  position: relative;
+}
+.hero-bar .hero-bar__bg {
+  position: absolute;
+  margin-top: -2px;
+  z-index: -1;
+}
+.hero-bar .hero-bar__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 12px;
+  color: #000000;
+  font-size: 20px;
+}
+.hero-bar .hero-bar__buttons-campaign {
+  position: relative;
+  background-size: cover;
+  width: 120px;
+  height: 36px;
+  cursor: pointer;
+}
+.hero-bar .hero-bar__buttons-campaign-text {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero-bar .hero-bar__buttons-campaign[data-selected="0"] {
+  background: url("../../assets/hero/heroBtn.svg") no-repeat;
+}
+.hero-bar .hero-bar__buttons-campaign[data-selected="1"] {
+  background: url("../../assets/hero/heroBtnSelected.svg") no-repeat;
+}
+.hero-bar .hero-bar__buttons-hero {
+  position: relative;
+  background-size: cover;
+  width: 120px;
+  height: 36px;
+  cursor: pointer;
+}
+.hero-bar .hero-bar__buttons-hero-text {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero-bar .hero-bar__buttons-hero[data-selected="0"] {
+  background: url("../../assets/hero/heroBtn.svg") no-repeat;
+}
+.hero-bar .hero-bar__buttons-hero[data-selected="1"] {
+  background: url("../../assets/hero/heroBtnSelected.svg") no-repeat;
+}
+.hero-bar .hero-bar__buttons-perks {
+  position: relative;
+  background-size: cover;
+  width: 120px;
+  height: 36px;
+  cursor: pointer;
+}
+.hero-bar .hero-bar__buttons-perks-text {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero-bar .hero-bar__buttons-perks[data-selected="0"] {
+  background: url("../../assets//hero/heroBtn.svg") no-repeat;
+}
+.hero-bar .hero-bar__buttons-perks[data-selected="1"] {
+  background: url("../../assets/hero/heroBtnSelected.svg") no-repeat;
+}/*# sourceMappingURL=HeroBar.css.map */

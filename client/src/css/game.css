@@ -1,0 +1,19 @@
+.game {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+.game .game__bgc {
+  position: absolute;
+  z-index: -1;
+}
+.game .game__settings {
+  position: absolute;
+  top: 6%;
+  left: 10%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  cursor: pointer;
+}/*# sourceMappingURL=game.css.map */

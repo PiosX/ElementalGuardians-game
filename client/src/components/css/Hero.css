@@ -1,0 +1,153 @@
+.hero .hero__settings {
+  position: absolute;
+  top: 10%;
+  left: 13%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.hero .hero__bg {
+  position: absolute;
+  top: 36%;
+  left: 52%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: -3;
+}
+.hero .hero__main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 60px;
+}
+.hero .hero__main-name {
+  width: 151px;
+  height: 31px;
+  background: url("../../assets/hero/heroName.svg") no-repeat;
+  background-size: cover;
+  color: #ffffff;
+  font-size: 24px;
+  text-align: center;
+  line-height: 31px;
+  margin-bottom: 3px;
+}
+.hero .hero__main-avatar {
+  position: relative;
+}
+.hero .hero__main-avatar-class {
+  position: absolute;
+  left: 50%;
+  top: 49.5%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+}
+.hero .hero__main-avatar-lvl {
+  position: absolute;
+  left: 50%;
+  top: 88%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 90px;
+  height: 35px;
+  background: #000000;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px;
+  text-align: center;
+}
+.hero .hero__main-perks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 53px;
+  height: 123px;
+  font-size: 24px;
+  margin-top: -20px;
+}
+.hero .hero__main-perks-special {
+  position: relative;
+  cursor: pointer;
+}
+.hero .hero__main-perks-special-num {
+  position: absolute;
+  left: 100%;
+  top: 55%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero .hero__main-perks-attack {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+}
+.hero .hero__main-perks-attack img {
+  display: block;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+.hero .hero__main-perks-attack-num {
+  position: absolute;
+  left: 100%;
+  top: 100%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero .hero__main-perks-effect {
+  position: relative;
+  cursor: pointer;
+}
+.hero .hero__main-perks-effect-num {
+  position: absolute;
+  left: 100%;
+  top: 55%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.hero .hero__stats {
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 368px;
+  height: 291px;
+  background: url("../../assets/hero/heroStatsBg.svg") no-repeat;
+}
+.hero .hero__stats-content {
+  padding-top: 25px;
+  margin-left: 45px;
+  margin-right: 45px;
+  color: #ffffff;
+  font-size: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 11px;
+}
+.hero .hero__stats-content-line {
+  width: 100%;
+  height: 1px;
+  background: #3c3c3c;
+}
+.hero .hero__stats-content-power {
+  font-size: 30px;
+}
+.hero .hero__stats-content-power-text {
+  color: #e522aa;
+}/*# sourceMappingURL=Hero.css.map */

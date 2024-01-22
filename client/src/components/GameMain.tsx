@@ -27,6 +27,7 @@ import Angel from "./Angel";
 import { AngelInterface } from "../Interfaces/AngelInterface";
 import { getDataById } from "../Request/getDataById";
 import { getRandomNumber } from "./MainGameFunctions/getRandomNumber";
+import { getInfo } from "./MainGameFunctions/blessingsActions";
 
 const width = 8;
 const orbColors = [
@@ -52,20 +53,33 @@ const GameMain = () => {
 	);
 	const [canPlay, setCanPlay] = useState(false);
 	const [swapped, setSwapped] = useState(false);
+	const [collected, setCollected] = useState(false);
 	const [botMove, setBotMove] = useState(false);
 	const [botCanMove, setBotCanMove] = useState(false);
+	const [freezed, setFreezed] = useState(false);
 	const [turn, setTurn] = useState(1);
 	const [enemyCollected, setEnemyCollected] = useState(0);
 	const [heroCollected, setHeroCollected] = useState(0);
 	const [isMatching, setIsMatching] = useState(false);
 	const [isMatchingEnemy, setIsMatchingEnemy] = useState(false);
+	const [hit, setHit] = useState(false);
+	const [res, setRes] = useState(false);
 	const [heroWon, setHeroWon] = useState<null | boolean>(null);
+	const [diedOnce, setDiedOnce] = useState(false);
 	const [angel, setAngel] = useState<AngelInterface[]>([]);
 	const [angelPerks, setAngelPerks] = useState<AngelInterface[]>([]);
 	const [graces, setGraces] = useState<AngelInterface[]>([]);
 	const [heroStats, setHeroStats] = useState<Hero[]>([]);
+	const [updatedHeroStats, setUpdatedHeroStats] = useState<Hero[]>([]);
 	const [heroPerks, setHeroPerks] = useState<MyPerksInterface[]>([]);
+	const [updatedHeroPerks, setUpdatedHeroPerks] = useState<
+		MyPerksInterface[]
+	>([]);
 	const [enemy, setEnemy] = useState<{
+		enemy: EnemyInterface;
+		perks: EnemyPerksInterface[];
+	} | null>(null);
+	const [updatedEnemyValues, setUpdatedEnemyValues] = useState<{
 		enemy: EnemyInterface;
 		perks: EnemyPerksInterface[];
 	} | null>(null);
@@ -287,6 +301,7 @@ const GameMain = () => {
 				validSecond - validFirst === 8
 			) {
 				setSwapped(false);
+				setCollected(true);
 				setOrbBeingSecond(e.target as HTMLElement);
 				selectedOrb.setAttribute("data-select", "1");
 			}
@@ -352,7 +367,7 @@ const GameMain = () => {
 	const checkWinner = () => {
 		if (enemy) {
 			if (heroStats.length > 0 && enemy.enemy != null) {
-				if (heroStats[0].health <= 0) {
+				if (heroStats[0].health <= 0 && !res) {
 					setHeroWon(false);
 				}
 				if (enemy.enemy.health <= 0) {
@@ -401,6 +416,14 @@ const GameMain = () => {
 				(perk) => perk.blessing_id !== maxedBl.blessing_id
 			);
 		});
+		if (diedOnce) {
+			const checkPerk = graces.filter((perk) => perk.blessing_id === 10);
+			if (checkPerk.length > 0) {
+				filteredPerks = filteredPerks.filter(
+					(perk) => perk.blessing_id !== 10
+				);
+			}
+		}
 
 		const levelOnePerks = filteredPerks.filter((perk) => perk.level === 1);
 
@@ -519,10 +542,14 @@ const GameMain = () => {
 				!columnMatchToThree &&
 				!rowMatchToThree &&
 				botMove &&
-				botCanMove == true
+				botCanMove == true &&
+				!freezed
 			) {
 				clearInterval(timer);
 				bot();
+			}
+			if (freezed) {
+				setSwapped(true);
 			}
 		}, 100);
 		return () => clearInterval(timer);
@@ -533,6 +560,7 @@ const GameMain = () => {
 		checkRowMatchToThree,
 		moveOrbsBelow,
 		orbsOnBoard,
+		freezed,
 	]);
 
 	useEffect(() => {
@@ -551,23 +579,52 @@ const GameMain = () => {
 				heroStats,
 				enemy.enemy ? [enemy.enemy] : [],
 				setShowAngel,
-				drawBls
+				drawBls,
+				setHit
 			);
 		}
 		checkWinner();
 	}, [botMove, isMatching, isMatchingEnemy, swapped]);
 
 	useEffect(() => {
+		if (heroPerks && enemy) {
+			getInfo(
+				heroPerks,
+				enemy!.perks,
+				heroStats,
+				enemy!.enemy,
+				graces,
+				updatedEnemyValues,
+				collected,
+				setCollected,
+				updatedHeroPerks,
+				angel,
+				updatedHeroStats,
+				setHeroWon,
+				setDiedOnce,
+				setFreezed,
+				hit,
+				setRes
+			);
+		}
+	}, [collected === true, swapped === true]);
+
+	useEffect(() => {
 		const randomAngel = getRandomNumber(1, 8);
 		setAngelId(randomAngel);
-		getDataById(`angels/${5}`, setAngel, { enemyId: 5 });
+		getDataById(`angels/${8}`, setAngel, { enemyId: 8 });
 	}, [showAngel]);
 
 	useEffect(() => {
 		getData("hero-stats", setHeroStats);
+		getData("hero-stats", setUpdatedHeroStats);
 		getData("my-perks", setHeroPerks);
+		getData("my-perks", setUpdatedHeroPerks);
 		// getData("enemy-stats", setEnemy);
 		getEnemyById(`enemy-stats/${index}`, setEnemy, { enemyId: index });
+		getEnemyById(`enemy-stats/${index}`, setUpdatedEnemyValues, {
+			enemyId: index,
+		});
 
 		// getEnemyById(`enemy-stats/${perkId}`, (data) => {
 		// 	if (Array.isArray(data)) {
@@ -576,6 +633,7 @@ const GameMain = () => {
 		// 	}
 		// });
 	}, []);
+
 	return (
 		<>
 			{showAngel && (
@@ -626,12 +684,17 @@ const GameMain = () => {
 					<img src={gameFrame} alt="Board Frame" />
 				</div>
 			</div>
-			<HeroStat
-				collected={heroCollected}
-				heroStats={heroStats}
-				heroPerks={heroPerks}
-				graceNumber={gracesSize.size}
-			/>
+			{heroStats.length > 0 ? (
+				<HeroStat
+					collected={heroCollected}
+					heroStats={heroStats}
+					heroPerks={heroPerks}
+					graceNumber={gracesSize.size}
+					hero_req={heroStats[0].bless_points}
+				/>
+			) : (
+				""
+			)}
 		</>
 	);
 };

@@ -5,13 +5,16 @@ import { calculateDmg } from "./calculateDmg";
 export const attack = async (
 	playerStats: any[],
 	playerPerks: any[],
-	yourEnemy: any[]
+	yourEnemy: any[],
+	setHit: (value: React.SetStateAction<boolean>) => void
 ) => {
 	try {
-		const dmg = await calculateDmg(playerStats, playerPerks);
+		const filter = playerPerks.filter((perk) => perk.hit_chance !== null);
+		const dmg = await calculateDmg(playerStats, filter);
 		if (typeof dmg === "number") {
 			const dmgRound = Math.round(dmg);
-			if (playerPerks[0].effect === "Physical Damage: ") {
+			setHit(true);
+			if (filter[0].effect === "Physical Damage: ") {
 				if (yourEnemy[0].shield > 0) {
 					if (yourEnemy[0].shield - dmgRound > 0) {
 						yourEnemy[0].shield = yourEnemy[0].shield - dmgRound;
@@ -25,6 +28,7 @@ export const attack = async (
 				}
 			}
 		} else {
+			setHit(false);
 			return dmg;
 		}
 	} catch (error) {

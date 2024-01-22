@@ -1,0 +1,106 @@
+.hero-select .hero-select__path {
+  background: url("../../assets/selectHero/choose.svg") no-repeat;
+  width: 247px;
+  height: 46px;
+  margin: 0 auto;
+  margin-top: 45px;
+  margin-bottom: 32px;
+  color: #ffffff;
+  font-size: 26px;
+  text-align: center;
+  line-height: 46px;
+}
+.hero-select .hero-select__slider {
+  width: 100%;
+}
+.hero-select .hero-select__slider-img {
+  width: 100%;
+  height: 481px;
+  background-size: cover;
+}
+.hero-select .hero-select__slider-img img {
+  display: block;
+  margin: 0 auto;
+  width: 270px;
+  height: 100%;
+}
+.hero-select .hero-select__slider-name {
+  position: relative;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  width: 156px;
+  height: 31px;
+  background: url("../../assets/selectHero/nameBg.svg") no-repeat;
+  color: #ffffff;
+  text-align: center;
+  font-size: 24px;
+  line-height: 31px;
+}
+.hero-select .hero-select__slider-text {
+  margin: 0 auto;
+  max-width: 266px;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+.hero-select .hero-select__btn {
+  margin: 0 auto;
+  margin-top: 110px;
+  width: 290px;
+  height: 65px;
+  background: url("../../assets/campaign/selectBtn.svg") no-repeat;
+  color: #ffffff;
+  font-size: 40px;
+  text-align: center;
+  line-height: 58px;
+  cursor: pointer;
+}
+
+.splide__arrows {
+  display: none;
+}
+
+.splide__track {
+  overflow: visible;
+}
+
+.splide__pagination {
+  position: absolute;
+  left: -77%;
+  top: -50%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.splide__pagination__page {
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid #909090;
+  -webkit-transition: border 0.2s ease-out;
+  transition: border 0.2s ease-out;
+}
+.splide__pagination__page.is-active {
+  border: 3px solid #000000;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+.splide__pagination li:nth-child(1) .splide__pagination__page {
+  background: url("../../assets/selectHero/druidM.png") no-repeat;
+  background-size: cover;
+}
+.splide__pagination li:nth-child(2) .splide__pagination__page {
+  background: url("../../assets/selectHero/mageM.png") no-repeat;
+  background-size: cover;
+}
+.splide__pagination li:nth-child(3) .splide__pagination__page {
+  background: url("../../assets/selectHero/archerM.png") no-repeat;
+  background-size: cover;
+}
+.splide__pagination li:nth-child(4) .splide__pagination__page {
+  background: url("../../assets/selectHero/knightM.png") no-repeat;
+  background-size: cover;
+}/*# sourceMappingURL=HeroSelect.css.map */

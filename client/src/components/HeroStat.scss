@@ -56,7 +56,8 @@
 			padding: 0 10px;
 			&-hp,
 			&-shield {
-				margin-top: 100px;
+				margin-top: 90px;
+				margin-bottom: 5px;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -87,6 +88,46 @@
 				margin-right: auto;
 				margin-top: 13px;
 				padding-left: 2px;
+			}
+		}
+		&-bar {
+			position: relative;
+			margin-left: auto;
+			margin-right: auto;
+			width: 100px;
+			height: 10px;
+			background: #ffffff;
+			border: 2px solid #000;
+			overflow: hidden;
+			&-progress {
+				position: absolute;
+				top: 0;
+				left: 0%;
+				background: #e522aa;
+				width: 100%;
+				height: 10px;
+				transform: scaleX(50%);
+				transition: transform 0.5s;
+			}
+			&-point {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: url("../assets/hero/progressPoint.svg");
+				background-repeat: no-repeat;
+				width: 25px;
+				height: 25px;
+				z-index: 0;
+			}
+			&-text {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				font-size: 16px;
+				color: #fff;
+				z-index: 1;
 			}
 		}
 	}
