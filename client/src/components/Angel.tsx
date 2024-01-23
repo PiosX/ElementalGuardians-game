@@ -24,51 +24,61 @@ const Angel: React.FC<{
 	const thirdRef = useRef<HTMLDivElement>(null);
 	const [firstBls, setFirstBls] = useState<AngelInterface[]>([]);
 	const [secondBls, setSecondBls] = useState<AngelInterface[]>([]);
-	const [thirdBls, setThirdtBls] = useState<AngelInterface[]>([]);
+	const [thirdBls, setThirdBls] = useState<AngelInterface[]>([]);
 	const [firstEff, setFirstEff] = useState<AngelInterface[]>([]);
 	const [secondEff, setSecondEff] = useState<AngelInterface[]>([]);
-	const [thirdEff, setThirdtEff] = useState<AngelInterface[]>([]);
+	const [thirdEff, setThirdEff] = useState<AngelInterface[]>([]);
 
 	const randomBlessing = () => {
-		const uniqueBlessingIds = [
-			...new Set(angel.map((obj) => obj.blessing_id)),
-		];
+		if (angel.length > 0) {
+			const uniqueBlessingIds = [
+				...new Set(angel.map((obj) => obj.blessing_id)),
+			];
 
-		const blessingById: BlessingsInterface = {};
+			const blessingById: BlessingsInterface = {};
 
-		uniqueBlessingIds.forEach((blessingId) => {
-			blessingById[blessingId] = angel.filter(
-				(obj) => obj.blessing_id === blessingId
-			);
-		});
-		const firstKey = parseInt(Object.keys(blessingById)[0], 10);
-		const secondKey = parseInt(Object.keys(blessingById)[1], 10);
-		const thirdKey = parseInt(Object.keys(blessingById)[2], 10);
-		setFirstBls(blessingById[firstKey]);
-		setSecondBls(blessingById[secondKey]);
-		setThirdtBls(blessingById[thirdKey]);
+			uniqueBlessingIds.forEach((blessingId) => {
+				blessingById[blessingId] = angel.filter(
+					(obj) => obj.blessing_id === blessingId
+				);
+			});
 
-		const firstCheck = blessingById[firstKey] as AngelInterface[];
-		const secondCheck = blessingById[secondKey] as AngelInterface[];
-		const thirdCheck = blessingById[thirdKey] as AngelInterface[];
-		const filteredFirst = allGraces.filter(
-			(perk) =>
-				perk.blessing_id === firstCheck[0].blessing_id &&
-				perk.level === firstCheck[0].level
-		);
-		setFirstEff(filteredFirst);
-		const filteredSecond = allGraces.filter(
-			(perk) =>
-				perk.blessing_id === secondCheck[0].blessing_id &&
-				perk.level === secondCheck[0].level
-		);
-		setSecondEff(filteredSecond);
-		const filteredThird = allGraces.filter(
-			(perk) =>
-				perk.blessing_id === thirdCheck[0].blessing_id &&
-				perk.level === thirdCheck[0].level
-		);
-		setThirdtEff(filteredThird);
+			const firstKey = parseInt(Object.keys(blessingById)[0], 10);
+			const secondKey = parseInt(Object.keys(blessingById)[1], 10);
+			const thirdKey = parseInt(Object.keys(blessingById)[2], 10);
+			setFirstBls(blessingById[firstKey]);
+			setSecondBls(blessingById[secondKey]);
+			setThirdBls(blessingById[thirdKey]);
+
+			const firstCheck = blessingById[firstKey] as AngelInterface[];
+			const secondCheck = blessingById[secondKey] as AngelInterface[];
+			const thirdCheck = blessingById[thirdKey] as AngelInterface[];
+
+			if (
+				firstCheck !== undefined &&
+				secondCheck !== undefined &&
+				thirdCheck !== undefined
+			) {
+				const filteredFirst = allGraces.filter(
+					(perk) =>
+						perk.blessing_id === firstCheck[0].blessing_id &&
+						perk.level === firstCheck[0].level
+				);
+				setFirstEff(filteredFirst);
+				const filteredSecond = allGraces.filter(
+					(perk) =>
+						perk.blessing_id === secondCheck[0].blessing_id &&
+						perk.level === secondCheck[0].level
+				);
+				setSecondEff(filteredSecond);
+				const filteredThird = allGraces.filter(
+					(perk) =>
+						perk.blessing_id === thirdCheck[0].blessing_id &&
+						perk.level === thirdCheck[0].level
+				);
+				setThirdEff(filteredThird);
+			}
+		}
 	};
 
 	useEffect(() => {
