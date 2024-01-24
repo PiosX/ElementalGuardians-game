@@ -475,8 +475,9 @@ const GameMain = () => {
 			const filtered = updatedPerks.filter(
 				(p) =>
 					p.blessing_id === existingPerk.blessing_id &&
-					p[p.rarity] > existingPerk[existingPerk.rarity]
+					p[p.rarity] >= existingPerk[existingPerk.rarity]
 			);
+
 			const chosenOne = filtered.reduce(
 				(prev, current) => {
 					if (
@@ -484,6 +485,13 @@ const GameMain = () => {
 						current[current.rarity] >
 							existingPerk[existingPerk.rarity] &&
 						current.level < prev.level
+					) {
+						return current;
+					} else if (
+						current.blessing_id === perk.blessing_id &&
+						current[current.rarity] ===
+							existingPerk[existingPerk.rarity] &&
+						current.level > prev.level
 					) {
 						return current;
 					}
@@ -612,7 +620,7 @@ const GameMain = () => {
 	useEffect(() => {
 		const randomAngel = getRandomNumber(1, 8);
 		setAngelId(randomAngel);
-		getDataById(`angels/${8}`, setAngel, { enemyId: 8 });
+		getDataById(`angels/${1}`, setAngel, { enemyId: 1 });
 	}, [showAngel]);
 
 	useEffect(() => {

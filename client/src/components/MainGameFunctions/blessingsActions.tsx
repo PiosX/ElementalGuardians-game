@@ -6,6 +6,24 @@ import { Hero } from "../../Interfaces/HeroInterface";
 import { AngelInterface } from "../../Interfaces/AngelInterface";
 
 let counter: number = 0;
+let counter1: number = 0;
+let counter2: number = 0;
+let counter3: number = 0;
+let counter4: number = 0;
+let counter5: number = 0;
+let counter6: number = 0;
+let counter7: number = 0;
+let counter8: number = 0;
+let counter9: number = 0;
+let counter10: number = 0;
+let counter11: number = 0;
+let counter12: number = 0;
+let counter13: number = 0;
+let counter14: number = 0;
+let counter15: number = 0;
+let counter16: number = 0;
+let counter17: number = 0;
+
 let freezedTurns: number = 0;
 let immoTurns: number = 0;
 let immoTurns29: number = 0;
@@ -130,25 +148,18 @@ export const getInfo = (
 	// );
 	// blessing_41(graces, angel, hero, updatedHeroStats, setRes);
 	// blessing_42(enemy, graces, collected, setCollected, angel, enemyPerks);
-	// blessing_43(
-	// 	heroPerks,
-	// 	graces,
-	// 	updatedHeroPerks,
-	// 	enemy,
-	// 	collected,
-	// 	setCollected
-	// );
-	// blessing_44(
-	// 	graces,
-	// 	updatedEnemyValues,
-	// 	angel,
-	// 	enemy,
-	// 	hero,
-	// 	updatedHeroStats
-	// );
-	// blessing_45(enemyPerks, graces, updatedEnemyValues, angel, enemy);
-	// blessing_46(enemy, graces, collected, setCollected);
-	// blessing_47(enemy, graces, collected, setCollected, angel);
+	blessing_43(
+		heroPerks,
+		graces,
+		updatedHeroPerks,
+		enemy,
+		collected,
+		setCollected
+	);
+	blessing_44(graces, updatedEnemyValues, angel, enemy);
+	blessing_45(enemyPerks, graces, updatedEnemyValues, angel, enemy);
+	blessing_46(enemy, graces, collected, setCollected);
+	blessing_47(enemy, graces, collected, setCollected, angel);
 	blessing_48(
 		enemyPerks,
 		hero,
@@ -288,11 +299,11 @@ const blessing_4 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter1 = 0;
+					grace[0].value1 = counter1;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter1 = counter1 + 3;
+					grace[0].value1 = counter1;
 				}
 			}
 		}
@@ -532,11 +543,11 @@ const blessing_11 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter2 = 0;
+					grace[0].value1 = counter2;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter2 = counter2 + 3;
+					grace[0].value1 = counter2;
 				}
 			}
 		}
@@ -568,8 +579,8 @@ const blessing_12 = (
 					if (grace[0].value1 >= hitAfter) {
 						enemy.health -= dmg;
 					} else {
-						counter = counter + 3;
-						grace[0].value1 = counter;
+						counter3 = counter3 + 3;
+						grace[0].value1 = counter3;
 					}
 				} else {
 					if (grace[0].value1 >= hitAfter) {
@@ -584,11 +595,11 @@ const blessing_12 = (
 						} else {
 							enemy.health -= dmg;
 						}
-						counter = 0;
-						grace[0].value1 = counter;
+						counter3 = 0;
+						grace[0].value1 = counter3;
 					} else {
-						counter = counter + 3;
-						grace[0].value1 = counter;
+						counter3 = counter3 + 3;
+						grace[0].value1 = counter3;
 					}
 				}
 			}
@@ -777,11 +788,11 @@ const blessing_17 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter4 = 0;
+					grace[0].value1 = counter4;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter4 = counter4 + 3;
+					grace[0].value1 = counter4;
 				}
 			}
 		}
@@ -824,11 +835,11 @@ const blessing_18 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter5 = 0;
+					grace[0].value1 = counter5;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter5 = counter5 + 3;
+					grace[0].value1 = counter5;
 				}
 				const enemyAttack = enemyPerks.filter(
 					(perk) => perk.hit_min != null
@@ -946,11 +957,11 @@ const blessing_22 = (
 					if (value <= freeze) {
 						setFreezed(true);
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter6 = 0;
+					grace[0].value1 = counter6;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter6 = counter6 + 3;
+					grace[0].value1 = counter6;
 				}
 			}
 		}
@@ -985,7 +996,7 @@ const blessing_23 = (
 					setFreezed(false);
 					immoTurns = 0;
 				}
-				console.log(immoTurns, counter, hitAfter);
+
 				if (grace[0].value1 >= hitAfter) {
 					if (value <= immo) {
 						setFreezed(true);
@@ -1002,11 +1013,11 @@ const blessing_23 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter7 = 0;
+					grace[0].value1 = counter7;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter7 = counter7 + 3;
+					grace[0].value1 = counter7;
 				}
 			}
 		}
@@ -1039,11 +1050,11 @@ const blessing_24 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter8 = 0;
+					grace[0].value1 = counter8;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter8 = counter8 + 3;
+					grace[0].value1 = counter8;
 				}
 			}
 		}
@@ -1252,11 +1263,11 @@ const blessing_29 = (
 					enemy.health -= dmg;
 					enemy.shield -= enemyShield;
 
-					counter = 0;
-					grace[0].value1 = counter;
+					counter9 = 0;
+					grace[0].value1 = counter9;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter9 = counter9 + 3;
+					grace[0].value1 = counter9;
 				}
 			}
 		}
@@ -1290,11 +1301,11 @@ const blessing_30 = (
 					setTimeout(() => {
 						enemy.health -= value;
 					}, 300);
-					counter = 0;
-					grace[0].value1 = counter;
+					counter10 = 0;
+					grace[0].value1 = counter10;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter10 = counter10 + 3;
+					grace[0].value1 = counter10;
 				}
 			}
 		}
@@ -1327,7 +1338,7 @@ const blessing_31 = (
 				primaryAttackPerk[0].criticalDamage * (1 + critDmg / 100)
 			);
 			const dodgeValue = Math.round(
-				updatedHeroStats[0].dodge * (1 + dodge / 100)
+				updatedHeroStats[0].dodge * (1 - dodge / 100)
 			);
 			attackPerk[0].criticalDamage = value;
 			hero[0].dodge = dodgeValue;
@@ -1414,11 +1425,11 @@ const blessing_33 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter11 = 0;
+					grace[0].value1 = counter11;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter11 = counter11 + 3;
+					grace[0].value1 = counter11;
 				}
 			}
 		}
@@ -1471,13 +1482,12 @@ const blessing_34 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter12 = 0;
+					grace[0].value1 = counter12;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter12 = counter12 + 3;
+					grace[0].value1 = counter12;
 				}
-				console.log(value, counter, hitAfter);
 			}
 		}
 		setCollected(false);
@@ -1657,13 +1667,12 @@ const blessing_40 = (
 						);
 						hero[0].health = value;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter13 = 0;
+					grace[0].value1 = counter13;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter13 = counter13 + 3;
+					grace[0].value1 = counter13;
 				}
-				console.log(counter, hitAfter);
 			}
 		}
 		setCollected(false);
@@ -1742,11 +1751,11 @@ const blessing_42 = (
 					} else {
 						enemy.health -= dmg;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter14 = 0;
+					grace[0].value1 = counter14;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter14 = counter14 + 3;
+					grace[0].value1 = counter14;
 				}
 			}
 		}
@@ -1772,7 +1781,7 @@ const blessing_43 = (
 			const key = grace[0].rarity;
 			if (key in grace[0]) {
 				const critChance = grace[0][key];
-				if (counter < 3) {
+				if (counter15 < 3) {
 					const value =
 						attackPerk[0].criticalChance * (1 + critChance / 100);
 					if (enemy.health <= 0) {
@@ -1781,9 +1790,9 @@ const blessing_43 = (
 					} else {
 						attackPerk[0].criticalChance = value;
 					}
-					counter = 0;
+					counter15 = 0;
 				} else {
-					counter = counter + 3;
+					counter15 = counter15 + 3;
 				}
 			}
 		}
@@ -1798,9 +1807,7 @@ const blessing_44 = (
 		perks: EnemyPerksInterface[];
 	} | null,
 	angel: AngelInterface[],
-	enemy: EnemyInterface,
-	hero: Hero[],
-	updatedHeroStats: Hero[]
+	enemy: EnemyInterface
 ) => {
 	const grace = graces.filter((grace) => grace.blessing_id === 44);
 	if (grace.length > 0 && enemy) {
@@ -1812,12 +1819,16 @@ const blessing_44 = (
 			const res = grace[0][key];
 			const enemyDodge = perk[1][key];
 
-			const resValue = updatedHeroStats[0].psychicres + res;
+			const resValue = updatedEnemyValues!.enemy.psychicres - res;
 			const value = Math.round(
-				updatedEnemyValues!.enemy.dodge * (1 + enemyDodge / 100)
+				updatedEnemyValues!.enemy.dodge * (1 - enemyDodge / 100)
 			);
 			enemy.dodge = value;
-			hero[0].psychicres = resValue;
+			if (resValue < 0) {
+				enemy.psychicres = 0;
+			} else {
+				enemy.psychicres = resValue;
+			}
 		}
 	}
 };
@@ -1849,14 +1860,14 @@ const blessing_45 = (
 			);
 			const reduceValue = grace[0][key];
 			const reducedHitChance = Math.round(
-				orginalAttack[0].hit_chance * (1 + reduceValue / 100)
+				orginalAttack[0].hit_chance * (1 - reduceValue / 100)
 			);
 			enemyPerks[enemyPerks.indexOf(enemyAttack[0])].hit_chance =
 				reducedHitChance;
 
 			const enemyDodge = perk[1][key];
 			const value = Math.round(
-				updatedEnemyValues!.enemy.dodge * (1 + enemyDodge / 100)
+				updatedEnemyValues!.enemy.dodge * (1 - enemyDodge / 100)
 			);
 			enemy.dodge = value;
 		}
@@ -1880,11 +1891,11 @@ const blessing_46 = (
 					const physic = 1 - enemy.psychicres / 100;
 					const value = dmg * physic;
 					enemy.health -= value;
-					counter = 0;
-					grace[0].value1 = counter;
+					counter16 = 0;
+					grace[0].value1 = counter16;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter16 = counter16 + 3;
+					grace[0].value1 = counter16;
 				}
 			}
 		}
@@ -1921,11 +1932,11 @@ const blessing_47 = (
 						const value = maxDmg * physic;
 						enemy.health -= value;
 					}
-					counter = 0;
-					grace[0].value1 = counter;
+					counter17 = 0;
+					grace[0].value1 = counter17;
 				} else {
-					counter = counter + 3;
-					grace[0].value1 = counter;
+					counter17 = counter17 + 3;
+					grace[0].value1 = counter17;
 				}
 			}
 		}
